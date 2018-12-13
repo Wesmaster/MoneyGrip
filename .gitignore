@@ -1,0 +1,16 @@
+.sonarqube/
+.vs/
+mijnHuishoudenAPI.sln
+mijnHuishouden.Tests/
+API/bin/
+API/obj/
+SQL scripts/
+UI designs/
+backup/
+Dockerfile
+API/Dockerfile.original
+Doelen.txt
+API/mijnHuishoudenAPI.csproj.user
+API/mijnHuishoudenAPI.csproj
+Docker 101 workshop.txt
+functionaliteiten.txt

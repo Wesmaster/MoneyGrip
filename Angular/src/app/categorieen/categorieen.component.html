@@ -1,0 +1,29 @@
+<div class="pagina">
+  <h4 class="display-4">Categorieën</h4>
+    <p class="lead">Hier kunnen categorieën aangemaakt worden waaraan transacties gekoppeld worden.<br />
+    Daardoor worden de uitgaven per categorie inzichtelijk.</p>
+  <div class="buttongroup-top">
+    <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
+  </div>
+  <div>
+    <input [(ngModel)]="searchText" placeholder="Snel zoeken.." class="advancedSearchTextbox">
+    <table class='table'>
+      <thead>
+        <tr class="d-flex">
+          <th class="col-sm-0-25 lead"></th>
+          <th class="col-2 lead">Naam</th>
+          <th class="col lead">Type</th>
+          <th class="col-sm-0-25"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex" *ngFor="let item of items | tableFilter: {naam:searchText};" [ngClass]="{'selected': item.id == selectedId}">
+          <td class="col-sm-0-25" (click)="onSelect(item)"><i class="fas fa-bookmark" [ngStyle]="{'color': item.kleur}"></i></td>
+          <td class="col-2" (click)="onSelect(item)">{{ item.naam }}</td>
+          <td class="col" (click)="onSelect(item)">{{ TypeEnum[item.type] }}</td>
+          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
