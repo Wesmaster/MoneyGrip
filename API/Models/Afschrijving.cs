@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace mijnHuishoudenAPI.Models
+namespace GoHAPI.Models
 {
     public class Afschrijving
     {

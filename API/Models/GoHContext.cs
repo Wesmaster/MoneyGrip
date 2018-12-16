@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI.Models
+namespace GoHAPI.Models
 {
-    public partial class MijnHuishoudenContext : DbContext
+    public partial class GoHContext : DbContext
     {
-        public MijnHuishoudenContext()
+        public GoHContext()
         {
         }
 
-        public MijnHuishoudenContext(DbContextOptions<MijnHuishoudenContext> options)
+        public GoHContext(DbContextOptions<GoHContext> options)
             : base(options)
         {
         }
@@ -160,7 +160,10 @@ namespace mijnHuishoudenAPI.Models
 
             modelBuilder.Entity<Spaardoel>(entity =>
             {
-                entity.Property(e => e.Begindatum)
+                entity.Property(e => e.EersteMaand)
+                    .IsRequired();
+
+                entity.Property(e => e.LaatsteMaand)
                     .IsRequired();
 
                 entity.HasOne(d => d.LabelNavigation)

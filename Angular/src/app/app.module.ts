@@ -17,7 +17,7 @@ import { PersonenComponent } from './personen/personen.component';
 import { PersoonComponent } from './personen/persoon/persoon.component';
 import { ButtonVerwijderenComponent } from './button-verwijderen/button-verwijderen.component';
 import { ButtonAnnulerenComponent } from './button-annuleren/button-annuleren.component';
-import { ButtonOpslaanComponent } from './button-opslaan/button-opslaan.component';
+import { ButtonActieComponent } from './button-actie/button-actie.component';
 import { ButtonToevoegenComponent } from './button-toevoegen/button-toevoegen.component';
 import { TableFilterPipe } from './table-filter.pipe';
 import { DialogBevestigenComponent } from './dialog-bevestigen/dialog-bevestigen.component';
@@ -41,6 +41,7 @@ import { AfschrijvingenComponent } from './afschrijvingen/afschrijvingen.compone
 import { AfschrijvingComponent } from './afschrijvingen/afschrijving/afschrijving.component';
 import { SpaardoelenComponent } from './spaardoelen/spaardoelen.component';
 import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component';
+import { BegrotingComponent } from './begroting/begroting.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component'
     PersoonComponent,
     ButtonVerwijderenComponent,
     ButtonAnnulerenComponent,
-    ButtonOpslaanComponent,
+    ButtonActieComponent,
     ButtonToevoegenComponent,
     TableFilterPipe,
     AutofocusDirective,
@@ -74,7 +75,8 @@ import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component'
     AfschrijvingenComponent,
     AfschrijvingComponent,
     SpaardoelenComponent,
-    SpaardoelComponent
+    SpaardoelComponent,
+    BegrotingComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

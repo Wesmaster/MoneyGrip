@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI.Controllers
+namespace GoHAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PersoonController : ControllerBase
     {
-        private readonly MijnHuishoudenContext _context;
+        private readonly GoHContext _context;
 
-        public PersoonController(MijnHuishoudenContext context)
+        public PersoonController(GoHContext context)
         {
             _context = context;
         }

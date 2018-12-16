@@ -7,6 +7,7 @@ import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
+import { Maanden } from '../../maanden.enum';
 
 @Component({
   selector: 'app-spaardoel',
@@ -19,6 +20,7 @@ export class SpaardoelComponent implements OnInit {
 
   form: FormGroup;
   labels: Label[] = [];
+  maandenEnum = Maanden;
 
   constructor(private service: SpaardoelService, private labelService: LabelService, public dialogRef: MatDialogRef<SpaardoelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
@@ -36,7 +38,7 @@ export class SpaardoelComponent implements OnInit {
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", label: "", percentage: "", eindbedrag: "", begindatum: "", einddatum: "", omschrijving: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", label: "", percentage: "", eindbedrag: "", eersteMaand: "", laatsteMaand: "", omschrijving: ""});
     }
     else
     {
@@ -47,7 +49,7 @@ export class SpaardoelComponent implements OnInit {
   keys(any): Array<string>
   {
       var keys = Object.keys(any);
-      return keys.slice(keys.length / 2);
+      return keys.slice(keys.length / 2).slice(1, keys.length);
   }
 
   ngOnInit()
@@ -75,14 +77,16 @@ export class SpaardoelComponent implements OnInit {
       eindbedrag: new FormControl('',[
         Validators.pattern('[0-9,\.]*')
       ]),
-      begindatum: new FormControl('',[
+      eersteMaand: new FormControl('',[
         Validators.required
       ]),
-      einddatum: new FormControl(''),
+      laatsteMaand: new FormControl('', [
+        Validators.required
+      ]),
       omschrijving: new FormControl('',[
         Validators.maxLength(200)
       ])
-    }, {validators: this.customValidator.dateLessThanValidator()});
+    });
   }
 
   get(): void

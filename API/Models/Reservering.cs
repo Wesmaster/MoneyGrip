@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mijnHuishoudenAPI.Models
+namespace GoHAPI.Models
 {
     public class Reservering
     {

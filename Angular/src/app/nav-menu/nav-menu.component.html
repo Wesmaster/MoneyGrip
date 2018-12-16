@@ -1,17 +1,25 @@
 
 <div class='main-nav'>
   <div class='navbar navbar-expand-sm'>
-    <a class='navbar-brand' [routerLink]='["/"]'><h5 class="display-5">mijnHuishouden</h5></a>
+    <a class='navbar-brand' [routerLink]='["/"]'><h5 class="display-5">Grip op Huishouden</h5></a>
     <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='.navbar-collapse' (click)='toggle()'>
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav flex-column">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown pointer" id="navbarDropdownRapportages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-chart-line col-1"></i><span class="lead col"> Rapportages</span><i class="fas fa-angle-right"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a [routerLink]='["/begroting"]' class="dropdown-item"><i class="fas fa-bars col-1"></i><span class="lead col"> Begroting</span></a>
+          </div>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" [routerLink]='["/inkomsten"]'><i class="fas fa-sign-in-alt col-1"></i><span class="lead col"> Inkomsten</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown pointer" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown pointer" id="navbarDropdownUitgaven" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-sign-out-alt col-1"></i><span class="lead col"> Uitgaven</span><i class="fas fa-angle-right"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -23,7 +31,7 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown pointer" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown pointer" id="navbarDropdownBeheer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-edit col-1"></i><span class="lead col"> Beheer</span><i class="fas fa-angle-right"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -33,7 +41,7 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown pointer" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown pointer" id="navbarDropdownHelp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-question-circle col-1"></i><span class="lead col"> Help</span><i class="fas fa-angle-right"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

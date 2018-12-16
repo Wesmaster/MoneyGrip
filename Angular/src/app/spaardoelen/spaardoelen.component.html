@@ -12,8 +12,8 @@
           <th class="col-2 lead">Label</th>
           <th class="col-1 lead">Percentage</th>
           <th class="col-1 lead">Eindbedrag</th>
-          <th class="col-1 lead">Begindatum</th>
-          <th class="col-1 lead">Einddatum</th>
+          <th class="col-2 lead">Eerste maand</th>
+          <th class="col-2 lead">Laatste maand</th>
           <th class="col lead">Omschrijving</th>
           <th class="col-sm-0-25"></th>
         </tr>
@@ -23,8 +23,8 @@
           <td class="col-2" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.naam }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.percentage == null ? '' : item.percentage + '%' }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.eindbedrag == null ? '' : '€ ' + (item.eindbedrag | customCurrency) }}</td>
-          <td class="col-1" (click)="onSelect(item)">{{ item.begindatum | date: 'dd-MM-yyyy' }}</td>
-          <td class="col-1" (click)="onSelect(item)">{{ item.einddatum | date: 'dd-MM-yyyy' }}</td>
+          <td class="col-2" (click)="onSelect(item)">{{ MaandenEnum[item.eersteMaand] }}</td>
+          <td class="col-2" (click)="onSelect(item)">{{ MaandenEnum[item.laatsteMaand] }}</td>
           <td class="col" (click)="onSelect(item)">{{ item.omschrijving }}</td>
           <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
         </tr>

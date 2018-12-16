@@ -1,8 +1,6 @@
 export enum Interval
 {
-    Dag = 1,
-    Week,
-    Maand,
+    Maand = 1,
     Kwartaal,
     Jaar
 }

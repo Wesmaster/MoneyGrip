@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace mijnHuishoudenAPI.Models
+namespace GoHAPI.Models
 {
     public class Spaardoel
     {
@@ -10,10 +10,8 @@ namespace mijnHuishoudenAPI.Models
         public int Label { get; set; }
         public byte? Percentage { get; set; }
         public int? Eindbedrag { get; set; }
-        [JsonConverter(typeof(OnlyDateConverter))]
-        public DateTime Begindatum { get; set; }
-        [JsonConverter(typeof(OnlyDateConverter))]
-        public DateTime? Einddatum { get; set; }
+        public byte EersteMaand { get; set; }
+        public byte LaatsteMaand { get; set; }
         public string Omschrijving { get; set; }
 
         public Label LabelNavigation { get; set; }

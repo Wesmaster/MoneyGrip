@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mijnHuishoudenAPI.Models
+namespace GoHAPI.Models
 {
     public partial class Categorie
     {

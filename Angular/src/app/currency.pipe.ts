@@ -7,10 +7,15 @@ export class CurrencyPipe implements PipeTransform
 {
     transform(value: number): string 
     {
+        var negative = value < 0;
         var valueString = value.toString();
 
         var rmLeadingZeros = /^0+/;
         valueString = valueString.replace(/,/g, "").replace(/\./g, "").replace(rmLeadingZeros, "");
+        if(negative)
+        {
+            valueString = valueString.replace(/-/g, "");
+        }
 
         for(var i = valueString.length; i < 3; i++)
         {
@@ -24,7 +29,7 @@ export class CurrencyPipe implements PipeTransform
             valueString = valueString.slice(0, i) + "." + valueString.slice(i);
         }
 
-        return valueString.slice(0, valueString.length - 2) + "," + valueString.slice(valueString.length - 2);
+        return (negative ? "-" : "") + valueString.slice(0, valueString.length - 2) + "," + valueString.slice(valueString.length - 2);
     }
 
     transformToNumber(value: string): number

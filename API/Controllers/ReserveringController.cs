@@ -4,17 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI.Controllers
+namespace GoHAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ReserveringController : ControllerBase
     {
-        private readonly MijnHuishoudenContext _context;
+        private readonly GoHContext _context;
 
-        public ReserveringController(MijnHuishoudenContext context)
+        public ReserveringController(GoHContext context)
         {
             _context = context;
         }

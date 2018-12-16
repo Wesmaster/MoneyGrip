@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ButtonOpslaanComponent } from './button-opslaan.component';
+import { ButtonActieComponent } from './button-actie.component';
 
-describe('ButtonOpslaanComponent', () => {
-  let component: ButtonOpslaanComponent;
-  let fixture: ComponentFixture<ButtonOpslaanComponent>;
+describe('ButtonActieComponent', () => {
+  let component: ButtonActieComponent;
+  let fixture: ComponentFixture<ButtonActieComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ButtonOpslaanComponent ]
+      declarations: [ ButtonActieComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonOpslaanComponent);
+    fixture = TestBed.createComponent(ButtonActieComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

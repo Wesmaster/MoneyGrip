@@ -1,4 +1,5 @@
 import { Label } from "../../labels/label/label";
+import { Maanden } from "../../maanden.enum";
 
 export class Spaardoel
 {
@@ -7,8 +8,8 @@ export class Spaardoel
     label: number;
     percentage: number;
     eindbedrag: number;
-    begindatum: Date;
-    einddatum: Date;
+    eersteMaand: Maanden;
+    laatsteMaand: Maanden;
     omschrijving: string;
     labelNavigation: Label;
 }

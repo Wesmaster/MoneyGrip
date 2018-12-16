@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI
+namespace GoHAPI
 {
     public class Startup
     {
@@ -33,8 +33,8 @@ namespace mijnHuishoudenAPI
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
 
-            services.AddDbContext<MijnHuishoudenContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("mijnHuishoudenContext")));
+            services.AddDbContext<GoHContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("GoHContext")));
 
             services.AddCors(options =>
             {

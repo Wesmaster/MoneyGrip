@@ -45,15 +45,25 @@
     </div>  
   </div>
   <div class="form-group row">
-    <label for="begindatum" class="col-sm-5 col-form-label">Begindatum</label>
+    <label for="eersteMaand" class="col-sm-5 col-form-label">Eerste maand</label>
     <div class="col-sm-7">
-      <input type="date" class="form-control" id="begindatum" [value]="form.get('begindatum').value" formControlName="begindatum" required>
+      <select class="form-control" id="eersteMaand" formControlName="eersteMaand" required>
+        <option *ngFor="let item of keys(maandenEnum)"
+                value={{maandenEnum[item]}}>
+          {{ item }}
+        </option>
+      </select>
     </div>  
   </div>
   <div class="form-group row">
-    <label for="einddatum" class="col-sm-5 col-form-label">Einddatum</label>
+    <label for="laatsteMaand" class="col-sm-5 col-form-label">Laatste maand</label>
     <div class="col-sm-7">
-      <input type="date" class="form-control" id="einddatum" [value]="form.get('einddatum').value" formControlName="einddatum">
+      <select class="form-control" id="laatsteMaand" formControlName="laatsteMaand" required>
+        <option *ngFor="let item of keys(maandenEnum)"
+                value={{maandenEnum[item]}}>
+          {{ item }}
+        </option>
+      </select>
     </div>  
   </div>
   <div class="form-group row">

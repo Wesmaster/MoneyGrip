@@ -1,0 +1,53 @@
+@import '../../beheer-editor.css';
+
+.filterbar
+{
+    padding: 0px 0px 15px 0px;
+    width: 100%;
+}
+
+.col-sm-0-75
+{
+  width: 6.24%;
+}
+
+.pagina
+{
+    height: 100%;
+    overflow: hidden;
+}
+
+.table tbody tr:hover, .selected:hover
+{
+    background-color: #F5F6F7;
+    color: #212121;
+    cursor: default;
+}
+
+.table tbody td:hover
+{
+    background-color: #607D8B;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.negative
+{
+    color: #FF0000;
+}
+
+.inkomst
+{
+    background-color: #DDFFDD;
+}
+
+.table tbody {
+    overflow-y: auto;
+    display: block;
+    height: initial;
+    * {
+        height: unset;
+    }
+
+    
+  }

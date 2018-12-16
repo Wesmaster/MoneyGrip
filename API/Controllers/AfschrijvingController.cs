@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI.Controllers
+namespace GoHAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AfschrijvingController : ControllerBase
     {
-        private readonly MijnHuishoudenContext _context;
+        private readonly GoHContext _context;
 
-        public AfschrijvingController(MijnHuishoudenContext context)
+        public AfschrijvingController(GoHContext context)
         {
             _context = context;
         }

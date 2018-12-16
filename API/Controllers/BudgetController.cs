@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using mijnHuishoudenAPI.Models;
+using GoHAPI.Models;
 
-namespace mijnHuishoudenAPI.Controllers
+namespace GoHAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BudgetController : ControllerBase
     {
-        private readonly MijnHuishoudenContext _context;
+        private readonly GoHContext _context;
 
-        public BudgetController(MijnHuishoudenContext context)
+        public BudgetController(GoHContext context)
         {
             _context = context;
         }

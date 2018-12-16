@@ -5,6 +5,7 @@ import { Spaardoel } from './spaardoel/spaardoel';
 import { SpaardoelComponent } from './spaardoel/spaardoel.component';
 import { SpaardoelService } from './spaardoel.service';
 import { CurrencyPipe } from '../currency.pipe';
+import { Maanden } from '../maanden.enum';
 
 @Component({
   selector: 'app-spaardoelen',
@@ -17,6 +18,7 @@ export class SpaardoelenComponent implements OnInit {
   rowSelected: boolean;
   buttonText = "Spaardoel";
   searchText: string;
+  MaandenEnum: typeof Maanden = Maanden;
 
   constructor(private service: SpaardoelService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {

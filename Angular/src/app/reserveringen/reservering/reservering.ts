@@ -7,7 +7,7 @@ export class Reservering
     laatstGewijzidgd: Date;
     label: number;
     bedrag: number;
-    maanden: Maanden;
+    maand: Maanden;
     omschrijving: string;
     labelNavigation: Label;
 }
