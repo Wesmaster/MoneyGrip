@@ -1,0 +1,74 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="buttongroup-top">
+        <p class="h4">Contract</p>
+        <app-button-annuleren></app-button-annuleren>
+    </div>
+    <div class="form-group row">
+      <label for="id" class="col-sm-5 col-form-label">Id</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" id="id" formControlName="id" readonly>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="laatstGewijzigd" class="col-sm-5 col-form-label">Laatst gewijzigd</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control" id="laatstGewijzigd" [value]="form.get('laatstGewijzigd').value | date: 'dd-MM-yyyy HH:mm:ss'" formControlName="laatstGewijzigd" readonly>
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="categorie" class="col-sm-5 col-form-label">Categorie</label>
+      <div class="col-sm-7">
+        <select class="form-control" id="categorie" (change)="onItemChange($event.target.value)" formControlName="categorie" required>
+          <option *ngFor="let item of categorieen | filter : ['type', '1']" value={{item.id}}>
+            {{ item.naam }}
+          </option>
+        </select>
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="label" class="col-sm-5 col-form-label">Label</label>
+      <div class="col-sm-7">
+        <select class="form-control" id="label" formControlName="label" required>
+          <option></option>
+          <option *ngFor="let item of labels | filter : ['categorie', selectedCategorie]" value={{item.id}}>
+            {{ item.naam }}
+          </option>
+        </select>
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="bedrag" class="col-sm-5 col-form-label">Bedrag</label>
+      <div class="input-group col-sm-7">
+        <div class="input-group-prepend">
+          <span class="input-group-text">€</span>
+        </div>
+        <input type="text" class="form-control" id="bedrag" formControlName="bedrag" [value]="form.get('bedrag').value | customCurrency" required>
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="begindatum" class="col-sm-5 col-form-label">Begindatum</label>
+      <div class="col-sm-7">
+        <input type="date" class="form-control" id="begindatum" [value]="form.get('begindatum').value" formControlName="begindatum" required>
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="einddatum" class="col-sm-5 col-form-label">Einddatum</label>
+      <div class="col-sm-7">
+        <input type="date" class="form-control" id="einddatum" [value]="form.get('einddatum').value" formControlName="einddatum">
+      </div>  
+    </div>
+    <div class="form-group row">
+      <label for="interval" class="col-sm-5 col-form-label">Interval</label>
+      <div class="col-sm-7">
+        <select class="form-control" id="interval" formControlName="interval" required>
+        <option *ngFor="let item of keys(intervalEnum)"
+                value={{intervalEnum[item]}}>
+          {{ item }}
+        </option>
+      </select>
+      </div>  
+    </div>
+    <div class="buttongroup-bottom">
+      <button class="btn" type="submit" [disabled]="!form.valid"><i class="fas fa-download"></i>Opslaan</button>
+    </div>
+  </form>

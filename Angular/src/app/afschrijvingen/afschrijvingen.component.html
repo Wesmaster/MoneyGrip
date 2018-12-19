@@ -1,0 +1,34 @@
+<div class="pagina">
+  <h4 class="display-4">Afschrijvingen</h4>
+    <p class="lead">Hier kunnen afschrijvingen aangemaakt worden.<br />
+    Afschrijvingen zorgen ervoor dat er voldoende financiële middelen zijn wanneer de verwachte levensduur van een bezitting is bereikt.</p>
+  <div class="buttongroup-top">
+    <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
+  </div>
+  <div>
+    <table class='table'>
+      <thead>
+        <tr class="d-flex">
+          <th class="col-2 lead">Label</th>
+          <th class="col-2 lead">Aankoopdatum</th>
+          <th class="col-2 lead">Aankoopbedrag</th>
+          <th class="col-2 lead">Verwachte levensduur</th>
+          <th class="col-1 lead">Garantie</th>
+          <th class="col lead">Factuur</th>
+          <th class="col-sm-0-25"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex" *ngFor="let item of items" [ngClass]="{'selected': item.id == selectedId}">
+          <td class="col-2" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.naam }}</td>
+          <td class="col-2" (click)="onSelect(item)">{{ item.aankoopdatum | date: 'dd-MM-yyyy' }}</td>
+          <td class="col-2" (click)="onSelect(item)">€ {{ item.aankoopbedrag | customCurrency }}</td>
+          <td class="col-2" (click)="onSelect(item)">{{ item.verwachteLevensduur }} maanden</td>
+          <td class="col-1" (click)="onSelect(item)">{{ item.garantie }}</td>
+          <td class="col"><i class="fas fa-file-invoice" (click)="openFactuur(item)" *ngIf="item.factuur"></i></td>
+          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.advancedSearchTextbox
+{
+    margin: 0px 0px 15px 0px;
+}
+
+.buttongroup-top
+{
+    display: inline-block;
+    padding: 0px 0px 15px 0px;
+    width: 100%;
+}
+
+.col-sm-0-25
+{
+  width: 2.08%;
+}
+
+.fas
+{
+    color: #455A64;
+}
+
+.pagina
+{
+    height: 100%;
+    overflow: hidden;
+}
+
+.table tbody tr:hover .fas
+{
+    color: #CFD8DC;
+}
+
+.table tbody tr:hover .fas:hover
+{
+    color: #FFFFFF;
+}
+
+.no-bg
+{
+    background-color: #FFFFFF;
+}

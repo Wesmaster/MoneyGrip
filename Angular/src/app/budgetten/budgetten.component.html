@@ -1,0 +1,34 @@
+<div class="pagina">
+  <h4 class="display-4">Budgetten</h4>
+    <p class="lead">Hier kunnen budgetten aangemaakt worden.<br />
+    Budgetten geven een gewenst maximum per interval aan waardoor het mogelijk wordt te waarschuwen voor overschrijding.</p>
+  <div class="buttongroup-top">
+    <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
+  </div>
+  <div>
+    <table class='table'>
+      <thead>
+        <tr class="d-flex">
+          <th class="col-1 lead">Categorie</th>
+          <th class="col-2 lead">Label</th>
+          <th class="col-1 lead">Bedrag</th>
+          <th class="col-1 lead">Begindatum</th>
+          <th class="col-1 lead">Einddatum</th>
+          <th class="col lead">Interval</th>
+          <th class="col-sm-0-25"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="d-flex" *ngFor="let item of items" [ngClass]="{'selected': item.id == selectedId}">
+          <td class="col-1" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.categorieNavigation == null ? '' : item.labelNavigation.categorieNavigation.naam }}</td>
+          <td class="col-2" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.naam }}</td>
+          <td class="col-1" (click)="onSelect(item)">€ {{ item.bedrag | customCurrency }}</td>
+          <td class="col-1" (click)="onSelect(item)">{{ item.begindatum | date: 'dd-MM-yyyy' }}</td>
+          <td class="col-1" (click)="onSelect(item)">{{ item.einddatum | date: 'dd-MM-yyyy' }}</td>
+          <td class="col" (click)="onSelect(item)">{{ IntervalEnum[item.interval] }}</td>
+          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+.top
+{
+    height: 20vh;
+    background-color: #FF0000;
+}
+
+.mid
+{
+    height: 33vh;
+    background-color: #FFFFFF;
+}
+
+.bot
+{
+    height: 47vh;
+    background-color: #0000FF;
+}
