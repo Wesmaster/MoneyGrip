@@ -31,23 +31,41 @@
     cursor: pointer;
 }
 
+.table tbody td:hover .fa-check
+{
+    color: #FFFFFF;
+}
+
 .negative
 {
-    color: #FF0000;
+    color: #8D021F;
 }
 
 .inkomst
 {
-    background-color: #DDFFDD;
+    background-color: #9DC183;
 }
 
 .table tbody {
-    overflow-y: auto;
-    display: block;
     height: initial;
     * {
         height: unset;
     }
-
-    
   }
+
+  .begroting
+  {
+    height: 360px;
+  }
+
+.begroting-spaardoelen tbody
+{
+    height: calc(100vh - 610px);
+    display: block;
+    overflow-y: auto;
+}
+
+.fa-check
+{
+    color: #9DC183;
+}

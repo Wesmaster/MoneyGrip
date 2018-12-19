@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Reservering } from './reservering/reservering';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Reservering } from './reservering/reservering';
 export class ReserveringService
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/reservering';
+  private accessPointUrl: string = environment.api_url + 'reservering';
 
   constructor(private http: HttpClient)
   {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable, of } from 'rxjs';
 export class BegrotingService
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/begroting';
+  private accessPointUrl: string = environment.api_url + 'begroting';
 
   constructor(private http: HttpClient)
   {

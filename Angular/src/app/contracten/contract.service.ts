@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Contract } from './contract/contract';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Contract } from './contract/contract';
 export class ContractService 
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/contract';
+  private accessPointUrl: string = environment.api_url + 'contract';
 
   constructor(private http: HttpClient)
   {

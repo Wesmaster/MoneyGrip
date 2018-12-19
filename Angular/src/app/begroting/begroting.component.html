@@ -15,11 +15,11 @@
     </div>  
   </div>
   <div>
-    <table class='table'>
+    <table class='table begroting'>
       <thead>
         <tr class="d-flex">
           <th class="col lead"></th>
-          <th class="col-sm-0-75 lead text-right">Totaal</th>
+          <th class="col-sm-1 lead text-right">Totaal</th>
           <th class="col-sm-0-75 lead text-right">Januari</th>
           <th class="col-sm-0-75 lead text-right">Februari</th>
           <th class="col-sm-0-75 lead text-right">Maart</th>
@@ -27,7 +27,7 @@
           <th class="col-sm-0-75 lead text-right">Mei</th>
           <th class="col-sm-0-75 lead text-right">Juni</th>
           <th class="col-sm-0-75 lead text-right">Juli</th>
-          <th class="col-sm-1 lead text-right">Augustus</th>
+          <th class="col-sm-0-75 lead text-right">Augustus</th>
           <th class="col-sm-1 lead text-right">September</th>
           <th class="col-sm-0-75 lead text-right">Oktober</th>
           <th class="col-sm-1 lead text-right">November</th>
@@ -35,9 +35,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="d-flex" *ngFor="let item of begroting" [ngClass]="{'inkomst': item.type == 'Inkomsten'}">
+        <tr class="d-flex" *ngFor="let item of begroting" [ngClass]="{'inkomst': item.type == 'Inkomsten', 'mh-bg-med': item.type == 'Resultaat'}">
           <td class="col" (click)="onSelect(item)">{{ item.type }}</td>
-          <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">{{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
+          <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">€ {{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.januari < 0}">{{ item.januari == null ? '' : item.januari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.februari < 0}">{{ item.februari == null ? '' : item.februari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.maart < 0}">{{ item.maart == null ? '' : item.maart | customCurrency }}</td>
@@ -45,7 +45,7 @@
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.mei < 0}">{{ item.mei == null ? '' : item.mei | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.juni < 0}">{{ item.juni == null ? '' : item.juni | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.juli < 0}">{{ item.juli == null ? '' : item.juli | customCurrency }}</td>
-          <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.augustus < 0}">{{ item.augustus == null ? '' : item.augustus | customCurrency }}</td>
+          <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.augustus < 0}">{{ item.augustus == null ? '' : item.augustus | customCurrency }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.september < 0}">{{ item.september == null ? '' : item.september | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.oktober < 0}">{{ item.oktober == null ? '' : item.oktober | customCurrency }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.november < 0}">{{ item.november == null ? '' : item.november | customCurrency }}</td>
@@ -55,11 +55,11 @@
     </table>
   </div>
   <div>
-    <table class='table'>
+    <table class='table begroting-spaardoelen'>
       <thead>
         <tr class="d-flex">
           <th class="col lead">Spaardoelen</th>
-          <th class="col-sm-0-75 lead text-right">Totaal</th>
+          <th class="col-sm-1 lead text-right">Totaal</th>
           <th class="col-sm-0-75 lead text-right">Januari</th>
           <th class="col-sm-0-75 lead text-right">Februari</th>
           <th class="col-sm-0-75 lead text-right">Maart</th>
@@ -67,17 +67,17 @@
           <th class="col-sm-0-75 lead text-right">Mei</th>
           <th class="col-sm-0-75 lead text-right">Juni</th>
           <th class="col-sm-0-75 lead text-right">Juli</th>
-          <th class="col-sm-1 lead text-right">Augustus</th>
+          <th class="col-sm-0-75 lead text-right">Augustus</th>
           <th class="col-sm-1 lead text-right">September</th>
           <th class="col-sm-0-75 lead text-right">Oktober</th>
           <th class="col-sm-1 lead text-right">November</th>
           <th class="col-sm-1 lead text-right">December</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="d-flex" *ngFor="let item of spaardoelen">
+      <tbody class="">
+        <tr class="d-flex" *ngFor="let item of spaardoelen" [ngClass]="{'mh-bg-med': item.type == 'Totaal'}">
           <td class="col" (click)="onSelect(item)"><i class="fas fa-check" *ngIf="item.eindbedrag > 0 && item.totaal >= item.eindbedrag"></i>{{ (item.type.length>16) ? (item.type | slice:0:16)+'..':(item.type) }}</td>
-          <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">{{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
+          <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">€ {{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.januari < 0}">{{ item.januari == null ? '' : item.januari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.februari < 0}">{{ item.februari == null ? '' : item.februari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.maart < 0}">{{ item.maart == null ? '' : item.maart | customCurrency }}</td>
@@ -85,7 +85,7 @@
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.mei < 0}">{{ item.mei == null ? '' : item.mei | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.juni < 0}">{{ item.juni == null ? '' : item.juni | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.juli < 0}">{{ item.juli == null ? '' : item.juli | customCurrency }}</td>
-          <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.augustus < 0}">{{ item.augustus == null ? '' : item.augustus | customCurrency }}</td>
+          <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.augustus < 0}">{{ item.augustus == null ? '' : item.augustus | customCurrency }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.september < 0}">{{ item.september == null ? '' : item.september | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.oktober < 0}">{{ item.oktober == null ? '' : item.oktober | customCurrency }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.november < 0}">{{ item.november == null ? '' : item.november | customCurrency }}</td>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Inkomst } from './inkomst/inkomst';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Inkomst } from './inkomst/inkomst';
 export class InkomstService
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/inkomst';
+  private accessPointUrl: string = environment.api_url + 'inkomst';
 
   constructor(private http: HttpClient)
   {

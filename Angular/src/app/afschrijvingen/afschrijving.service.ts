@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Afschrijving } from './afschrijving/afschrijving';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Afschrijving } from './afschrijving/afschrijving';
 export class AfschrijvingService
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/afschrijving';
+  private accessPointUrl: string = environment.api_url + 'afschrijving';
 
   constructor(private http: HttpClient)
   {

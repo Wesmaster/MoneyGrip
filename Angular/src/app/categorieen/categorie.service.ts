@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Categorie } from './categorie/categorie';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Categorie } from './categorie/categorie';
 export class CategorieService
 {
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/categorie';
+  private accessPointUrl: string = environment.api_url + 'categorie';
 
   constructor(private http: HttpClient)
   {

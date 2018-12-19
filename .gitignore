@@ -14,3 +14,6 @@ API/mijnHuishoudenAPI.csproj.user
 API/mijnHuishoudenAPI.csproj
 Docker 101 workshop.txt
 functionaliteiten.txt
+API/docker/
+docker werkend.txt
+.dockerignore

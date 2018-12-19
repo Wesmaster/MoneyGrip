@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Spaardoel } from './spaardoel/spaardoel';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Spaardoel } from './spaardoel/spaardoel';
 export class SpaardoelService {
 
   private headers: HttpHeaders;
-  private accessPointUrl: string = 'https://localhost:44378/api/spaardoel';
+  private accessPointUrl: string = environment.api_url + 'spaardoel';
 
   constructor(private http: HttpClient)
   {
