@@ -1,5 +1,5 @@
-Welkom bij de documentatie van Grip op Huishouden!
-==================================================
+Documentatie van Grip op Huishouden
+===================================
 
 .. toctree::
    :maxdepth: 1
