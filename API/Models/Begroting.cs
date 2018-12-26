@@ -197,6 +197,7 @@ namespace GoHAPI.Models
                         data["Totaal"].TryGetValue(ci.GetMonthName(i), out int huidigBedragInMaand);
 
                         data["Eindbedrag"].TryGetValue(ci.GetMonthName(i), out int totaalVast);
+                      
                         int bedrag = (int)(Math.Max(resultaat - totaalVast, 0) * ((decimal)spaardoel.Percentage / 100));
 
                         if(spaardoel.Eindbedrag != null)
