@@ -1,17 +1,17 @@
 .top
 {
     height: 20vh;
-    background-color: #FF0000;
 }
 
 .mid
 {
-    height: 33vh;
-    background-color: #FFFFFF;
+    height: 20vh;
+    background-color: #607D8B;
+    color: #FFFFFF;
+    font-weight: bold;
 }
 
 .bot
 {
-    height: 47vh;
-    background-color: #0000FF;
+    height: 60vh;
 }

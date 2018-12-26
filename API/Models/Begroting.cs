@@ -192,14 +192,11 @@ namespace GoHAPI.Models
                     int totaalBedrag = 0;
                     for (int i = beginmaand; i <= eindmaand; i++)
                     {
-                        int resultaat = 0;
-                        resultatenPerMaand.TryGetValue(ci.GetMonthName(i), out resultaat);
+                        resultatenPerMaand.TryGetValue(ci.GetMonthName(i), out int resultaat);
 
-                        int huidigBedragInMaand = 0;
-                        data["Totaal"].TryGetValue(ci.GetMonthName(i), out huidigBedragInMaand);
+                        data["Totaal"].TryGetValue(ci.GetMonthName(i), out int huidigBedragInMaand);
 
-                        int totaalVast = 0;
-                        data["Eindbedrag"].TryGetValue(ci.GetMonthName(i), out totaalVast);
+                        data["Eindbedrag"].TryGetValue(ci.GetMonthName(i), out int totaalVast);
                         int bedrag = (int)(Math.Max(resultaat - totaalVast, 0) * ((decimal)spaardoel.Percentage / 100));
 
                         if(spaardoel.Eindbedrag != null)
@@ -207,6 +204,11 @@ namespace GoHAPI.Models
                             bedrag = Math.Min(bedrag, (int)spaardoel.Eindbedrag - totaalBedrag);
                         }
                         totaalBedrag += bedrag;
+
+                        if(resultaat - huidigBedragInMaand - bedrag < 5)
+                        {
+                            bedrag = resultaat - huidigBedragInMaand;
+                        }
 
                         data[label].AddOrUpdate(ci.GetMonthName(i), bedrag, (key, oldValue) => oldValue + bedrag);
                         data[label].AddOrUpdate("totaal", bedrag, (key, oldValue) => oldValue + bedrag);
