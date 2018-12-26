@@ -40,3 +40,9 @@
 {
     background-color: #FFFFFF;
 }
+
+.pagina-header a
+{
+    padding-top: 15px;
+    text-align: right;
+}

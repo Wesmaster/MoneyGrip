@@ -32,7 +32,7 @@ input:focus
 
 thead
 {
-    background-color: #495057;
+    background-color: #455A64;
     color: #FFFFFF;
 }
 
@@ -106,4 +106,14 @@ thead
 .table tr
 {
     border-top: 1px solid #455A64;
+}
+
+.tooltip .tooltip-inner
+{
+    background-color: #455A64 !important;
+}
+
+.tooltip .arrow::before
+{
+    border-top-color: #455A64 !important;
 }

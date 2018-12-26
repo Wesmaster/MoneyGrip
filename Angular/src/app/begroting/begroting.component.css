@@ -19,15 +19,14 @@
 
 .table tbody tr:hover, .selected:hover
 {
-    background-color: #F5F6F7;
+    background-color: #CFD8DC;
     color: #212121;
     cursor: default;
 }
 
 .table tbody td:hover
 {
-    background-color: #607D8B;
-    color: #FFFFFF;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -68,4 +67,15 @@
 .fa-check
 {
     color: #9DC183;
+}
+
+.pagina-header a
+{
+    padding-top: 15px;
+    text-align: right;
+}
+
+.fa-book
+{
+    color: #455A64;
 }
