@@ -18,6 +18,7 @@ export class BegrotingComponent implements OnInit
   afschrijvingen: Begroting;
   spaardoelen: Begroting[] = [];
   resultaat: Begroting;
+  uitgaven: Begroting;
   begroting: Begroting[] = [];
   filterOptie: number;
 
@@ -55,21 +56,23 @@ export class BegrotingComponent implements OnInit
       this.reserveringen.type = "Reserveringen";
       this.afschrijvingen = item["afschrijvingen"];
       this.afschrijvingen.type = "Afschrijvingen";
+      this.uitgaven = item["uitgaven"];
+      this.uitgaven.type = "Uitgaven";
       
       var arraydoel:Begroting[] = item["spaardoelen"];
 
       this.spaardoelen = [];
-      arraydoel["Totaal"].type = "Totaal";
-      this.spaardoelen.push(arraydoel["Totaal"]);
-      Object.keys(arraydoel).sort((n1, n2)=> n1 > n2 ? -1 : 1).forEach(spaardoel => {
-        if(spaardoel != "Totaal")
-        {
+    //  arraydoel["Totaal"].type = "Totaal";
+    //  this.spaardoelen.push(arraydoel["Totaal"]);
+      Object.keys(arraydoel).forEach(spaardoel => {
+     ///   if(spaardoel != "Totaal")
+    //    {
           arraydoel[spaardoel].type = spaardoel;
           this.spaardoelen.push(arraydoel[spaardoel]);
-        }
+      //  }
       });
 
-      this.begroting = [this.resultaat, this.inkomsten, this.contracten, this.budgetten, this.reserveringen, this.afschrijvingen];
+      this.begroting = [this.resultaat, this.inkomsten, this.uitgaven];
     });
   }
 }

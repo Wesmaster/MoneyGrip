@@ -6,6 +6,8 @@ using System;
 
 namespace GoHAPI.Models
 {
+    using dataDict = ConcurrentDictionary<string, int>;
+
     public class Begroting
     {
         public Inkomst[] inkomsten { get; set; }
@@ -21,25 +23,42 @@ namespace GoHAPI.Models
 
         public string calculate()
         {
-            ConcurrentDictionary<string, int> inkomstenPerMaand = splitToMonths(inkomsten);
-            ConcurrentDictionary<string, int> contractenPerMaand = splitToMonths(contracten);
-            ConcurrentDictionary<string, int> budgettenPerMaand = splitToMonths(budgetten);
-            ConcurrentDictionary<string, int> reserveringenPerMaand = splitToMonths(reserveringen);
-            ConcurrentDictionary<string, int> afschrijvingenPerMaand = splitToMonths(afschrijvingen);
+            dataDict inkomstenPerMaand = splitToMonths(inkomsten);
+            dataDict contractenPerMaand = splitToMonths(contracten);
+            dataDict budgettenPerMaand = splitToMonths(budgetten);
+            dataDict reserveringenPerMaand = splitToMonths(reserveringen);
+            dataDict afschrijvingenPerMaand = splitToMonths(afschrijvingen);
+
+            dataDict uitgavenPerMaand = new dataDict();
+            uitgavenPerMaand = mergeDicts(uitgavenPerMaand, contractenPerMaand);
+            uitgavenPerMaand = mergeDicts(uitgavenPerMaand, budgettenPerMaand);
+            uitgavenPerMaand = mergeDicts(uitgavenPerMaand, reserveringenPerMaand);
+            uitgavenPerMaand = mergeDicts(uitgavenPerMaand, afschrijvingenPerMaand);
 
             overview.TryAdd("inkomsten", inkomstenPerMaand);
             overview.TryAdd("contracten", contractenPerMaand);
             overview.TryAdd("budgetten", budgettenPerMaand);
             overview.TryAdd("reserveringen", reserveringenPerMaand);
             overview.TryAdd("afschrijvingen", afschrijvingenPerMaand);
+            overview.TryAdd("uitgaven", uitgavenPerMaand);
 
-            ConcurrentDictionary<string, int> resultatenPerMaand = berekenResultaat();
+            dataDict resultatenPerMaand = berekenResultaat();
             overview.TryAdd("resultaat", resultatenPerMaand);
 
-            ConcurrentDictionary<string, ConcurrentDictionary<string, int>> spaardoelenPerMaand = divideOverMonths(spaardoelen, resultatenPerMaand);
+            ConcurrentDictionary<string, dataDict> spaardoelenPerMaand = divideOverMonths(spaardoelen, resultatenPerMaand);
             overview.TryAdd("spaardoelen", spaardoelenPerMaand);
 
             return JsonConvert.SerializeObject(overview);
+        }
+
+        private dataDict mergeDicts(dataDict baseDict, dataDict toMergeDict)
+        {
+            foreach (var kvp in toMergeDict)
+            {
+                baseDict.AddOrUpdate(kvp.Key, kvp.Value, (key, value) => value + kvp.Value);
+            }
+
+            return baseDict;
         }
 
         private ConcurrentDictionary<string, int> splitToMonths(BedragPerPeriode[] bedragen)

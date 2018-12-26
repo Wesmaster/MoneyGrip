@@ -1,7 +1,7 @@
 <div class="pagina">
   <div class="pagina-header row">
     <h4 class="display-4 col">Begroting</h4>
-    <a class="col-1" href="https://grip-op-huishouden.readthedocs.io/nl/latest/paginas/begroting.html" target="_blank"><i class="fas fa-book fa-4x"></i></a>
+    <a class="col-1" href="https://grip-op-huishouden.readthedocs.io/nl/latest/paginas/begroting.html" target="_blank"><i class="fas fa-question-circle fa-4x"></i></a>
   </div> 
   <p class="lead">De begroting geeft een overzicht per jaar van alle verwachte inkomsten en uitgaven.</p>
   <div class="filterbar row">
@@ -38,7 +38,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="d-flex" *ngFor="let item of begroting" [ngClass]="{'inkomst': item.type == 'Inkomsten', 'mh-bg-med': item.type == 'Resultaat'}">
+        <tr class="d-flex" *ngFor="let item of begroting" [ngClass]="{'mh-bg-med': item.type == 'Resultaat'}">
           <td class="col" (click)="onSelect(item)">{{ item.type }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">€ {{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.januari < 0}">{{ item.januari == null ? '' : item.januari | customCurrency }}</td>
