@@ -24,9 +24,9 @@ copyright = '2018, Wesley Jonker'
 author = 'Wesley Jonker'
 
 # The short X.Y version
-version = ''
+version = '0.4.0'
 # The full version, including alpha/beta/rc tags
-release = ''
+release = '0.4.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -74,7 +74,7 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = ''
+html_theme = 'default'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
