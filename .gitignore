@@ -15,3 +15,4 @@ functionaliteiten.txt
 API/docker/
 docker werkend.txt
 .dockerignore
+docs/_build/
