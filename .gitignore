@@ -7,13 +7,12 @@ API/obj/
 SQL scripts/
 UI designs/
 backup/
-Dockerfile
 API/Dockerfile.original
 Doelen.txt
 API/mijnHuishoudenAPI.csproj.user
-API/mijnHuishoudenAPI.csproj
 Docker 101 workshop.txt
 functionaliteiten.txt
 API/docker/
 docker werkend.txt
 .dockerignore
+docs/_build/

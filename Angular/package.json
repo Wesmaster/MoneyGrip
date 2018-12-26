@@ -1,10 +1,10 @@
 {
   "name": "mijnHuishouden",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --poll=500",
     "build": "ng build",
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
     "test": "ng test",
@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "7.0.1",
     "@angular/platform-server": "7.0.1",
     "@angular/router": "7.0.1",
-    "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "adm-zip": "^0.4.13",
     "angular-bootstrap-datetimepicker": "^2.2.1",

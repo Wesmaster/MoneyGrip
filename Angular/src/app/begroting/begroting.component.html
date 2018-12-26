@@ -76,7 +76,7 @@
       </thead>
       <tbody class="">
         <tr class="d-flex" *ngFor="let item of spaardoelen" [ngClass]="{'mh-bg-med': item.type == 'Totaal'}">
-          <td class="col" (click)="onSelect(item)"><i class="fas fa-check" *ngIf="item.eindbedrag > 0 && item.totaal >= item.eindbedrag"></i>{{ (item.type.length>16) ? (item.type | slice:0:16)+'..':(item.type) }}</td>
+          <td class="col" (click)="onSelect(item)" placement="top" ngbTooltip="{{item.type.length > 16 ? item.type : ''}}"><i class="fas fa-check" *ngIf="item.eindbedrag > 0 && item.totaal >= item.eindbedrag"></i>{{ (item.type.length>16) ? (item.type | slice:0:16)+'..':(item.type) }}</td>
           <td class="col-sm-1 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.totaal < 0}">€ {{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.januari < 0}">{{ item.januari == null ? '' : item.januari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.februari < 0}">{{ item.februari == null ? '' : item.februari | customCurrency }}</td>
