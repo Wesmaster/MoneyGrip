@@ -68,6 +68,13 @@
       </select>
       </div>  
     </div>
+    <div class="form-group row">
+      <label for="document" class="col-sm-5 col-form-label">Document</label>
+      <div class="col-sm-7 custom-file">
+        <input type="file" class="own-custom-file-input" id="document" (change)="onFileChange($event)">
+        <label class="own-custom-file-label form-control" for="document"><i class="fas fa-file-upload"></i>{{ documentText }}</label>
+      </div>  
+    </div>
     <div class="buttongroup-bottom">
       <button class="btn" type="submit" [disabled]="!form.valid"><i class="fas fa-download"></i>Opslaan</button>
     </div>

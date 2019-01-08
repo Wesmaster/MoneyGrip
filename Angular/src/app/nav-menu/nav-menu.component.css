@@ -71,6 +71,18 @@
       line-height: 50px;
     }
 
+    .navbar a .fas 
+    {
+      line-height: 50px;
+      margin-top: 2px;
+    }
+
+    .navbar a .fa-angle-right
+    {
+      margin-top: 3px;
+      padding: 0px 22.5px 0px 0px;
+    }
+
     footer
     {
       color: #455A64;

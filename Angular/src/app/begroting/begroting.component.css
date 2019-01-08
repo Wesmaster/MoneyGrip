@@ -30,11 +30,6 @@
     cursor: pointer;
 }
 
-.table tbody td:hover .fa-check
-{
-    color: #FFFFFF;
-}
-
 .negative
 {
     color: #8D021F;
@@ -54,12 +49,12 @@
 
   .begroting
   {
-    height: 360px;
+    height: 260px;
   }
 
 .begroting-spaardoelen tbody
 {
-    height: calc(100vh - 610px);
+    height: calc(100vh - 465px);
     display: block;
     overflow-y: auto;
 }

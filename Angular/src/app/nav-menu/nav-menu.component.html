@@ -8,19 +8,19 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav flex-column">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown pointer" id="navbarDropdownRapportages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-chart-line col-1"></i><span class="lead col"> RAPPORTAGES</span><i class="fas fa-angle-right"></i>
+          <a class="nav-link dropdown pointer d-flex" id="navbarDropdownRapportages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-chart-line col-1"></i><span class="lead col"> RAPPORTAGES</span><i class="fas fa-angle-right col-1"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a [routerLink]='["/begroting"]' class="dropdown-item"><i class="fas fa-bars col-1"></i><span class="lead col"> BEGROTING</span></a>
           </div>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]='["/inkomsten"]'><i class="fas fa-sign-in-alt col-1"></i><span class="lead col"> INKOMSTEN</span></a>
+          <a class="nav-link d-flex" [routerLink]='["/inkomsten"]'><i class="fas fa-sign-in-alt col-1"></i><span class="lead col"> INKOMSTEN</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown pointer" id="navbarDropdownUitgaven" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-sign-out-alt col-1"></i><span class="lead col"> UITGAVEN</span><i class="fas fa-angle-right"></i>
+          <a class="nav-link dropdown pointer d-flex" id="navbarDropdownUitgaven" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-sign-out-alt col-1"></i><span class="lead col"> UITGAVEN</span><i class="fas fa-angle-right col-1"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a [routerLink]='["/afschrijvingen"]' class="dropdown-item"><i class="fas fa-file-invoice col-1"></i><span class="lead col"> AFSCHRIJVINGEN</span></a>
@@ -31,8 +31,8 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown pointer" id="navbarDropdownBeheer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-edit col-1"></i><span class="lead col"> BEHEER</span><i class="fas fa-angle-right"></i>
+          <a class="nav-link dropdown pointer d-flex" id="navbarDropdownBeheer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-edit col-1"></i><span class="lead col"> BEHEER</span><i class="fas fa-angle-right col-1"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a [routerLink]='["/categorieen"]' class="dropdown-item"><i class="fas fa-bookmark col-1"></i><span class="lead col"> CATEGORIEËN</span></a>
@@ -41,16 +41,15 @@
           </div>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown pointer" id="navbarDropdownHelp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-question-circle col-1"></i><span class="lead col"> HELP</span><i class="fas fa-angle-right"></i>
+            <a class="nav-link dropdown pointer d-flex" id="navbarDropdownHelp" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-question-circle col-1"></i><span class="lead col"> HELP</span><i class="fas fa-angle-right col-1"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a href='https://grip-op-huishouden.readthedocs.io' target="_blank" class="dropdown-item"><i class="fas fa-book col-1"></i><span class="lead col"> HANDLEIDING</span></a>
-              <a [routerLink]='["/info"]' class="dropdown-item"><i class="fas fa-info-circle col-1"></i><span class="lead col"> INFO</span></a>
+              <a class="dropdown-item pointer" (click)="toonInfo()"><i class="fas fa-info-circle col-1"></i><span class="lead col"> INFO</span></a>
             </div>
           </li>
       </ul>
     </div>
-    <footer>v{{ version }}</footer> 
   </div>
 </div>

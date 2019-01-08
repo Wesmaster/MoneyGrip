@@ -26,6 +26,7 @@ export class ContractComponent implements OnInit
   categorieen: Categorie[] = [];
   intervalEnum = Interval;
   selectedCategorie: number;
+  documentText: string = "Kies document";
 
   constructor(private service: ContractService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ContractComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
@@ -44,7 +45,7 @@ export class ContractComponent implements OnInit
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: ""});
     }
     else
     {
@@ -95,7 +96,8 @@ export class ContractComponent implements OnInit
       einddatum: new FormControl(''),
       interval: new FormControl('',[
         Validators.required
-      ])
+      ]),
+      document: new FormControl('')
     }, {validators: this.customValidator.dateLessThanValidator()});
   }
 
@@ -106,6 +108,18 @@ export class ContractComponent implements OnInit
       this.form.patchValue({categorie: item.labelNavigation.categorie})
       this.selectedCategorie = item.labelNavigation.categorie;
     });
+  }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.form.get('document').setValue(reader.result.toString().split(",")[1])
+        this.documentText = file.name;
+      };
+    }
   }
 
   async onSubmit()

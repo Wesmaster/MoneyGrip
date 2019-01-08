@@ -10,5 +10,6 @@ export class Contract
     begindatum: Date;
     einddatum: Date;
     interval: Interval;
+    document: string;
     labelNavigation: Label;
   }

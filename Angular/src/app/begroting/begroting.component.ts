@@ -62,14 +62,14 @@ export class BegrotingComponent implements OnInit
       var arraydoel:Begroting[] = item["spaardoelen"];
 
       this.spaardoelen = [];
-    //  arraydoel["Totaal"].type = "Totaal";
-    //  this.spaardoelen.push(arraydoel["Totaal"]);
-      Object.keys(arraydoel).forEach(spaardoel => {
-     ///   if(spaardoel != "Totaal")
-    //    {
+      arraydoel["Totaal"].type = "Totaal";
+      this.spaardoelen.push(arraydoel["Totaal"]);
+      Object.keys(arraydoel).sort((n1, n2)=> n1 > n2 ? -1 : 1).forEach(spaardoel => {
+        if(spaardoel != "Totaal")
+        {
           arraydoel[spaardoel].type = spaardoel;
           this.spaardoelen.push(arraydoel[spaardoel]);
-      //  }
+        }
       });
 
       this.begroting = [this.resultaat, this.inkomsten, this.uitgaven];
