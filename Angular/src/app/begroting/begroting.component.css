@@ -19,21 +19,15 @@
 
 .table tbody tr:hover, .selected:hover
 {
-    background-color: #F5F6F7;
+    background-color: #CFD8DC;
     color: #212121;
     cursor: default;
 }
 
 .table tbody td:hover
 {
-    background-color: #607D8B;
-    color: #FFFFFF;
+    font-weight: bold;
     cursor: pointer;
-}
-
-.table tbody td:hover .fa-check
-{
-    color: #FFFFFF;
 }
 
 .negative
@@ -55,12 +49,12 @@
 
   .begroting
   {
-    height: 360px;
+    height: 260px;
   }
 
 .begroting-spaardoelen tbody
 {
-    height: calc(100vh - 610px);
+    height: calc(100vh - 465px);
     display: block;
     overflow-y: auto;
 }
@@ -68,4 +62,15 @@
 .fa-check
 {
     color: #9DC183;
+}
+
+.pagina-header a
+{
+    padding-top: 15px;
+    text-align: right;
+}
+
+.fa-question-circle
+{
+    color: #455A64;
 }

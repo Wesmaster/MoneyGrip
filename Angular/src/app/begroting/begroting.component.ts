@@ -18,6 +18,7 @@ export class BegrotingComponent implements OnInit
   afschrijvingen: Begroting;
   spaardoelen: Begroting[] = [];
   resultaat: Begroting;
+  uitgaven: Begroting;
   begroting: Begroting[] = [];
   filterOptie: number;
 
@@ -55,6 +56,8 @@ export class BegrotingComponent implements OnInit
       this.reserveringen.type = "Reserveringen";
       this.afschrijvingen = item["afschrijvingen"];
       this.afschrijvingen.type = "Afschrijvingen";
+      this.uitgaven = item["uitgaven"];
+      this.uitgaven.type = "Uitgaven";
       
       var arraydoel:Begroting[] = item["spaardoelen"];
 
@@ -69,7 +72,7 @@ export class BegrotingComponent implements OnInit
         }
       });
 
-      this.begroting = [this.resultaat, this.inkomsten, this.contracten, this.budgetten, this.reserveringen, this.afschrijvingen];
+      this.begroting = [this.resultaat, this.inkomsten, this.uitgaven];
     });
   }
 }

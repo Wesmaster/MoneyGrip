@@ -1,6 +1,9 @@
 <div class="pagina">
-  <h4 class="display-4">Spaardoelen</h4>
-    <p class="lead">Hier kunnen spaardoelen aangemaakt worden.<br />
+  <div class="pagina-header row">
+    <h4 class="display-4 col">Spaardoelen</h4>
+    <a class="col-1" href="https://grip-op-huishouden.readthedocs.io/nl/latest/paginas/spaardoelen.html" target="_blank"><i class="fas fa-book fa-4x"></i></a>
+  </div> 
+  <p class="lead">Hier kunnen spaardoelen aangemaakt worden.<br />
     Met spaardoelen kunnen toekomstplannen waarvoor gespaard moet worden opgezet worden.</p>
   <div class="buttongroup-top">
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>

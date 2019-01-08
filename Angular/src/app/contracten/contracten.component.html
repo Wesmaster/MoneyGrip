@@ -14,7 +14,8 @@
           <th class="col-1 lead">Bedrag</th>
           <th class="col-1 lead">Begindatum</th>
           <th class="col-1 lead">Einddatum</th>
-          <th class="col lead">Interval</th>
+          <th class="col-1 lead">Interval</th>
+          <th class="col lead">Document</th>
           <th class="col-sm-0-25"></th>
         </tr>
       </thead>
@@ -25,7 +26,8 @@
           <td class="col-1" (click)="onSelect(item)">€ {{ item.bedrag | customCurrency }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.begindatum | date: 'dd-MM-yyyy' }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.einddatum | date: 'dd-MM-yyyy' }}</td>
-          <td class="col" (click)="onSelect(item)">{{ IntervalEnum[item.interval] }}</td>
+          <td class="col-1" (click)="onSelect(item)">{{ IntervalEnum[item.interval] }}</td>
+          <td class="col"><i class="fas fa-file-invoice" (click)="openDocument(item)" *ngIf="item.document"></i></td>
           <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
         </tr>
       </tbody>

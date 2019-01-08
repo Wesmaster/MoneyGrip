@@ -26,17 +26,18 @@
     overflow: hidden;
 }
 
-.table tbody tr:hover .fas
-{
-    color: #CFD8DC;
-}
-
 .table tbody tr:hover .fas:hover
 {
-    color: #FFFFFF;
+    color: #607D8B;
 }
 
 .no-bg
 {
     background-color: #FFFFFF;
+}
+
+.pagina-header a
+{
+    padding-top: 15px;
+    text-align: right;
 }

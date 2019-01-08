@@ -71,6 +71,17 @@ export class ContractenComponent implements OnInit
     });
   }
 
+  openDocument(item: Contract): void
+  {
+    const linkSource = 'data:application/pdf;base64,' + item.document;
+    const downloadLink = document.createElement("a");
+    const fileName = item.labelNavigation.naam + ".pdf";
+
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click()
+  }
+
   openDeleteDialog(item: Contract): void
   {
     var vraagVariabele = "";

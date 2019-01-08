@@ -43,6 +43,7 @@ import { AfschrijvingComponent } from './afschrijvingen/afschrijving/afschrijvin
 import { SpaardoelenComponent } from './spaardoelen/spaardoelen.component';
 import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component';
 import { BegrotingComponent } from './begroting/begroting.component';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { BegrotingComponent } from './begroting/begroting.component';
     AfschrijvingComponent,
     SpaardoelenComponent,
     SpaardoelComponent,
-    BegrotingComponent
+    BegrotingComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -92,6 +94,6 @@ import { BegrotingComponent } from './begroting/begroting.component';
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent]
+  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent]
 })
 export class AppModule { }
