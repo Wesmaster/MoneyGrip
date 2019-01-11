@@ -73,7 +73,7 @@ export class CategorieenComponent implements OnInit
   openDeleteDialog(item: Categorie): void {
     var vraag = 'Weet je zeker dat je de categorie "' + item.naam + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
-      data: {vraag: vraag, titel: "Categorie verwijderen?"},
+      data: {vraag: vraag, titel: "Categorie verwijderen?", opmerking: "Let op! Het verwijderen van een categorie verwijdert ook alle labels behorende bij de categorie."},
       panelClass: 'dialog-delete'
     });
 

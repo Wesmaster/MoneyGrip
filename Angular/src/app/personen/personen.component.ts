@@ -71,7 +71,7 @@ export class PersonenComponent implements OnInit
   openDeleteDialog(item: Persoon): void {
     var vraag = 'Weet je zeker dat je de persoon "' + item.voornaam + " " + item.achternaam +  '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
-      data: {vraag: vraag, titel: "Persoon verwijderen?"},
+      data: {vraag: vraag, titel: "Persoon verwijderen?", opmerking: "Let op! Het verwijderen van een persoon verwijdert ook alle inkomsten behorende bij de persoon."},
       panelClass: 'dialog-delete'
     });
 

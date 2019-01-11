@@ -118,7 +118,15 @@ export class BudgetComponent implements OnInit
     var label = this.getLabelById(formToSend.get("label").value);
     var categorie = this.getCategorieById(formToSend.get("categorie").value);
 
-    var duplicateBudgetText = "Er bestaat al een budget " + categorie.naam + " - " + label.naam + " in datumbereik " + formToSend.get("begindatum").value + " - " + formToSend.get("einddatum").value;
+    var duplicateBudgetText = 'Er bestaat al een budget "' + categorie.naam + " - " + label.naam + '" in datumbereik "' + this.convertDatum(formToSend.get("begindatum").value);
+    if(formToSend.get("einddatum").value != "")
+    {
+      duplicateBudgetText += " - " + this.convertDatum(formToSend.get("einddatum").value) + '"';
+    }else
+    {
+      duplicateBudgetText += '.."';
+    }
+
     if(this.id == 0)
     {
       await this.service.add(formToSend.value).then
@@ -202,5 +210,19 @@ export class BudgetComponent implements OnInit
         
       }
     });
+  }
+
+  convertDatum(datum) : String
+  {
+    // assumes yyyy-MM-dd format
+    if ((typeof datum === 'string') && (datum.indexOf('-') > -1)) {
+      const str = datum.split('-');
+      const year = str[0];
+      const month = str[1];
+      const date = str[2];
+
+      return date + "/" + month + "/" + year;
+    }
+    return "";
   }
 }

@@ -71,7 +71,7 @@ export class LabelsComponent implements OnInit
   openDeleteDialog(item: Label): void {
     var vraag = 'Weet je zeker dat je het label "' + item.naam + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
-      data: {vraag: vraag, titel: "Label verwijderen?"},
+      data: {vraag: vraag, titel: "Label verwijderen?", opmerking: "Let op! Het verwijderen van een label heeft grote gevolgen voor de inrichting. Afschrijvingen, Budgetten, Contracten, Inkomsten, Reserveringen en Spaardoelen behorende bij dit label worden ook verwijderd."},
       panelClass: 'dialog-delete'
     });
 
