@@ -5,10 +5,10 @@ Grip op Huishouden is ontworpen om te werken voor Windows 10 Pro. Momenteel is h
 
 Systeemvereisten
 ----------------
-Windows 10 64-bit Pro
-Virtualisatie geactiveerd in BIOS (Dit is standaard het geval)
-4GB geheugen
-10GB schijfruimte
+* Windows 10 64-bit Pro
+* Virtualisatie geactiveerd in BIOS (Dit is standaard het geval)
+* 4GB geheugen
+* 10GB schijfruimte
 
 Benodigdheden
 -------------
