@@ -87,7 +87,8 @@ export class SpaardoelenComponent implements OnInit {
     var vraag = 'Weet je zeker dat je het spaardoel "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Spaardoel verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -102,7 +103,8 @@ export class SpaardoelenComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(SpaardoelComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

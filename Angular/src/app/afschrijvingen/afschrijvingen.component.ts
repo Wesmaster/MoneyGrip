@@ -90,7 +90,8 @@ export class AfschrijvingenComponent implements OnInit {
     var vraag = 'Weet je zeker dat je de afschrijving "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Afschrijving verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -105,7 +106,8 @@ export class AfschrijvingenComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(AfschrijvingComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

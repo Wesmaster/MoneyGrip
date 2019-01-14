@@ -29,7 +29,8 @@ export class NavMenuComponent {
   {
     const dialogRef = this.dialog.open(InfoComponent, {
       data: {bericht: "Grip op Huishouden is bedoeld om meer inzicht te krijgen over de financiën en administratie binnen het huishouden", titel: "Grip op Huishouden v" + this.version},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
   }
 }

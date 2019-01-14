@@ -93,7 +93,8 @@ export class ContractenComponent implements OnInit
     var vraag = 'Weet je zeker dat je het contract "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Contract verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,7 +109,8 @@ export class ContractenComponent implements OnInit
   {
     const dialogRef = this.dialog.open(ContractComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
