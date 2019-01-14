@@ -29,22 +29,6 @@ GoH gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld van de f
 - Vergelijken met andere gebruikers/gemiddelde huishoudens
 
 # Installatie
-Grip op Huishouden is ontworpen om te werken voor Windows 10 Pro. Momenteel is het onduidelijk of Grip op Huishouden werkt onder Linux, voor de installatie onder Linux zal ook geen ondersteuning zijn.
+Zie [documentatie](https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/benodigdheden.html)
 
-## Benodigdheden
-- Windows 10 Pro
-- Google Chrome
-- Docker Desktop
-
-## Docker Desktop
-Docker Desktop werkt alleen op Windows 10 Pro en dus niet op de Home editie.
-
-- Download [Docker Desktop](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) 
-- Installeer Docker Desktop
-
-## Grip op Huishouden
-- Download [Grip op Huishouden](https://raw.github.com/WesMaster/goh/master/)
-- Dubbelklik op het bestand
-
-Het kan even duren maar Grip op Huishouden zou nu vanzelf moeten opstarten. Het starten van Grip op Huishouden kan elke keer via dit bestand. Updates voor Grip op Huishouden worden automatisch bij opstarten uitgevoerd.
 

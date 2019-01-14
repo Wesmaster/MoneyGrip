@@ -5,7 +5,7 @@ Documentatie Grip op Huishouden
    :maxdepth: 1
    :caption: Installatie
    
-   ./installatie/benodigdheden.rst
+   ./installatie/voorbereiding.rst
    ./installatie/docker_desktop.rst
    ./installatie/grip_op_huishouden.rst
 
