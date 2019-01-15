@@ -5,8 +5,9 @@ Grip op Huishouden
 * Dubbelklik op het bestand om de installatie te starten
 * Volg de stappen in het scherm
 
-Deel I van de installatie is nu voltooid. Er staat nu een icoon van Grip op Huishouden op het bureaublad. Hiermee wordt de applicatie gestart.
-De eerste keer moet Grip op Huishouden nog het één en ander downloaden en opstarten. Dit gaat allemaal automatisch maar kan wel even duren.
+Deel I van de installatie is nu voltooid. Er staat nu een icoon van Grip op Huishouden op het bureaublad. Hiermee wordt deel II van de installatie en de applicatie gestart.
+Het tweede deel van de installatie gaat volledig automatisch. Grip op Huishouden moet nog het één en ander downloaden en opstarten en kan wel even duren.
+Zodra dit is voltooid wordt Grip op Huishouden automatisch opgestart.
 
 Updates
 -------

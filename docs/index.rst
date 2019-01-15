@@ -11,7 +11,15 @@ Documentatie Grip op Huishouden
 
 .. toctree::
    :maxdepth: 1
-   :caption: Pagina's
+   :caption: Grip op Huishouden
    
-   ./paginas/spaardoelen.rst
-   ./paginas/begroting.rst
+   ./goh/personen.rst
+   ./goh/categorieen.rst
+   ./goh/labels.rst
+   ./goh/inkomsten.rst
+   ./goh/contracten.rst
+   ./goh/reserveringen.rst
+   ./goh/budgetten.rst
+   ./goh/afschrijvingen.rst
+   ./goh/spaardoelen.rst
+   ./goh/begroting.rst
