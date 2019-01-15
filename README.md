@@ -14,6 +14,7 @@ Versie 0.6.0 (21/01/2019)
 - Gebruiksvriendelijkheid van dialogs verbeteren
 
 # Grip op Huishouden
+![Screen](https://raw.github.com/wesmaster/goh/develop/Screen.png)
 ## Waarvoor is het?
 Grip op Huishouden (GoH) moet een handvat bieden voor het huishouden met de focus op de financiële kant.
 
@@ -29,6 +30,6 @@ GoH gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld van de f
 - Vergelijken met andere gebruikers/gemiddelde huishoudens
 
 # Installatie
-Zie [documentatie](https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/benodigdheden.html)
+Zie [documentatie](https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/voorbereiding.html)
 
 
