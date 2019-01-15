@@ -5,12 +5,13 @@ Grip op Huishouden is ontworpen om te werken voor Windows 10 Pro. Momenteel is h
 
 Systeemvereisten
 ----------------
-* Windows 10 64-bit Pro
-* Virtualisatie geactiveerd in BIOS (Dit is standaard het geval)
+* Windows 10 64-bit Pro versie 17063 of hoger
+* Virtualisatie geactiveerd in BIOS (dit is standaard het geval)
+* Internet verbinding
 * 4GB geheugen
-* 10GB schijfruimte
+* 15GB schijfruimte op de C-schijf
 
 Benodigdheden
 -------------
-* Docker Desktop
-* Google Chrome
+* `Docker Desktop <https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/docker_desktop.html>`_
+* `Google Chrome <https://www.google.com/chrome/>`_
