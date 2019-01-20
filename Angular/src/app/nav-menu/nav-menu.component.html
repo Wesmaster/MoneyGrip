@@ -1,10 +1,9 @@
 
 <div class='main-nav'>
   <div class='navbar navbar-expand-sm'>
-    <a class='navbar-brand' [routerLink]='["/"]'><h5 class="display-5">{{ app_name }}</h5></a>
-    <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='.navbar-collapse' (click)='toggle()'>
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class='navbar-brand d-flex' [routerLink]='["/"]'>
+      <img src="assets/MoneyGrip.png" height="32px" width="32px" class="col-2"><h5 class="display-5 col text-left">{{ app_name }}</h5>
+    </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav flex-column">
         <li class="nav-item dropdown">

@@ -139,4 +139,17 @@
     {
       color: #212121;
     }
+
+    .navbar-brand img
+    {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      padding: 0px;
+    }
+
+    .navbar-brand h5
+    {
+      line-height: 32px;
+      margin-bottom: 15px;
+    }
   }
