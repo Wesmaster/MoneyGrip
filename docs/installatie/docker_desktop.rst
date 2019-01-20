@@ -22,8 +22,6 @@ Docker Desktop werkt alleen op Windows 10 Pro en dus niet op de Home editie.
    :alt: Docker Desktop Windows containers
    :target: https://github.com/WesMaster/MoneyGrip/raw/develop/docs/images/Docker%20Desktop%20windows%20container.png
 .. |scr4| image:: https://github.com/WesMaster/MoneyGrip/raw/develop/docs/images/Docker%20Desktop%20windows%20container%202.png
-   :height: 400px
-   :width: 400px
    :alt: Docker Desktop Windows containers confirm
    :target: https://github.com/WesMaster/MoneyGrip/raw/develop/docs/images/Docker%20Desktop%20windows%20container%202.png
    
