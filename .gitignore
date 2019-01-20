@@ -28,3 +28,5 @@ MoneyGrip.ico
 MoneyGrip.sln
 API/MoneyGrip.csproj.user
 API/MoneyGrip.csproj
+Build/
+Release/
