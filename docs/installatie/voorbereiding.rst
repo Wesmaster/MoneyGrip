@@ -1,7 +1,7 @@
 Voorbereiding
 =============
 
-Grip op Huishouden is ontworpen om te werken voor Windows 10 Pro. Momenteel is het onduidelijk of Grip op Huishouden werkt onder Linux, voor de installatie onder Linux zal ook geen ondersteuning zijn.
+MoneyGrip is ontworpen om te werken voor Windows 10 Pro. Momenteel is het onduidelijk of MoneyGrip werkt onder Linux, voor de installatie onder Linux zal ook geen ondersteuning zijn.
 
 Systeemvereisten
 ----------------
@@ -13,5 +13,5 @@ Systeemvereisten
 
 Benodigdheden
 -------------
-* `Docker Desktop <https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/docker_desktop.html>`_
+* `Docker Desktop <https://moneygrip.readthedocs.io/nl/develop/installatie/docker_desktop.html>`_
 * `Google Chrome <https://www.google.com/chrome/>`_

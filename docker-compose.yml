@@ -1,24 +1,24 @@
 version: '3'
 services:
   web:
-    image: "wesmaster/goh_web:latest"
-    container_name: goh_web
+    image: "wesmaster/moneygrip_web:latest"
+    container_name: moneygrip_web
     ports:
      - "86:4200"
     depends_on:
      - api
      - db
   api:
-    image: "wesmaster/goh_api:latest"
-    container_name: goh_api
+    image: "wesmaster/moneygrip_api:latest"
+    container_name: moneygrip_api
     ports:
      - "5000:80"
     depends_on:
      - db
   db:
-    image: "wesmaster/goh_db:latest"
-    container_name: goh_db
+    image: "wesmaster/moneygrip_db:latest"
+    container_name: moneygrip_db
     expose:
      - "1433"
     volumes:
-     - C:\GoH\database:C:\data
+     - C:\MoneyGrip\database:C:\data

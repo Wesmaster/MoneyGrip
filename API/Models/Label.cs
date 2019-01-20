@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     public partial class Label
     {

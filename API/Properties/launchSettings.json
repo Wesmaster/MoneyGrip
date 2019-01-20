@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "GoHAPI": {
+    "MoneyGrip": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

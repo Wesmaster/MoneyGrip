@@ -21,3 +21,10 @@ Versie naar docker hub.bat
 Release proces nieuwe versie.txt
 SQL/
 docker commandos.txt
+Build.bat
+Installer_MoneyGrip.ifp
+MoneyGrip.bat
+MoneyGrip.ico
+MoneyGrip.sln
+API/MoneyGrip.csproj.user
+API/MoneyGrip.csproj

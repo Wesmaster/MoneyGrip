@@ -1,4 +1,4 @@
-Documentatie Grip op Huishouden
+Documentatie MoneyGrip
 ===============================
 
 .. toctree::
@@ -7,19 +7,19 @@ Documentatie Grip op Huishouden
    
    ./installatie/voorbereiding.rst
    ./installatie/docker_desktop.rst
-   ./installatie/grip_op_huishouden.rst
+   ./installatie/moneygrip.rst
 
 .. toctree::
    :maxdepth: 1
-   :caption: Grip op Huishouden
+   :caption: MoneyGrip
    
-   ./goh/personen.rst
-   ./goh/categorieen.rst
-   ./goh/labels.rst
-   ./goh/inkomsten.rst
-   ./goh/contracten.rst
-   ./goh/reserveringen.rst
-   ./goh/budgetten.rst
-   ./goh/afschrijvingen.rst
-   ./goh/spaardoelen.rst
-   ./goh/begroting.rst
+   ./moneygrip/personen.rst
+   ./moneygrip/categorieen.rst
+   ./moneygrip/labels.rst
+   ./moneygrip/inkomsten.rst
+   ./moneygrip/contracten.rst
+   ./moneygrip/reserveringen.rst
+   ./moneygrip/budgetten.rst
+   ./moneygrip/afschrijvingen.rst
+   ./moneygrip/spaardoelen.rst
+   ./moneygrip/begroting.rst

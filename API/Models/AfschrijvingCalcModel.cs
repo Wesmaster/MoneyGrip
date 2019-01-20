@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     public class AfschrijvingCalcModel
     {

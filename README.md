@@ -1,4 +1,6 @@
-[C# .NET + Angular] HUIS | Huishouden Uitgaven & Inkomsten Statistiek
+[C# .NET + Angular] MoneyGrip | Financiële administratie voor huishoudens
+
+[![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 
 # Release notes
 Huidige versie: 0.5.0
@@ -13,16 +15,16 @@ Versie 0.6.0 (21/01/2019)
 - Documentatie uitbreiden
 - Gebruiksvriendelijkheid van dialogs verbeteren
 
-# HUIS
-![Screen](https://raw.github.com/wesmaster/huis/develop/Screen.png)
+# MoneyGrip
+![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)
 ## Waarvoor is het?
-HUIS moet een handvat bieden voor het huishouden met de focus op de financiële kant.
+MoneyGrip moet een handvat bieden voor het huishouden met de focus op de financiële kant.
 
 ## Wat kan het momenteel?
-Momenteel is het mogelijk om met HUIS een begrotingsrapport te genereren. De benodigde informatie daarvoor is allemaal in te regelen via de interface.
+Momenteel is het mogelijk om met MoneyGrip een begrotingsrapport te genereren. De benodigde informatie daarvoor is allemaal in te regelen via de interface.
 
 ## Wat is het uiteindelijke doel?
-HUIS gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld van de financiële situatie van het huishouden kan worden verkregen.
+MoneyGrip gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld van de financiële situatie van het huishouden kan worden verkregen.
 
 ## Wat gaat het niet kunnen?
 - Automatisch importeren van transacties vanuit een bank
@@ -30,6 +32,6 @@ HUIS gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld van de 
 - Vergelijken met andere gebruikers/gemiddelde huishoudens
 
 # Installatie
-Zie [documentatie](https://grip-op-huishouden.readthedocs.io/nl/develop/installatie/voorbereiding.html)
+Zie [documentatie](https://moneygrip.readthedocs.io/nl/develop/installatie/voorbereiding.html)
 
 

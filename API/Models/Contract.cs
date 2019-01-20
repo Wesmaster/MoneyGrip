@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     public class Contract : BedragPerPeriode
     {

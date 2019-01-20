@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using GoHAPI.Models;
+using MoneyGrip.Models;
 
-namespace GoHAPI
+namespace MoneyGrip
 {
     public class Startup
     {
@@ -33,8 +33,8 @@ namespace GoHAPI
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
 
-            services.AddDbContext<GoHContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("GoHContext")));
+            services.AddDbContext<Models.AppContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AppContext")));
 
             services.AddCors(options =>
             {

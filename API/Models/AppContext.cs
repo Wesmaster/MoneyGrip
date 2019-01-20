@@ -1,17 +1,17 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using GoHAPI.Models;
+using MoneyGrip.Models;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
-    public partial class GoHContext : DbContext
+    public partial class AppContext : DbContext
     {
-        public GoHContext()
+        public AppContext()
         {
         }
 
-        public GoHContext(DbContextOptions<GoHContext> options)
+        public AppContext(DbContextOptions<AppContext> options)
             : base(options)
         {
         }

@@ -6,5 +6,7 @@
 export const environment = {
   production: false,
   VERSION: require('../../package.json').version,
-  api_url: "http://localhost:5000/api/"
+  api_url: "http://localhost:5000/api/",
+  read_the_docs: "https://moneygrip.readthedocs.io/nl/latest/",
+  app_name: "MoneyGrip"
 };

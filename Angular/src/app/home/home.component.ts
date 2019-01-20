@@ -9,4 +9,5 @@ import { environment } from '../../environments/environment';
 export class HomeComponent
 {
   public version: string = environment.VERSION;
+  public app_name: string = environment.app_name;
 }
