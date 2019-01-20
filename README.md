@@ -32,6 +32,6 @@ MoneyGrip gaat minimaal een volledig kasboek zijn waarmee een duidelijk beeld va
 - Vergelijken met andere gebruikers/gemiddelde huishoudens
 
 # Installatie
-Zie [documentatie](https://moneygrip.readthedocs.io/nl/develop/installatie/voorbereiding.html)
+Zie [documentatie](https://moneygrip.readthedocs.io/nl/latest/installatie/voorbereiding.html)
 
 
