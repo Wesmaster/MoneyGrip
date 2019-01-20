@@ -9,7 +9,7 @@ Systeemvereisten
 * Virtualisatie geactiveerd in BIOS (dit is standaard het geval)
 * Internet verbinding
 * 4GB geheugen
-* 15GB schijfruimte op de C-schijf
+* 25GB schijfruimte op de C-schijf
 
 Benodigdheden
 -------------
