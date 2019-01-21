@@ -3,22 +3,24 @@
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 
 # Release notes
-Huidige versie: 0.5.0
-- Info dialog toegevoegd
-- Laadscherm bij opstarten styling gegeven
-- Het is nu mogelijk om een document aan een contract toe te voegen
-- Betere uitlijning navigatie menu
-
-# Roadmap
-Versie 0.6.0 (21/01/2019)
+Huidige versie 0.6.0
 - Applicatie volledig in docker te draaien
 - Documentatie uitbreiden
 - Gebruiksvriendelijkheid van dialogs verbeteren
 
+# Roadmap
+Versie 0.7.0 (04/02/2019)
+- Backup van database maken en herstellen vanuit interface
+- Dialogen een vaste breedte geven
+- Angular baseclass maken voor editor componenten
+
 # MoneyGrip
 ![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)
-## Waarvoor is het?
+## Wat is het?
 MoneyGrip moet een handvat bieden voor het huishouden met de focus op de financiële kant.
+
+## Voor wie is het?
+Voor iedereen die meer inzicht wil in de inkomsten en uitgaven binnen het huishouden.
 
 ## Wat kan het momenteel?
 Momenteel is het mogelijk om met MoneyGrip een begrotingsrapport te genereren. De benodigde informatie daarvoor is allemaal in te regelen via de interface.
