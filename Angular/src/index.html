@@ -3,11 +3,104 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Grip op Huishouden</title>
+  <title>MoneyGrip</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/MoneyGrip.ico">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <style>
+    html, body
+    {
+      height: 100vh;
+      background-color: #E0E1E2;
+      margin: 0;
+    }
+    
+    .loading
+    {
+      background-color: #E0E1E2;
+      height: 100%;
+    }
+
+    .loading .top
+    {
+      height: 20vh;
+    }
+
+    .loading .mid
+    {
+      height: 20vh;
+      background-color: #607D8B;
+      color: #607D8B;
+      font-weight: bold;
+    }
+
+    .loading i
+    {
+      animation: rotate 1s ease-in-out 0s;
+    }
+  
+    @keyframes rotate
+    {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .loading .bot
+    {
+      height: 60vh;
+    }
+
+    .text-center
+    {
+      text-align: center!important;
+    }
+
+    .display-1
+    {
+      font-size: 6rem;
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    .display-4
+    {
+      font-size: 3.5rem;
+      font-weight: 300;
+      line-height: 1.2;
+    }
+
+    :root
+    {
+      --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    }
+
+    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6
+    {
+      margin-bottom: .5rem;
+      font-family: inherit;
+      color: inherit;
+    }
+
+    p
+    {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .fa, .fas
+    {
+      font-weight: 900;
+      font-family: "Font Awesome 5 Free";
+      -webkit-font-smoothing: antialiased;
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      line-height: 1;
+    }
+  </style>
 </head>
 <body>
   <app-root>
@@ -16,7 +109,7 @@
 
       </div>
       <div class="mid text-center">
-        <h1 class="display-1">Grip op Huishouden</h1>
+        <img src="assets/MoneyGrip.png">
         <p class="display-4"><i class="fas fa-spinner"></i></p>
       </div>
       <div class="bot">

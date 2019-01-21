@@ -87,7 +87,8 @@ export class InkomstenComponent implements OnInit
     var vraag = 'Weet je zeker dat je de inkomst "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Inkomst verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -102,7 +103,8 @@ export class InkomstenComponent implements OnInit
   {
     const dialogRef = this.dialog.open(InkomstComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Concurrent;
 using System.Globalization;
-using static GoHAPI.Data.Enums;
+using static MoneyGrip.Data.Enums;
 using System;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     using dataDict = ConcurrentDictionary<string, int>;
 

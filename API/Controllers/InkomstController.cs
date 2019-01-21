@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GoHAPI.Models;
+using MoneyGrip.Models;
 
-namespace GoHAPI.Controllers
+namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class InkomstController : ControllerBase
     {
-        private readonly GoHContext _context;
+        private readonly Models.AppContext _context;
 
-        public InkomstController(GoHContext context)
+        public InkomstController(Models.AppContext context)
         {
             _context = context;
         }

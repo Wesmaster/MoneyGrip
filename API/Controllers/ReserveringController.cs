@@ -4,17 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GoHAPI.Models;
+using MoneyGrip.Models;
 
-namespace GoHAPI.Controllers
+namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ReserveringController : ControllerBase
     {
-        private readonly GoHContext _context;
+        private readonly Models.AppContext _context;
 
-        public ReserveringController(GoHContext context)
+        public ReserveringController(Models.AppContext context)
         {
             _context = context;
         }

@@ -5,38 +5,12 @@ html, body
     height: 100vh;
 }
 
-.loading
-{
-    background-color: #E0E1E2;
-    color: #FF0000;
-    height: 100%;
-}
-
-.loading .top
-{
-    height: 20vh;
-}
-
 .loading .mid
 {
     height: 20vh;
     background-color: #607D8B;
-    color: #FFFFFF;
+    color: #607D8B;
     font-weight: bold;
-}
-
-.loading i {
-    animation: rotate 1s ease-in-out 0s;
-  }
-  
-  @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-  }
-
-.loading .bot
-{
-    height: 60vh;
 }
 
 input

@@ -82,7 +82,8 @@ export class ReserveringenComponent implements OnInit {
     var vraag = 'Weet je zeker dat je de reservering "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Reservering verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,7 +98,8 @@ export class ReserveringenComponent implements OnInit {
   {
     const dialogRef = this.dialog.open(ReserveringComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

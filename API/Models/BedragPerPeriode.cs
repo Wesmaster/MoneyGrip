@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
-using static GoHAPI.Data.Enums;
+using static MoneyGrip.Data.Enums;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     public class BedragPerPeriode
     {

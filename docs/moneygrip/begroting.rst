@@ -6,7 +6,7 @@ Alle inkomsten en uitgaven worden omgerekend naar bedragen per maand voor zover 
 Daarnaast biedt de begroting een overzicht van de ingestelde spaardoelen, de inleg per spaardoel per maand en de haalbaarheid van spaardoelen met een eindbedrag.
 
 Berekening haalbaarheid spaardoelen
-===================================
+-----------------------------------
 
 Voor de bepaling van de inleg voor de spaardoelen wordt als volgt te werk gegaan:
 

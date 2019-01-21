@@ -11,6 +11,8 @@ import { MatDialog} from '@angular/material';
 export class NavMenuComponent {
   isExpanded = false;
   public version: string = environment.VERSION;
+  public read_the_docs: string = environment.read_the_docs;
+  public app_name: string = environment.app_name;
 
   constructor(public dialog: MatDialog)
   {
@@ -28,8 +30,9 @@ export class NavMenuComponent {
   toonInfo()
   {
     const dialogRef = this.dialog.open(InfoComponent, {
-      data: {bericht: "Grip op Huishouden is bedoeld om meer inzicht te krijgen over de financiën en administratie binnen het huishouden", titel: "Grip op Huishouden v" + this.version},
-      panelClass: 'dialog-delete'
+      data: {bericht: this.app_name + " is bedoeld om meer inzicht te krijgen over de financiële administratie binnen het huishouden", titel: this.app_name + " v" + this.version},
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
   }
 }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace GoHAPI.Models
+namespace MoneyGrip.Models
 {
     public class Afschrijving
     {

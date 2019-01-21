@@ -82,7 +82,8 @@ export class BudgettenComponent implements OnInit
     var vraag = 'Weet je zeker dat je het budget "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Budget verwijderen?"},
-      panelClass: 'dialog-delete'
+      panelClass: 'dialog-delete',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -97,7 +98,8 @@ export class BudgettenComponent implements OnInit
   {
     const dialogRef = this.dialog.open(BudgetComponent, {
       data: id,
-      panelClass: 'dialog-add'
+      panelClass: 'dialog-add',
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {

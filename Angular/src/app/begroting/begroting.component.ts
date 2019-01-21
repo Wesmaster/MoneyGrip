@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BegrotingService } from './begroting.service';
 import { Begroting } from './begroting';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-begroting',
@@ -21,6 +22,8 @@ export class BegrotingComponent implements OnInit
   uitgaven: Begroting;
   begroting: Begroting[] = [];
   filterOptie: number;
+
+  public read_the_docs: string = environment.read_the_docs;
 
   constructor(private service: BegrotingService)
   {
