@@ -3,13 +3,14 @@ import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from
 import { PersoonService } from '../persoon.service';
 import { EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { BaseEditComponent } from '../../base/base-edit.component';
 
 @Component({
   selector: 'app-persoon',
   templateUrl: './persoon.component.html',
   styleUrls: ['./persoon.component.css']
 })
-export class PersoonComponent implements OnInit {
+export class PersoonComponent extends BaseEditComponent implements OnInit {
 
   @Input() id: number;
   @Output() getChange = new EventEmitter<number>();
@@ -19,6 +20,8 @@ export class PersoonComponent implements OnInit {
   constructor(private service: PersoonService, public dialogRef: MatDialogRef<PersoonComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
   {
+    super(dialogRef);
+
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -41,12 +44,8 @@ export class PersoonComponent implements OnInit {
 
   ngOnInit()
   {
-    this.changePosition();
-  }
-
-  changePosition()
-  {
-    this.dialogRef.updatePosition({top: '5%', left: '40%'});
+    this.setDialogSize();
+    this.changeDialogPosition();
   }
 
   createForm()

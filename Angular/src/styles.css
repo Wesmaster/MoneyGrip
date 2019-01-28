@@ -44,22 +44,29 @@ thead
     color: #FFFFFF;
 }
 
+.bold
+{
+    font-weight: bold;
+}
+
 .btn
 {
     background-color: #455A64;
     color: #FFFFFF;
+	border-radius: 0px;
 }
 
 .btn:hover
 {
     background-color: #607D8B;
+	color: #FFFFFF;
 }
 
 .dialog-add .mat-dialog-container
 {
     background-color: #E0E1E2;
     color: #212121;
-    width: 400px;
+    min-width: 400px;
 }
 
 .dialog-delete .mat-dialog-container
@@ -86,6 +93,11 @@ thead
     color: #212121;
 }
 
+.hide
+{
+    display: none;
+}
+
 .selected
 {
     background-color: #CFD8DC;
@@ -101,7 +113,7 @@ thead
 {
     display: block;
     height: calc(100vh - 265px);
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .table tbody tr:hover, .selected:hover
@@ -113,6 +125,12 @@ thead
 .table tbody tr
 {
     border-bottom: 1px solid #455A64;
+}
+
+.table thead
+{
+    display: block;
+    width: calc(100% - 17px);
 }
 
 .tooltip .tooltip-inner

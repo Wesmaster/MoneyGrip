@@ -44,6 +44,21 @@ export class BegrotingComponent implements OnInit
     });
   }
 
+  getResultaat(maand): number
+  {
+    var resultaat;
+    switch(maand)
+    {
+      case 0: resultaat = this.resultaat.totaal;
+        break;
+      case 1: resultaat = this.resultaat.januari;
+        break;
+      default: resultaat = 0;
+    }
+
+    return resultaat;
+  }
+
   berekenen(jaar): void
   {
     this.service.get(jaar).subscribe(item => {

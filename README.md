@@ -2,6 +2,16 @@
 
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 
+#### API
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+
+#### User interface
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+
 # Release notes
 Huidige versie 0.6.0
 - Applicatie volledig in docker te draaien

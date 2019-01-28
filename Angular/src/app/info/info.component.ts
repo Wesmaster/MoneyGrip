@@ -19,12 +19,13 @@ export class InfoComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.dialogRef.updateSize('30%', '20%');
     this.changePosition();
   }
 
   changePosition()
   {
-    this.dialogRef.updatePosition({top: '5%', left: '31%'});
+    this.dialogRef.updatePosition({top: '5%', left: '35%'});
   }
 
 }
