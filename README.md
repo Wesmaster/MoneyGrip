@@ -2,17 +2,28 @@
 
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 
+#### API
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+
+#### User interface
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
+
 # Release notes
-Huidige versie 0.6.0
-- Applicatie volledig in docker te draaien
-- Documentatie uitbreiden
-- Gebruiksvriendelijkheid van dialogs verbeteren
+Huidige versie 0.7.0
+- Backup van database maken en herstellen vanuit interface
+- Dialogen hebben nu een vaste breedte
+- Eerste opzet betere Angular structuur
+- Kwaliteitscontrole opgezet
 
 # Roadmap
-Versie 0.7.0 (04/02/2019)
-- Backup van database maken en herstellen vanuit interface
-- Dialogen een vaste breedte geven
-- Angular baseclass maken voor editor componenten
+Versie 0.8.0 (15/02/2019)
+- Labels kunnen filteren
+- Styling invul dialogen verbeteren
+- Nieuwe Angular structuur uitbreiden
 
 # MoneyGrip
 ![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)

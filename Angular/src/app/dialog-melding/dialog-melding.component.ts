@@ -18,7 +18,9 @@ export class DialogMeldingComponent implements OnInit {
 
     }
 
-  ngOnInit() {
+  ngOnInit()
+  {
+    this.dialogRef.updateSize('30%', '20%');
     this.changePosition();
   }
 
@@ -28,7 +30,7 @@ export class DialogMeldingComponent implements OnInit {
 
   changePosition()
   {
-    this.dialogRef.updatePosition({top: '5%', left: '31%'});
+    this.dialogRef.updatePosition({top: '5%', left: '35%'});
   }
 
 }

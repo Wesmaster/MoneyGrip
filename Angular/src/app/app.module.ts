@@ -44,6 +44,8 @@ import { SpaardoelenComponent } from './spaardoelen/spaardoelen.component';
 import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component';
 import { BegrotingComponent } from './begroting/begroting.component';
 import { InfoComponent } from './info/info.component';
+import { BackupComponent } from './backup/backup.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import { InfoComponent } from './info/info.component';
     SpaardoelenComponent,
     SpaardoelComponent,
     BegrotingComponent,
-    InfoComponent
+    InfoComponent,
+    BackupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -90,7 +93,8 @@ import { InfoComponent } from './info/info.component';
     MatDialogModule,
     BrowserAnimationsModule,
     MatInputModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator],
   bootstrap: [AppComponent],

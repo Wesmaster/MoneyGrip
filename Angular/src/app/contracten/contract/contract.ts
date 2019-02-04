@@ -12,4 +12,4 @@ export class Contract
     interval: Interval;
     document: string;
     labelNavigation: Label;
-  }
+}

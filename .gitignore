@@ -30,3 +30,8 @@ API/MoneyGrip.csproj.user
 API/MoneyGrip.csproj
 Build/
 Release/
+Angular/.scannerwork/
+.scannerwork/
+Angular/sonar-project.properties
+Angular/e2e/protractor.conf.js
+Angular/e2e/

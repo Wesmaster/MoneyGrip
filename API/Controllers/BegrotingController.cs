@@ -61,17 +61,8 @@ namespace MoneyGrip.Controllers
             IQueryable<Spaardoel> doelPercentage = _context.Spaardoel.Include(s => s.LabelNavigation).Where(s => s.Percentage != null).OrderBy(s => (s.LaatsteMaand - s.EersteMaand)).ThenByDescending(s => (s.Percentage));
             begroting.spaardoelen = await doelEindBedrag.ToArrayAsync();
             begroting.spaardoelen = begroting.spaardoelen.Concat(await doelPercentage.ToArrayAsync()).ToArray();
-            //  var union = doelEindBedrag.Union(doelPercentage);
-         //   begroting.spaardoelen = await union.Include(s => s.LabelNavigation).ToArrayAsync();
-           // begroting.spaardoelen = await doelPercentage.Union(doelEindBedrag).ToArrayAsync();
-          //  begroting.spaardoelen = await doelPercentage.ToArrayAsync();
 
             return Ok(begroting.calculate());
         }
-    }
-
-    public class datum
-    {
-        public int jaar { get; set; }
     }
 }
