@@ -45,6 +45,7 @@ import { SpaardoelComponent } from './spaardoelen/spaardoel/spaardoel.component'
 import { BegrotingComponent } from './begroting/begroting.component';
 import { InfoComponent } from './info/info.component';
 import { BackupComponent } from './backup/backup.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { BackupComponent } from './backup/backup.component';
     MatDialogModule,
     BrowserAnimationsModule,
     MatInputModule,
-    NgbModule
+    NgbModule,
+    SharedModule
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator],
   bootstrap: [AppComponent],
