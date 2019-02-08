@@ -23,3 +23,9 @@ Documentatie MoneyGrip
    ./moneygrip/afschrijvingen.rst
    ./moneygrip/spaardoelen.rst
    ./moneygrip/begroting.rst
+   
+.. toctree::
+   :maxdepth: 1
+   :caption: Beheer
+   
+   ./beheer/backup.rst
