@@ -1,6 +1,7 @@
 [C# .NET + Angular] MoneyGrip | Financiële administratie voor huishoudens
 
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
+![Github](https://img.shields.io/github/license/wesmaster/moneygrip.svg?style=flat)
 
 #### API
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
@@ -13,14 +14,16 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
 
 # Release notes
-Huidige versie 0.7.0
+![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
 - Backup van database maken en herstellen vanuit interface
 - Dialogen hebben nu een vaste breedte
 - Eerste opzet betere Angular structuur
 - Kwaliteitscontrole opgezet
 
 # Roadmap
-Versie 0.8.0 (15/02/2019)
+Volgende versie (15/02/2019)
+
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
 - Labels kunnen filteren
 - Styling invul dialogen verbeteren
 - Nieuwe Angular structuur uitbreiden
