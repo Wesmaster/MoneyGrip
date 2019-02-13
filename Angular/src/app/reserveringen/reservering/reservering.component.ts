@@ -25,6 +25,7 @@ export class ReserveringComponent implements OnInit {
   categorieen: Categorie[] = [];
   maandenEnum = Maanden;
   selectedCategorie: number;
+  titelText: string = "Reservering";
 
   constructor(private service: ReserveringService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ReserveringComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe)

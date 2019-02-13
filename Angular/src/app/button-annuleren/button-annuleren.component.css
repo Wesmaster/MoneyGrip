@@ -1,1 +1,24 @@
-@import '../../button.css';
+.btn-annuleren
+{
+    background-color: #455A64;
+    color: #CFD8DC;
+}
+
+.btn-annuleren:hover
+{
+	color: #FFFFFF;
+}
+
+.btn-annuleren:focus
+{
+    border-color: #455A64;
+    box-shadow: none;
+    outline: 0;
+}
+
+.btn:focus
+{
+    border-color: #455A64;
+    box-shadow: none;
+    outline: 0;
+}

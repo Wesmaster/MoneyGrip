@@ -21,6 +21,7 @@ export class SpaardoelComponent implements OnInit {
   form: FormGroup;
   labels: Label[] = [];
   maandenEnum = Maanden;
+  titelText: string = "Spaardoel";
 
   constructor(private service: SpaardoelService, private labelService: LabelService, public dialogRef: MatDialogRef<SpaardoelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)

@@ -4,6 +4,7 @@ import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestige
 import { Label } from './label/label';
 import { LabelComponent } from './label/label.component';
 import { LabelService } from './label.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-labels',
@@ -17,6 +18,9 @@ export class LabelsComponent implements OnInit
   rowSelected: boolean;
   buttonText = "Label";
   searchText: string;
+  zoekResultaat: Label[];
+
+  public read_the_docs: string = environment.read_the_docs;
 
   constructor(private service: LabelService, public dialog: MatDialog)
   {
@@ -32,7 +36,7 @@ export class LabelsComponent implements OnInit
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items; this.items = items});
   }
 
   onSelect(item: Label): void
@@ -102,5 +106,10 @@ export class LabelsComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek() : void
+  {
+    this.zoekResultaat = this.items.filter(item => new RegExp(this.searchText, 'gi').test(item.naam) || new RegExp(this.searchText, 'gi').test(item.categorieNavigation.naam));
   }
 }

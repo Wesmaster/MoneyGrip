@@ -16,6 +16,7 @@ export class PersoonComponent extends BaseEditComponent implements OnInit {
   @Output() getChange = new EventEmitter<number>();
 
   form: FormGroup;
+  titelText: string = "Persoon";
 
   constructor(private service: PersoonService, public dialogRef: MatDialogRef<PersoonComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)

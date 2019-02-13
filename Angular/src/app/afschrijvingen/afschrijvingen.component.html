@@ -1,7 +1,8 @@
 <div class="pagina">
-  <h4 class="display-4">Afschrijvingen</h4>
-    <p class="lead">Hier kunnen afschrijvingen aangemaakt worden.<br />
-    Afschrijvingen zorgen ervoor dat er voldoende financiële middelen zijn wanneer de verwachte levensduur van een bezitting is bereikt.</p>
+  <div class="pagina-header row">
+    <h4 class="display-4 col">Afschrijvingen</h4>
+    <a class="col-1" href="{{ read_the_docs }}moneygrip/afschrijvingen.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
+  </div>
   <div class="buttongroup-top">
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
   </div>

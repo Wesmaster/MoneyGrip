@@ -1,7 +1,8 @@
 <div class="pagina">
-  <h4 class="display-4">Reserveringen</h4>
-    <p class="lead">Hier kunnen reserveringen aangemaakt worden.<br />
-    Hiermee kunnen uitgaven in een maand vastgelegd worden voordat ze vaststaan op welke dag.</p>
+  <div class="pagina-header row">
+    <h4 class="display-4 col">Reserveringen</h4>
+    <a class="col-1" href="{{ read_the_docs }}moneygrip/reserveringen.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
+  </div>
   <div class="buttongroup-top">
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
   </div>

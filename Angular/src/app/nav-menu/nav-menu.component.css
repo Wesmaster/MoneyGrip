@@ -21,6 +21,12 @@
   margin: 15px 0px 0px 0px;
 }
 
+.display-6
+{
+  font-weight: 500;
+  line-height: 2.5;
+}
+
 @media (min-width: 576px) {
     /* On small screens, convert the nav menu to a vertical sidebar */
     .main-nav {

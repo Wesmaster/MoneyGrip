@@ -17,10 +17,13 @@ export class PersonenComponent implements OnInit
   rowSelected: boolean;
   buttonText = "Persoon";
   searchText: string;
+  titel = "Personen";
+  docpage = this.titel;
+  tabelHeaders = ["Voornaam", "Achternaam"];
 
   constructor(private service: PersoonService, public dialog: MatDialog)
   {
-
+    this.docpage = this.docpage.toLowerCase();
   }
 
   ngOnInit()
@@ -30,17 +33,22 @@ export class PersonenComponent implements OnInit
     this.rowSelected = false;
   }
 
-  get(): void
+  getValue(item: Persoon, header: string)
   {
-    this.service.getAll().subscribe(items => this.items = items);
+    return item.getValue(header);
   }
 
-  onSelect(item: Persoon): void
+  get(): void
   {
-    this.selectedId = item.id;
+    this.service.getAll().subscribe(items => this.items = items.map(x => Object.assign(new Persoon(), x)));
+  }
+
+  onSelect(id: number): void
+  {
+    this.selectedId = id;
     this.rowSelected = true;
 
-    this.openAddDialog(item.id);
+    this.openAddDialog(this.selectedId);
   }
 
   afterEdit(id): void

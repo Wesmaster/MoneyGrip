@@ -28,6 +28,7 @@ export class BudgetComponent implements OnInit
   categorieen: Categorie[] = [];
   intervalEnum = Interval;
   selectedCategorie: number;
+  titelText: string = "Budget";
 
   constructor(private service: BudgetService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<BudgetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, public dialog: MatDialog, private customValidator: CustomValidator)

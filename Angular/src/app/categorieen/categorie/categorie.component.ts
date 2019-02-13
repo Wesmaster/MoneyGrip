@@ -17,6 +17,7 @@ export class CategorieComponent implements OnInit {
 
   form: FormGroup;
   typeEnum = CategorieType;
+  titelText: string = "Categorie";
 
   constructor(private service: CategorieService, public dialogRef: MatDialogRef<CategorieComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)

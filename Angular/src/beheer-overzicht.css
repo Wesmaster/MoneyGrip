@@ -36,7 +36,7 @@
     background-color: #FFFFFF;
 }
 
-.pagina-header a
+.pagina-header a, .pagina-header doclink
 {
     padding-top: 15px;
     text-align: right;

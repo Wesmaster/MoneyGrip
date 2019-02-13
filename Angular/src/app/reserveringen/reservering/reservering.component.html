@@ -1,8 +1,8 @@
+<div class="buttongroup-top">
+  <span class="display-5">{{ titelText }}</span>
+  <app-button-annuleren></app-button-annuleren>
+</div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="buttongroup-top">
-      <p class="h4">Reservering</p>
-      <app-button-annuleren></app-button-annuleren>
-  </div>
   <div class="form-group row">
     <label for="id" class="col-sm-5 col-form-label">Id</label>
     <div class="col-sm-7">

@@ -25,6 +25,7 @@ export class InkomstComponent implements OnInit
   labels: Label[] = [];
   personen: Persoon[];
   intervalEnum = Interval;
+  titelText: string = "Inkomst";
 
   constructor(private service: InkomstService, private labelService: LabelService, private persoonService: PersoonService, public dialogRef: MatDialogRef<InkomstComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
