@@ -76,6 +76,6 @@
       </div>  
     </div>
     <div class="buttongroup-bottom">
-      <button class="btn" type="submit" [disabled]="!form.valid"><i class="fas fa-download"></i>Opslaan</button>
+      <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><i class="fas fa-download"></i>Opslaan</button>
     </div>
   </form>
