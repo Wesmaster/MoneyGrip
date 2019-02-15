@@ -34,3 +34,5 @@ In de taakbalk naast de datum/tijd weergave zal nu het icoon van Docker Desktop 
 Nadat er op de optie "Switch to Windows containers" is geklikt zal onderstaand scherm verschijnen. Klik hier op "Switch".
 
 |scr4| 
+
+De installatie van Docker Desktop is nu voltooid.

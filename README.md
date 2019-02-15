@@ -15,18 +15,18 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- Backup van database maken en herstellen vanuit interface
-- Dialogen hebben nu een vaste breedte
-- Eerste opzet betere Angular structuur
-- Kwaliteitscontrole opgezet
+- Er kan nu gefilterd worden op de labels pagina
+- Invul dialogen hebben een nieuwe styling gekregen
+- Persoonpagina heeft de nieuwe Angular structuur
+- De opslaanknop op invuldialogen is nu uitgeschakeld zolang er nog niks is gewijzigd
 
 # Roadmap
-Volgende versie (15/02/2019)
+Hoogtepunten volgende versie
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
-- Labels kunnen filteren
-- Styling invul dialogen verbeteren
-- Nieuwe Angular structuur uitbreiden
+- Filteren op categorie pagina
+- Labelspagina omzetten naar nieuwe Angular structuur
+- Scss gebruiken ipv css
 
 # MoneyGrip
 ![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)
