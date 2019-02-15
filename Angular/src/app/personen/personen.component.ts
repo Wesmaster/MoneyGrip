@@ -18,12 +18,12 @@ export class PersonenComponent implements OnInit
   buttonText = "Persoon";
   searchText: string;
   titel = "Personen";
-  docpage = this.titel;
+  docpage = this.titel.toLowerCase();
   tabelHeaders = ["Voornaam", "Achternaam"];
 
   constructor(private service: PersoonService, public dialog: MatDialog)
   {
-    this.docpage = this.docpage.toLowerCase();
+
   }
 
   ngOnInit()

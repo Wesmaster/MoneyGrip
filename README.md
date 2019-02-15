@@ -1,4 +1,4 @@
-[C# .NET + Angular] MoneyGrip | Financiële administratie voor huishoudens
+## MoneyGrip | Financiële administratie voor huishoudens
 
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 ![Github](https://img.shields.io/github/license/wesmaster/moneygrip.svg?style=flat)
@@ -21,9 +21,9 @@
 - De opslaanknop op invuldialogen is nu uitgeschakeld zolang er nog niks is gewijzigd
 
 # Roadmap
-Hoogtepunten volgende versie
-
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
+Hoogtepunten volgende versie:
+
 - Filteren op categorie pagina
 - Labelspagina omzetten naar nieuwe Angular structuur
 - Scss gebruiken ipv css

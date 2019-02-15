@@ -19,6 +19,9 @@ export class LabelsComponent implements OnInit
   buttonText = "Label";
   searchText: string;
   zoekResultaat: Label[];
+  titel = "Labels";
+  docpage = this.titel.toLowerCase();
+  tabelHeaders = ["Categorie", "Naam"];
 
   public read_the_docs: string = environment.read_the_docs;
 
@@ -34,17 +37,22 @@ export class LabelsComponent implements OnInit
     this.rowSelected = false;
   }
 
-  get(): void
+  getValue(item: Label, header: string)
   {
-    this.service.getAll().subscribe(items => {this.zoekResultaat = items; this.items = items});
+    return item.getValue(header);
   }
 
-  onSelect(item: Label): void
+  get(): void
   {
-    this.selectedId = item.id;
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Label(), x)); this.items = items.map(x => Object.assign(new Label(), x))});
+  }
+
+  onSelect(id: number): void
+  {
+    this.selectedId = id;
     this.rowSelected = true;
 
-    this.openAddDialog(item.id);
+    this.openAddDialog(this.selectedId);
   }
 
   afterEdit(id): void

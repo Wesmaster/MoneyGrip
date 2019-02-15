@@ -1,3 +1,23 @@
+.col-sm-0-25
+{
+  width: 2.08%;
+}
+
+.fas
+{
+    color: #455A64;
+}
+
+.scrollbar-padding
+{
+    padding-right: 17px;
+}
+
+.table
+{
+    margin-bottom: 0px;
+}
+
 .table tbody tr:hover .fas:hover
 {
     color: #607D8B;

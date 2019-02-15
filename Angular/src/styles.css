@@ -153,10 +153,20 @@ thead
     border-bottom: 1px solid #455A64;
 }
 
+.table tbody td
+{
+    border-top: none;
+}
+
 .table thead
 {
     display: block;
-    width: calc(100% - 17px);
+}
+
+.table thead th
+{
+    border-bottom: none;
+    border-top: none;
 }
 
 .tooltip .tooltip-inner

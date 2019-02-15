@@ -15,6 +15,11 @@
   width: 2.08%;
 }
 
+.data-section
+{
+    height: 100%;
+}
+
 .fas
 {
     color: #455A64;
@@ -40,4 +45,9 @@
 {
     padding-top: 15px;
     text-align: right;
+}
+
+.customHeader
+{
+    padding-right: 17px;
 }

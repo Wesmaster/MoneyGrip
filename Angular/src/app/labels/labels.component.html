@@ -1,28 +1,13 @@
 <div class="pagina">
   <div class="pagina-header row">
-    <h4 class="display-4 col">Labels</h4>
-    <a class="col-1" href="{{ read_the_docs }}moneygrip/labels.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
+    <titel class = "col" [naam]="titel"></titel>
+    <doclink class="col-1" [pagina]="docpage"></doclink>
   </div>
   <div class="buttongroup-top">
-    <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
+    <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
   </div>
-  <div>
+  <div class="data-section">
     <input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox">
-    <table class='table'>
-      <thead>
-        <tr class="d-flex">
-          <th class="col-1 lead">Categorie</th>
-          <th class="col lead">Naam</th>
-          <th class="col-sm-0-25"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="d-flex" *ngFor="let item of zoekResultaat" [ngClass]="{'selected': item.id == selectedId}">
-          <td class="col-1" (click)="onSelect(item)">{{ item.categorieNavigation.naam }}</td>
-          <td class="col" (click)="onSelect(item)">{{ item.naam }}</td>
-          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
-        </tr>
-      </tbody>
-    </table>
+    <mg-table [headers]="tabelHeaders" [data]="zoekResultaat" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)"></mg-table>
   </div>
 </div>
