@@ -23,11 +23,32 @@ namespace MoneyGrip.Models
 
         public string calculate()
         {
-            dataDict inkomstenPerMaand = splitToMonths(inkomsten);
-            dataDict contractenPerMaand = splitToMonths(contracten);
-            dataDict budgettenPerMaand = splitToMonths(budgetten);
-            dataDict reserveringenPerMaand = splitToMonths(reserveringen);
-            dataDict afschrijvingenPerMaand = splitToMonths(afschrijvingen);
+            dataDict inkomstenPerMaand = new dataDict();
+            dataDict contractenPerMaand = new dataDict();
+            dataDict budgettenPerMaand = new dataDict();
+            dataDict reserveringenPerMaand = new dataDict();
+            dataDict afschrijvingenPerMaand = new dataDict();
+
+            if (inkomsten != null)
+            {
+                inkomstenPerMaand = splitToMonths(inkomsten);
+            }
+            if (contracten != null)
+            {
+                contractenPerMaand = splitToMonths(contracten);
+            }
+            if (budgetten != null)
+            {
+                budgettenPerMaand = splitToMonths(budgetten);
+            }
+            if (reserveringen != null)
+            {
+                reserveringenPerMaand = splitToMonths(reserveringen);
+            }
+            if (afschrijvingen != null)
+            {
+                afschrijvingenPerMaand = splitToMonths(afschrijvingen);
+            }
 
             dataDict uitgavenPerMaand = new dataDict();
             uitgavenPerMaand = mergeDicts(uitgavenPerMaand, contractenPerMaand);
@@ -45,7 +66,11 @@ namespace MoneyGrip.Models
             dataDict resultatenPerMaand = berekenResultaat();
             overview.TryAdd("resultaat", resultatenPerMaand);
 
-            ConcurrentDictionary<string, dataDict> spaardoelenPerMaand = divideOverMonths(spaardoelen, resultatenPerMaand);
+            ConcurrentDictionary<string, dataDict> spaardoelenPerMaand = new ConcurrentDictionary<string, dataDict>();
+            if (spaardoelen != null)
+            {
+                spaardoelenPerMaand = divideOverMonths(spaardoelen, resultatenPerMaand);
+            }
             overview.TryAdd("spaardoelen", spaardoelenPerMaand);
 
             return JsonConvert.SerializeObject(overview);

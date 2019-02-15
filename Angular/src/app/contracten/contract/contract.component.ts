@@ -27,6 +27,7 @@ export class ContractComponent implements OnInit
   intervalEnum = Interval;
   selectedCategorie: number;
   documentText: string = "Kies document";
+  titelText: string = "Contract";
 
   constructor(private service: ContractService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ContractComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import BasisBeheerOverzicht from '../../basisBeheerOverzicht';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'mg-table',
@@ -7,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit
 {
-  headerList: string[];
+  @Input() headers: [];
+  @Input() data: BasisBeheerOverzicht;
+  @Output() selected = new EventEmitter<number>();
+  @Output() verwijder = new EventEmitter<BasisBeheerOverzicht>();
 
   constructor()
   {
@@ -19,4 +24,18 @@ export class TableComponent implements OnInit
 
   }
 
+  getValue(item: BasisBeheerOverzicht, header: string): any
+  {
+    return item.getValue(header);
+  }
+
+  onSelect(item: BasisBeheerOverzicht): void
+  {
+    this.selected.emit(item.getValue("Id"));
+  }
+
+  onDelete(item: BasisBeheerOverzicht): void
+  {
+    this.verwijder.emit(item);
+  }
 }

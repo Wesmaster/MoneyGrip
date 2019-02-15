@@ -19,6 +19,7 @@ export class AfschrijvingComponent implements OnInit {
   form: FormGroup;
   labels: Label[] = [];
   factuurText: string = "Kies factuur";
+  titelText: string = "Afschrijving";
 
   constructor(private service: AfschrijvingService, private labelService: LabelService, public dialogRef: MatDialogRef<AfschrijvingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe)

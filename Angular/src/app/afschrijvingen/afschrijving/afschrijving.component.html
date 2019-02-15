@@ -1,8 +1,8 @@
+<div class="buttongroup-top">
+  <span class="display-5">{{ titelText }}</span>
+  <app-button-annuleren></app-button-annuleren>
+</div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="buttongroup-top">
-      <p class="h4">Afschrijving</p>
-      <app-button-annuleren></app-button-annuleren>
-  </div>
   <div class="form-group row">
     <label for="id" class="col-sm-5 col-form-label">Id</label>
     <div class="col-sm-7">
@@ -18,7 +18,7 @@
   <div class="form-group row">
     <label for="label" class="col-sm-5 col-form-label">Label</label>
     <div class="col-sm-7">
-      <select class="form-control" id="label" formControlName="label" required>
+      <select class="form-control" id="label" formControlName="label" required cdkFocusInitial>
         <option></option>
         <option *ngFor="let item of labels | filter : ['categorieNavigation.type', '3']" value={{item.id}}>
           {{ item.naam }}
@@ -67,6 +67,6 @@
     </div>  
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid"><i class="fas fa-download"></i>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><i class="fas fa-download"></i>Opslaan</button>
   </div>
 </form>

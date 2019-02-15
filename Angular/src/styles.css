@@ -65,14 +65,40 @@ thead
 .dialog-add .mat-dialog-container
 {
     background-color: #E0E1E2;
+    border-radius: 0px;
     color: #212121;
     min-width: 400px;
+    padding: 0px 0px 15px 0px;
+}
+
+.dialog-add .mat-dialog-container form
+{
+    padding: 15px;
+}
+
+.dialog-add .buttongroup-top
+{
+    padding: 0px 0px 0px 15px;
 }
 
 .dialog-delete .mat-dialog-container
 {
     background-color: #E0E1E2;
     color: #212121;
+}
+
+.display-5
+{
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.display-6
+{
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
 }
 
 .mh-bg-dark
@@ -112,7 +138,7 @@ thead
 .table tbody 
 {
     display: block;
-    height: calc(100vh - 265px);
+    height: calc(100vh - 240px);
     overflow-y: scroll;
 }
 

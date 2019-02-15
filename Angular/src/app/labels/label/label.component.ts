@@ -18,6 +18,7 @@ export class LabelComponent implements OnInit
 
   form: FormGroup;
   items: Categorie[];
+  titelText: string = "Label";
 
   constructor(private service: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<LabelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)

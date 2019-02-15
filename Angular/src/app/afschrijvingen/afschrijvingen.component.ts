@@ -102,7 +102,7 @@ export class AfschrijvingenComponent implements OnInit {
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(AfschrijvingComponent, {
       data: id,

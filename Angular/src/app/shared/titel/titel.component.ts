@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'titel',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitelComponent implements OnInit {
 
-  titel: String;
+  @Input() naam: string;
 
   constructor()
   {
@@ -18,5 +18,4 @@ export class TitelComponent implements OnInit {
   {
     
   }
-
 }

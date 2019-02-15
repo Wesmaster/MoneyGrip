@@ -34,16 +34,27 @@ p
 
 .buttongroup-top
 {
-   /* background-color: #FFFFFF;*/
+    background-color: #455A64;
+    color: #FFFFFF;
     display: inline-block;
-    padding: 0px;
+    padding: 0px 0px 0px 15px;
     width: 100%;
+}
+
+.buttongroup-top span
+{
+    margin: 15px 0px 15px 0px;
 }
 
 .buttongroup-top app-button-annuleren
 {
     float: right;
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.display-5
+{
+    line-height: 1.7;
 }
 
 .fas

@@ -6,8 +6,10 @@ MoneyGrip
 * Volg de stappen in het scherm
 
 Deel I van de installatie is nu voltooid. Er staat nu een icoon van MoneyGrip op het bureaublad. Hiermee wordt deel II van de installatie en de applicatie gestart.
-Het tweede deel van de installatie gaat volledig automatisch. MoneyGrip moet nog het één en ander downloaden en opstarten en kan wel even duren.
+Het tweede deel van de installatie gaat volledig automatisch. MoneyGrip moet nog het één en ander downloaden en opstarten, dit kan wel even duren.
 Zodra dit is voltooid wordt MoneyGrip automatisch opgestart.
+
+Het is mogelijk dat wanneer MoneyGrip opgestart wordt er een pagina verschijnt waarop aangegeven wordt dat de pagina niet gevonden kan worden. Dit betekent dat MoneyGrip op de achtergrond nog niet alles heeft opgestart. Zodra dit wel het geval is zal de pagina vanzelf ververst worden en zal MoneyGrip beschikbaar zijn.
 
 Updates
 -------
