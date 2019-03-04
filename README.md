@@ -16,18 +16,18 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- Er kan nu gefilterd worden op de labels pagina
-- Invul dialogen hebben een nieuwe styling gekregen
-- Persoonpagina heeft de nieuwe Angular structuur
-- De opslaanknop op invuldialogen is nu uitgeschakeld zolang er nog niks is gewijzigd
+- Er kan nu gefilterd worden op de categorie pagina
+- Labelspagina heeft de nieuwe Angular structuur
+- Voor de styling wordt nu scss gebruikt
 
 # Roadmap
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
 Hoogtepunten volgende versie:
 
-- Filteren op categorie pagina
-- Labelspagina omzetten naar nieuwe Angular structuur
-- Scss gebruiken ipv css
+- Filteren op inkomsten pagina
+- Categoriepagina omzetten naar nieuwe Angular structuur
+- Backuppagina gebruiksvriendelijker maken
+- Styling verschillende punten verbeteren
 
 # MoneyGrip
 ![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)
