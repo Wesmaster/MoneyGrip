@@ -1,0 +1,24 @@
+$color1: #455A64;
+$color2: #607D8B;
+$color3: #F5F6F7;
+
+$color1-text: #FFFFFF;
+$color2-text: #FFFFFF;
+$color3-text: #212121;
+
+$color1-hover: #607D8B;
+$color2-hover: #CFD8DC;
+$color3-hover: #CFD8DC;
+
+$color-valid: #0A966C;
+$color-invalid: #AF1818;
+
+.tooltip .tooltip-inner
+{
+    background-color: $color1 !important;
+}
+
+.tooltip .arrow::before
+{
+    border-top-color: $color1 !important;
+}

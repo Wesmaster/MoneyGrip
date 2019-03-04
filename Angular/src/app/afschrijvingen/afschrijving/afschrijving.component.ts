@@ -10,7 +10,7 @@ import { CurrencyPipe } from '../../currency.pipe';
 @Component({
   selector: 'app-afschrijving',
   templateUrl: './afschrijving.component.html',
-  styleUrls: ['./afschrijving.component.css']
+  styleUrls: ['./afschrijving.component.scss']
 })
 export class AfschrijvingComponent implements OnInit {
   @Input() id: number;

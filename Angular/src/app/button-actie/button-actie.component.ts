@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-button-actie',
   templateUrl: './button-actie.component.html',
-  styleUrls: ['./button-actie.component.css']
+  styleUrls: ['./button-actie.component.scss']
 })
 export class ButtonActieComponent implements OnInit {
 

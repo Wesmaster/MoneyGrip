@@ -9,7 +9,7 @@
   <div>
     <table class='table'>
       <thead>
-        <tr class="d-flex">
+        <tr class="d-flex customHeader">
           <th class="col-1 lead">Categorie</th>
           <th class="col-2 lead">Label</th>
           <th class="col-1 lead">Bedrag</th>
@@ -27,7 +27,7 @@
           <td class="col-1" (click)="onSelect(item)">{{ item.begindatum | date: 'dd-MM-yyyy' }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.einddatum | date: 'dd-MM-yyyy' }}</td>
           <td class="col" (click)="onSelect(item)">{{ IntervalEnum[item.interval] }}</td>
-          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+          <td class="col-sm-0-25 text-right"><em class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></em></td>
         </tr>
       </tbody>
     </table>

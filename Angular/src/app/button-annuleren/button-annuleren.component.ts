@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-button-annuleren',
   templateUrl: './button-annuleren.component.html',
-  styleUrls: ['./button-annuleren.component.css']
+  styleUrls: ['./button-annuleren.component.scss']
 })
 export class ButtonAnnulerenComponent implements OnInit {
 

@@ -9,7 +9,7 @@ import { CurrencyPipe } from '../currency.pipe';
 @Component({
   selector: 'app-afschrijvingen',
   templateUrl: './afschrijvingen.component.html',
-  styleUrls: ['./afschrijvingen.component.css']
+  styleUrls: ['./afschrijvingen.component.scss']
 })
 export class AfschrijvingenComponent implements OnInit {
   items: Afschrijving[];

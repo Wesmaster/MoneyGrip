@@ -17,9 +17,11 @@ namespace MoneyGrip.Models
         public Afschrijving[] afschrijvingen { get; set; }
         public Spaardoel[] spaardoelen { get; set; }
 
+        public dataDict resultatenPerMaand { get; set; }
+
         public int jaar { get; set; }
         private readonly DateTimeFormatInfo ci = CultureInfo.CreateSpecificCulture("nl").DateTimeFormat;
-        private ConcurrentDictionary<string, object> overview = new ConcurrentDictionary<string, object>();
+        readonly private ConcurrentDictionary<string, object> overview = new ConcurrentDictionary<string, object>();
 
         public string calculate()
         {
@@ -63,7 +65,7 @@ namespace MoneyGrip.Models
             overview.TryAdd("afschrijvingen", afschrijvingenPerMaand);
             overview.TryAdd("uitgaven", uitgavenPerMaand);
 
-            dataDict resultatenPerMaand = berekenResultaat();
+            resultatenPerMaand = berekenResultaat();
             overview.TryAdd("resultaat", resultatenPerMaand);
 
             ConcurrentDictionary<string, dataDict> spaardoelenPerMaand = new ConcurrentDictionary<string, dataDict>();
@@ -90,16 +92,16 @@ namespace MoneyGrip.Models
         {
             ConcurrentDictionary<string, int> data = new ConcurrentDictionary<string, int>();
 
-            foreach(BedragPerPeriode bedrag in bedragen)
+            foreach (BedragPerPeriode bedrag in bedragen)
             {
-                int bedragFactor = 1;
-                switch(bedrag.Interval)
+                int maandFactor = 1;
+                switch (bedrag.Interval)
                 {
                     case Interval.Kwartaal:
-                        bedragFactor = 4;
+                        maandFactor = 3;
                         break;
                     case Interval.Jaar:
-                        bedragFactor = 12;
+                        maandFactor = 12;
                         break;
                     default:
                         break;
@@ -108,13 +110,43 @@ namespace MoneyGrip.Models
                 int beginmaand = getBeginMaand(bedrag.Begindatum);
                 int eindmaand = getEindMaand(bedrag.Einddatum);
 
-                for(int i = beginmaand; i <= eindmaand; i++)
+                for (int i = beginmaand; i <= eindmaand; i++)
                 {
-                    data.AddOrUpdate("totaal", bedrag.Bedrag / bedragFactor, (key, oldValue) => oldValue + bedrag.Bedrag / bedragFactor);
-                    data.AddOrUpdate(ci.GetMonthName(i), bedrag.Bedrag / bedragFactor, (key, oldValue) => oldValue + bedrag.Bedrag / bedragFactor);
+                    int resultaatBedrag = 0;
+                    if (i == beginmaand && maandFactor != 1)
+                    {
+                        int maandbedrag = bedrag.Bedrag * 100 / maandFactor;
+                        int aantalMaandenTeVerrekenen = 1;
+                        if (beginmaand % maandFactor > 0)
+                        {
+                            aantalMaandenTeVerrekenen = Math.Min(maandFactor, eindmaand) - (beginmaand % maandFactor) + 1;
+                        }
+
+                        resultaatBedrag = (maandbedrag * aantalMaandenTeVerrekenen + 50) / 100;
+                    }
+                    if (i % maandFactor == 0 && i != eindmaand)
+                    {
+                        int maandbedrag = bedrag.Bedrag * 100 / maandFactor;
+                        int aantalMaandenTeVerrekenen = maandFactor;
+                        if (eindmaand - i < maandFactor)
+                        {
+                            aantalMaandenTeVerrekenen = eindmaand - i;
+                        }
+
+                        resultaatBedrag += (maandbedrag * aantalMaandenTeVerrekenen + 50) / 100;
+                    }
+                    else if (i == eindmaand && maandFactor == 1)
+                    {
+                        resultaatBedrag = bedrag.Bedrag;
+                    }
+
+                    if (resultaatBedrag > 0)
+                    {
+                        data.AddOrUpdate("totaal", resultaatBedrag, (key, oldValue) => oldValue + resultaatBedrag);
+                        data.AddOrUpdate(ci.GetMonthName(i), resultaatBedrag, (key, oldValue) => oldValue + resultaatBedrag);
+                    }
                 }
             }
-
             return data;
         }
 

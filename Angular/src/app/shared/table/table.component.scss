@@ -1,0 +1,72 @@
+@import '../../../basis';
+
+.col-sm-0-25
+{
+  width: 2.08%;
+}
+
+.fas
+{
+    color: $color1;
+}
+
+.scrollbar-padding
+{
+    padding-right: 17px;
+}
+
+.selected:hover
+{
+    background-color: $color2-hover;
+    cursor: pointer;
+}
+
+.table
+{
+    margin-bottom: 0px;
+    table-layout: fixed;
+
+    tbody
+    {
+        display: block;
+        height: calc(100vh - 240px);
+        overflow-y: scroll;
+
+        td
+        {
+            border-top: none;
+        }
+
+        tr
+        {
+            border-bottom: 1px solid $color1;
+            &:hover
+            {
+                background-color: $color2-hover;
+                color: $color2;
+                cursor: pointer;
+            }
+
+            .fas
+            {
+                &:hover
+                {
+                    color: $color2;
+                }
+            }
+        }
+    }
+
+    thead
+    {
+        background-color: $color1;
+        color: $color1-text;
+        display: block;
+
+        th
+        {
+            border-bottom: none;
+            border-top: none;
+        }
+    }
+}

@@ -13,7 +13,7 @@ import { CurrencyPipe } from '../../currency.pipe';
 @Component({
   selector: 'app-reservering',
   templateUrl: './reservering.component.html',
-  styleUrls: ['./reservering.component.css']
+  styleUrls: ['./reservering.component.scss']
 })
 export class ReserveringComponent implements OnInit {
   

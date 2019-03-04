@@ -7,7 +7,7 @@
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
   </div>
   <div>
-    <!--input [(ngModel)]="searchText" placeholder="Snel zoeken.." class="advancedSearchTextbox"-->
+    <input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox">
     <table class='table'>
       <thead>
         <tr class="d-flex">
@@ -18,11 +18,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="d-flex" *ngFor="let item of items | tableFilter: {naam:searchText};" [ngClass]="{'selected': item.id == selectedId}">
-          <td class="col-sm-0-25" (click)="onSelect(item)"><i class="fas fa-bookmark" [ngStyle]="{'color': item.kleur}"></i></td>
+        <tr class="d-flex" *ngFor="let item of zoekResultaat" [ngClass]="{'selected': item.id == selectedId}">
+          <td class="col-sm-0-25" (click)="onSelect(item)"><em class="fas fa-bookmark" [ngStyle]="{'color': item.kleur}"></em></td>
           <td class="col-2" (click)="onSelect(item)">{{ item.naam }}</td>
           <td class="col" (click)="onSelect(item)">{{ TypeEnum[item.type] }}</td>
-          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+          <td class="col-sm-0-25 text-right"><em class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></em></td>
         </tr>
       </tbody>
     </table>

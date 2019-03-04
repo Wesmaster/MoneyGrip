@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'button-toevoegen',
   templateUrl: './button-toevoegen.component.html',
-  styleUrls: ['./button-toevoegen.component.css']
+  styleUrls: ['./button-toevoegen.component.scss']
 })
 export class ButtonToevoegenComponent implements OnInit {
 

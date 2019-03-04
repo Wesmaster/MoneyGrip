@@ -1,6 +1,6 @@
 <div class="buttongroup-top">
   <span class="display-5">{{ titelText }}</span>
-  <app-button-annuleren></app-button-annuleren>
+  <app-button-annuleren class="button-annuleren"></app-button-annuleren>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-group row">
@@ -28,6 +28,6 @@
     </div>
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><i class="fas fa-download"></i>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download"></em>Opslaan</button>
   </div>
 </form>

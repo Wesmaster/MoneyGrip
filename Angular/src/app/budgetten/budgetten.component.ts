@@ -10,7 +10,7 @@ import { CurrencyPipe } from '../currency.pipe';
 @Component({
   selector: 'app-budgetten',
   templateUrl: './budgetten.component.html',
-  styleUrls: ['./budgetten.component.css']
+  styleUrls: ['./budgetten.component.scss']
 })
 export class BudgettenComponent implements OnInit
 {

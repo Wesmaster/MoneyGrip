@@ -14,7 +14,7 @@ import { CustomValidator } from '../../custom.validators';
 @Component({
   selector: 'app-inkomst',
   templateUrl: './inkomst.component.html',
-  styleUrls: ['./inkomst.component.css']
+  styleUrls: ['./inkomst.component.scss']
 })
 export class InkomstComponent implements OnInit
 {

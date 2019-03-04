@@ -1,0 +1,170 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body
+{
+    height: 100vh;
+}
+
+.loading .mid
+{
+    height: 20vh;
+    background-color: #607D8B;
+    color: #607D8B;
+    font-weight: bold;
+}
+
+input
+{
+    background-clip: padding-box;
+    background-color: #F5F6F7;
+    border: 1px solid #CED4DA;
+    border-radius: 0.25rem;
+    color: #495057;
+    display: block;
+    font-size: 1rem;
+    height: calc(2.25rem + 2px);
+    line-height: 1.5;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    width: 100%;
+}
+
+input:focus
+{
+    background-color: #F5F6F7;
+    border-color: #CFD8DC;
+    box-shadow: 0px 0px 10px 2px #CFD8DC;
+    color: #495057;
+    outline: 0;
+}
+
+thead
+{
+    background-color: #455A64;
+    color: #FFFFFF;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.btn
+{
+    background-color: #455A64;
+    color: #FFFFFF;
+	border-radius: 0px;
+}
+
+.btn:hover
+{
+    background-color: #607D8B;
+	color: #FFFFFF;
+}
+
+.dialog-add .mat-dialog-container
+{
+    background-color: #E0E1E2;
+    border-radius: 0px;
+    color: #212121;
+    min-width: 400px;
+    padding: 0px 0px 15px 0px;
+}
+
+.dialog-add .mat-dialog-container form
+{
+    padding: 15px;
+}
+
+.dialog-add .buttongroup-top
+{
+    padding: 0px 0px 0px 15px;
+}
+
+.dialog-delete .mat-dialog-container
+{
+    background-color: #E0E1E2;
+    color: #212121;
+}
+
+.display-5
+{
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.display-6
+{
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+.mh-bg-dark
+{
+    background-color: #455A64;
+    color: #FFFFFF;
+}
+
+.mh-bg-med
+{
+    background-color: #607D8B;
+    color: #FFFFFF;
+}
+
+.mh-bg-light
+{
+    background-color: #F5F6F7;
+    color: #212121;
+}
+
+.hide
+{
+    display: none;
+}
+
+.selected
+{
+    background-color: #CFD8DC;
+    color: #212121;
+}
+
+.table
+{
+    table-layout: fixed;
+}
+
+.table tbody 
+{
+    display: block;
+    height: calc(100vh - 240px);
+    overflow-y: scroll;
+}
+
+.table tbody tr:hover, .selected:hover
+{
+    background-color: #CFD8DC;
+    cursor: pointer;
+}
+
+.table tbody tr
+{
+    border-bottom: 1px solid #455A64;
+}
+
+.table tbody td
+{
+    border-top: none;
+}
+
+.table thead
+{
+    display: block;
+}
+
+.table thead th
+{
+    border-bottom: none;
+    border-top: none;
+}

@@ -8,7 +8,7 @@ import { BaseEditComponent } from '../../base/base-edit.component';
 @Component({
   selector: 'app-persoon',
   templateUrl: './persoon.component.html',
-  styleUrls: ['./persoon.component.css']
+  styleUrls: ['./persoon.component.scss']
 })
 export class PersoonComponent extends BaseEditComponent implements OnInit {
 

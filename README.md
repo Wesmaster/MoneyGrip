@@ -1,4 +1,4 @@
-[C# .NET + Angular] MoneyGrip | Financiële administratie voor huishoudens
+## MoneyGrip | Financiële administratie voor huishoudens
 
 [![Documentation Status](https://readthedocs.org/projects/moneygrip/badge/?version=latest)](https://moneygrip.readthedocs.io/nl/latest/?badge=latest)
 ![Github](https://img.shields.io/github/license/wesmaster/moneygrip.svg?style=flat)
@@ -7,6 +7,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=coverage)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 
 #### User interface
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)
@@ -21,9 +22,9 @@
 - De opslaanknop op invuldialogen is nu uitgeschakeld zolang er nog niks is gewijzigd
 
 # Roadmap
-Hoogtepunten volgende versie
-
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
+Hoogtepunten volgende versie:
+
 - Filteren op categorie pagina
 - Labelspagina omzetten naar nieuwe Angular structuur
 - Scss gebruiken ipv css

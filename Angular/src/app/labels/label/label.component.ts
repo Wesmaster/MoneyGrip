@@ -5,13 +5,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LabelService } from '../label.service';
 import { CategorieService } from '../../categorieen/categorie.service';
 import { Categorie } from '../../categorieen/categorie/categorie';
+import { BaseEditComponent } from '../../base/base-edit.component';
 
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',
-  styleUrls: ['./label.component.css']
+  styleUrls: ['./label.component.scss']
 })
-export class LabelComponent implements OnInit
+export class LabelComponent extends BaseEditComponent implements OnInit
 {
   @Input() id: number;
   @Output() getChange = new EventEmitter<number>();
@@ -23,6 +24,8 @@ export class LabelComponent implements OnInit
   constructor(private service: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<LabelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
   {
+    super(dialogRef);
+
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -46,12 +49,8 @@ export class LabelComponent implements OnInit
 
   ngOnInit()
   {
-    this.changePosition();
-  }
-
-  changePosition()
-  {
-    this.dialogRef.updatePosition({top: '5%', left: '40%'});
+    this.setDialogSize();
+    this.changeDialogPosition();
   }
 
   createForm()

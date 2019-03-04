@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-begroting',
   templateUrl: './begroting.component.html',
-  styleUrls: ['./begroting.component.css']
+  styleUrls: ['./begroting.component.scss']
 })
 export class BegrotingComponent implements OnInit
 {

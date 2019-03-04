@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'titel',
   templateUrl: './titel.component.html',
-  styleUrls: ['./titel.component.css']
+  styleUrls: ['./titel.component.scss']
 })
 export class TitelComponent implements OnInit {
 

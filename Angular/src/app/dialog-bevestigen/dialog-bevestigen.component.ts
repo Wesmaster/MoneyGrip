@@ -10,7 +10,7 @@ export interface DialogData {
 @Component({
   selector: 'app-dialog-bevestigen',
   templateUrl: './dialog-bevestigen.component.html',
-  styleUrls: ['./dialog-bevestigen.component.css']
+  styleUrls: ['./dialog-bevestigen.component.scss']
 })
 export class DialogBevestigenComponent implements OnInit {
 

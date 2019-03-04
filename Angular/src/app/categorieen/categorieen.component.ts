@@ -9,7 +9,7 @@ import { CategorieType } from './type.enum';
 @Component({
   selector: 'app-categorieen',
   templateUrl: './categorieen.component.html',
-  styleUrls: ['./categorieen.component.css']
+  styleUrls: ['./categorieen.component.scss']
 })
 export class CategorieenComponent implements OnInit
 {
@@ -19,6 +19,7 @@ export class CategorieenComponent implements OnInit
   rowSelected: boolean;
   buttonText = "Categorie";
   searchText: string;
+  zoekResultaat: Categorie[];
 
   constructor(private service: CategorieService, public dialog: MatDialog)
   {
@@ -34,7 +35,7 @@ export class CategorieenComponent implements OnInit
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items; this.items = items});
   }
 
   onSelect(item: Categorie): void
@@ -104,5 +105,10 @@ export class CategorieenComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek() : void
+  {
+    this.zoekResultaat = this.items.filter(item => new RegExp(this.searchText, 'gi').test(item.naam) || new RegExp(this.searchText, 'gi').test(CategorieType[item.type]));
   }
 }
