@@ -7,6 +7,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_api&metric=coverage)](https://sonarcloud.io/dashboard?id=MoneyGrip_api)
 
 #### User interface
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=MoneyGrip_web&metric=alert_status)](https://sonarcloud.io/dashboard?id=MoneyGrip_web)

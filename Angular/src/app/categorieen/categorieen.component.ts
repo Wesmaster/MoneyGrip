@@ -9,7 +9,7 @@ import { CategorieType } from './type.enum';
 @Component({
   selector: 'app-categorieen',
   templateUrl: './categorieen.component.html',
-  styleUrls: ['./categorieen.component.css']
+  styleUrls: ['./categorieen.component.scss']
 })
 export class CategorieenComponent implements OnInit
 {

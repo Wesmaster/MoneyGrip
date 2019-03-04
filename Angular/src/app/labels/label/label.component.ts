@@ -10,7 +10,7 @@ import { BaseEditComponent } from '../../base/base-edit.component';
 @Component({
   selector: 'app-label',
   templateUrl: './label.component.html',
-  styleUrls: ['./label.component.css']
+  styleUrls: ['./label.component.scss']
 })
 export class LabelComponent extends BaseEditComponent implements OnInit
 {

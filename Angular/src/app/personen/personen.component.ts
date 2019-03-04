@@ -4,33 +4,27 @@ import { Persoon } from './persoon/persoon';
 import { PersoonService } from './persoon.service';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { PersoonComponent } from './persoon/persoon.component';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-personen',
   templateUrl: './personen.component.html',
-  styleUrls: ['./personen.component.css']
+  styleUrls: ['./personen.component.scss']
 })
-export class PersonenComponent implements OnInit
+export class PersonenComponent extends BasisOverzichtComponent implements OnInit
 {
   items: Persoon[];
-  selectedId: number;
-  rowSelected: boolean;
   buttonText = "Persoon";
   searchText: string;
   titel = "Personen";
   docpage = this.titel.toLowerCase();
   tabelHeaders = ["Voornaam", "Achternaam"];
 
-  constructor(private service: PersoonService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog)
   {
-
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    super(service);
+    service.setAccessPointUrl('persoon');
   }
 
   getValue(item: Persoon, header: string)
@@ -41,39 +35,6 @@ export class PersonenComponent implements OnInit
   get(): void
   {
     this.service.getAll().subscribe(items => this.items = items.map(x => Object.assign(new Persoon(), x)));
-  }
-
-  onSelect(id: number): void
-  {
-    this.selectedId = id;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
   }
 
   openDeleteDialog(item: Persoon): void {
@@ -92,7 +53,7 @@ export class PersonenComponent implements OnInit
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(PersoonComponent, {
       data: id,

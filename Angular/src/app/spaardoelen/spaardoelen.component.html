@@ -1,7 +1,7 @@
 <div class="pagina">
   <div class="pagina-header row">
     <h4 class="display-4 col">Spaardoelen</h4>
-    <a class="col-1" href= "{{ read_the_docs }}moneygrip/spaardoelen.html" target="_blank"><i class="fas fa-question-circle fa-4x"></i></a>
+    <a class="col-1" href= "{{ read_the_docs }}moneygrip/spaardoelen.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
   </div> 
   <div class="buttongroup-top">
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
@@ -27,7 +27,7 @@
           <td class="col-2" (click)="onSelect(item)">{{ MaandenEnum[item.eersteMaand] }}</td>
           <td class="col-2" (click)="onSelect(item)">{{ MaandenEnum[item.laatsteMaand] }}</td>
           <td class="col" (click)="onSelect(item)">{{ item.omschrijving }}</td>
-          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+          <td class="col-sm-0-25 text-right"><em class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></em></td>
         </tr>
       </tbody>
     </table>

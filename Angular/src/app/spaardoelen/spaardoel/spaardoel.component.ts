@@ -12,7 +12,7 @@ import { Maanden } from '../../maanden.enum';
 @Component({
   selector: 'app-spaardoel',
   templateUrl: './spaardoel.component.html',
-  styleUrls: ['./spaardoel.component.css']
+  styleUrls: ['./spaardoel.component.scss']
 })
 export class SpaardoelComponent implements OnInit {
   @Input() id: number;

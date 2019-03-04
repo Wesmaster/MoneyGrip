@@ -5,7 +5,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'mg-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit
 {

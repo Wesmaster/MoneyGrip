@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'doclink',
   templateUrl: './doclink.component.html',
-  styleUrls: ['./doclink.component.css']
+  styleUrls: ['./doclink.component.scss']
 })
 export class DoclinkComponent implements OnInit {
 

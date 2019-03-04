@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json.Converters;
 
-public class OnlyDateConverter : IsoDateTimeConverter
+namespace MoneyGrip.Models
 {
-    public OnlyDateConverter()
+    public class OnlyDateConverter : IsoDateTimeConverter
     {
-        DateTimeFormat = "yyyy-MM-dd";
+        public OnlyDateConverter()
+        {
+            DateTimeFormat = "yyyy-MM-dd";
+        }
     }
 }

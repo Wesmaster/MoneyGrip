@@ -9,7 +9,7 @@ export interface DialogData {
 @Component({
   selector: 'app-dialog-melding',
   templateUrl: './dialog-melding.component.html',
-  styleUrls: ['./dialog-melding.component.css']
+  styleUrls: ['./dialog-melding.component.scss']
 })
 export class DialogMeldingComponent implements OnInit {
 

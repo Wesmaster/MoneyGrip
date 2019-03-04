@@ -1,6 +1,6 @@
 <div class="buttongroup-top">
   <span class="display-5">{{ titelText }}</span>
-  <app-button-annuleren></app-button-annuleren>
+  <app-button-annuleren class="button-annuleren"></app-button-annuleren>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-group row">
@@ -63,10 +63,10 @@
     <label for="factuur" class="col-sm-5 col-form-label">Factuur</label>
     <div class="col-sm-7 custom-file">
       <input type="file" class="own-custom-file-input" id="factuur" (change)="onFileChange($event)">
-      <label class="own-custom-file-label form-control" for="factuur"><i class="fas fa-file-upload"></i>{{ factuurText }}</label>
+      <label class="own-custom-file-label form-control" for="factuur"><em class="fas fa-file-upload"></em>{{ factuurText }}</label>
     </div>  
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><i class="fas fa-download"></i>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download"></em>Opslaan</button>
   </div>
 </form>

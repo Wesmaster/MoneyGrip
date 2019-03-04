@@ -14,7 +14,7 @@ import { CustomValidator } from '../../custom.validators';
 @Component({
   selector: 'app-contract',
   templateUrl: './contract.component.html',
-  styleUrls: ['./contract.component.css']
+  styleUrls: ['./contract.component.scss']
 })
 export class ContractComponent implements OnInit
 {

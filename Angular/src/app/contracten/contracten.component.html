@@ -28,8 +28,8 @@
           <td class="col-1" (click)="onSelect(item)">{{ item.begindatum | date: 'dd-MM-yyyy' }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ item.einddatum | date: 'dd-MM-yyyy' }}</td>
           <td class="col-1" (click)="onSelect(item)">{{ IntervalEnum[item.interval] }}</td>
-          <td class="col"><i class="fas fa-file-invoice" (click)="openDocument(item)" *ngIf="item.document"></i></td>
-          <td class="col-sm-0-25 text-right"><i class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></i></td>
+          <td class="col"><em class="fas fa-file-invoice" (click)="openDocument(item)" *ngIf="item.document"></em></td>
+          <td class="col-sm-0-25 text-right"><em class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></em></td>
         </tr>
       </tbody>
     </table>

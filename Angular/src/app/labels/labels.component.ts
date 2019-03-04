@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
-  styleUrls: ['./labels.component.css']
+  styleUrls: ['./labels.component.scss']
 })
 export class LabelsComponent implements OnInit
 {
@@ -22,8 +22,6 @@ export class LabelsComponent implements OnInit
   titel = "Labels";
   docpage = this.titel.toLowerCase();
   tabelHeaders = ["Categorie", "Naam"];
-
-  public read_the_docs: string = environment.read_the_docs;
 
   constructor(private service: LabelService, public dialog: MatDialog)
   {

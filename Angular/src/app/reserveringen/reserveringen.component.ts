@@ -10,7 +10,7 @@ import { CurrencyPipe } from '../currency.pipe';
 @Component({
   selector: 'app-reserveringen',
   templateUrl: './reserveringen.component.html',
-  styleUrls: ['./reserveringen.component.css']
+  styleUrls: ['./reserveringen.component.scss']
 })
 export class ReserveringenComponent implements OnInit {
 

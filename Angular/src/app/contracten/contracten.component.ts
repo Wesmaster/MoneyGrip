@@ -10,7 +10,7 @@ import { CurrencyPipe } from '../currency.pipe';
 @Component({
   selector: 'app-contracten',
   templateUrl: './contracten.component.html',
-  styleUrls: ['./contracten.component.css']
+  styleUrls: ['./contracten.component.scss']
 })
 export class ContractenComponent implements OnInit
 {
