@@ -73,7 +73,9 @@ export class InkomstComponent implements OnInit
     this.form = new FormGroup({
       id: new FormControl(0),
       laatstGewijzigd: new FormControl(''),
-      label: new FormControl(''),
+      label: new FormControl('',[
+        Validators.required
+      ]),
       persoon: new FormControl(''),
       bedrag: new FormControl('',[
         Validators.required,

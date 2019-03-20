@@ -5,13 +5,15 @@ import { CategorieService } from './categorie.service';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { CategorieType } from './type.enum';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-categorieen',
   templateUrl: './categorieen.component.html',
   styleUrls: ['./categorieen.component.scss']
 })
-export class CategorieenComponent implements OnInit
+export class CategorieenComponent extends BasisOverzichtComponent implements OnInit
 {
   items: Categorie[];
   TypeEnum: typeof CategorieType = CategorieType;
@@ -20,55 +22,24 @@ export class CategorieenComponent implements OnInit
   buttonText = "Categorie";
   searchText: string;
   zoekResultaat: Categorie[];
+  titel = "Categorieën";
+  docpage = this.titel.toLowerCase();
+  tabelHeaders = ["", "Naam", "Type"];
 
-  constructor(private service: CategorieService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog)
   {
-
+    super(service);
+    service.setAccessPointUrl('categorie');
   }
 
-  ngOnInit()
+  getValue(item: Categorie, header: string)
   {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    return item.getValue(header);
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => {this.zoekResultaat = items; this.items = items});
-  }
-
-  onSelect(item: Categorie): void
-  {
-    this.selectedId = item.id;
-    this.rowSelected = true;
-
-    this.openAddDialog(item.id);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Categorie(), x)); this.items = items.map(x => Object.assign(new Categorie(), x))});
   }
 
   openDeleteDialog(item: Categorie): void {

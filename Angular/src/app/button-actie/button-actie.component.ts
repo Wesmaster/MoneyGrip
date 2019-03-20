@@ -9,6 +9,7 @@ import { EventEmitter } from '@angular/core';
 export class ButtonActieComponent implements OnInit {
 
   @Input() buttonText: string;
+  @Input() disable: boolean;
   @Output() actieChange = new EventEmitter<boolean>();
 
   constructor() { }

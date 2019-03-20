@@ -20,11 +20,12 @@ namespace MoneyGrip.Models
                    (jaar < afloopDatum.Year || (jaar == afloopDatum.Year && maand <= afloopDatum.Month))
                    )
                 {
-                    bedrag += afschrijving.Aankoopbedrag * 100 / afschrijving.VerwachteLevensduur;
+                    int berekendBedrag = (afschrijving.Aankoopbedrag * 100 / afschrijving.VerwachteLevensduur + 50) / 100;
+                    bedrag += berekendBedrag;
                 }
             }
 
-            bedrag = bedrag / 100;
+           // bedrag = (bedrag + 50) / 100;
             return bedrag;
         }
     }

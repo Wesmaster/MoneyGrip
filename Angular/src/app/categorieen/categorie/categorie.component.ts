@@ -4,13 +4,14 @@ import { EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CategorieService } from '../categorie.service';
 import { CategorieType } from '../type.enum';
+import { BaseEditComponent } from '../../base/base-edit.component';
 
 @Component({
   selector: 'app-categorie',
   templateUrl: './categorie.component.html',
   styleUrls: ['./categorie.component.scss']
 })
-export class CategorieComponent implements OnInit {
+export class CategorieComponent extends BaseEditComponent implements OnInit {
 
   @Input() id: number;
   @Output() getChange = new EventEmitter<number>();
@@ -22,6 +23,8 @@ export class CategorieComponent implements OnInit {
   constructor(private service: CategorieService, public dialogRef: MatDialogRef<CategorieComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
   {
+    super(dialogRef);
+
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -50,12 +53,8 @@ export class CategorieComponent implements OnInit {
 
   ngOnInit()
   {
-    this.changePosition();
-  }
-
-  changePosition()
-  {
-    this.dialogRef.updatePosition({top: '5%', left: '40%'});
+    this.setDialogSize();
+    this.changeDialogPosition();
   }
 
   createForm()
