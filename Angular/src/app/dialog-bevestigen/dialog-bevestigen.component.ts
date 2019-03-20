@@ -21,7 +21,7 @@ export class DialogBevestigenComponent implements OnInit {
 
   ngOnInit()
   {
-    this.dialogRef.updateSize('30%', '25%');
+    this.dialogRef.updateSize('30%');
     this.changePosition();
   }
 

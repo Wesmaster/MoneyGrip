@@ -57,8 +57,8 @@ namespace MoneyGrip.Controllers
             begroting.reserveringen = await _context.Reservering.ToArrayAsync();
             begroting.afschrijvingen = await _context.Afschrijving.Where(a => a.Aankoopdatum.Year <= begroting.jaar && a.Aankoopdatum.AddMonths(a.VerwachteLevensduur).Year >= begroting.jaar).ToArrayAsync();
 
-            IQueryable<Spaardoel> doelEindBedrag = _context.Spaardoel.Include(s => s.LabelNavigation).Where(s => s.Percentage == null).OrderByDescending(s => s.Eindbedrag / (s.LaatsteMaand - s.EersteMaand));
-            IQueryable<Spaardoel> doelPercentage = _context.Spaardoel.Include(s => s.LabelNavigation).Where(s => s.Percentage != null).OrderBy(s => (s.LaatsteMaand - s.EersteMaand)).ThenByDescending(s => (s.Percentage));
+            IQueryable<Spaardoel> doelEindBedrag = _context.Spaardoel.Include(s => s.LabelNavigation).Where(s => s.Percentage == null).OrderByDescending(s => s.Eindbedrag / (s.LaatsteMaand - s.EersteMaand + 1));
+            IQueryable<Spaardoel> doelPercentage = _context.Spaardoel.Include(s => s.LabelNavigation).Where(s => s.Percentage != null).OrderBy(s => (s.LaatsteMaand - s.EersteMaand + 1)).ThenByDescending(s => (s.Percentage));
             begroting.spaardoelen = await doelEindBedrag.ToArrayAsync();
             begroting.spaardoelen = begroting.spaardoelen.Concat(await doelPercentage.ToArrayAsync()).ToArray();
 

@@ -30,7 +30,7 @@ export class NavMenuComponent {
   toonInfo()
   {
     const dialogRef = this.dialog.open(InfoComponent, {
-      data: {bericht: this.app_name + " is bedoeld om meer inzicht te krijgen over de financiële administratie binnen het huishouden", titel: this.app_name + " v" + this.version},
+      data: {bericht: this.app_name + " is bedoeld om meer grip te krijgen op de financiële administratie binnen het huishouden", titel: this.app_name + " v" + this.version},
       panelClass: 'dialog-delete',
       disableClose: true
     });

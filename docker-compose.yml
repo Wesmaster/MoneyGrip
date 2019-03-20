@@ -1,4 +1,4 @@
-version: '3'
+version: '2.4'
 services:
   web:
     image: "wesmaster/moneygrip_web:latest"
@@ -8,6 +8,8 @@ services:
     depends_on:
      - api
      - db
+    cpus: 0.5
+    mem_limit: 1000m
   api:
     image: "wesmaster/moneygrip_api:latest"
     container_name: moneygrip_api
@@ -15,6 +17,8 @@ services:
      - "5000:80"
     depends_on:
      - db
+    cpus: 0.5
+    mem_limit: 100m 
   db:
     image: "wesmaster/moneygrip_db:latest"
     container_name: moneygrip_db
@@ -22,3 +26,5 @@ services:
      - "1433"
     volumes:
      - C:\MoneyGrip\database:C:\data
+    cpus: 0.5
+    mem_limit: 1000m

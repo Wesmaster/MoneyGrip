@@ -46,6 +46,12 @@ import { BegrotingComponent } from './begroting/begroting.component';
 import { InfoComponent } from './info/info.component';
 import { BackupComponent } from './backup/backup.component';
 import { SharedModule } from './shared/shared.module';
+import { registerLocaleData } from '@angular/common';
+import localeNL from '@angular/common/locales/nl';
+import { LOCALE_ID } from '@angular/core';
+import { DialogLadenComponent } from './dialog-laden/dialog-laden.component';
+
+registerLocaleData(localeNL);
 
 @NgModule({
   declarations: [
@@ -82,7 +88,8 @@ import { SharedModule } from './shared/shared.module';
     SpaardoelComponent,
     BegrotingComponent,
     InfoComponent,
-    BackupComponent
+    BackupComponent,
+    DialogLadenComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -96,8 +103,8 @@ import { SharedModule } from './shared/shared.module';
     NgbModule,
     SharedModule
   ],
-  providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator],
+  providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent]
+  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent]
 })
 export class AppModule { }

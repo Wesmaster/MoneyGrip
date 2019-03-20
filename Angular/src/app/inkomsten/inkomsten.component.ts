@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ModuleWithComponentFactories } from '@angular/core';
 import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Inkomst } from './inkomst/inkomst';
@@ -6,6 +6,7 @@ import { InkomstComponent } from './inkomst/inkomst.component';
 import { InkomstService } from './inkomst.service';
 import { Interval } from '../interval.enum';
 import { CurrencyPipe } from '../currency.pipe';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-inkomsten',
@@ -21,6 +22,7 @@ export class InkomstenComponent implements OnInit
   rowSelected: boolean;
   buttonText = "Inkomst";
   searchText: string;
+  zoekResultaat: Inkomst[];
 
   constructor(private service: InkomstService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
@@ -36,7 +38,7 @@ export class InkomstenComponent implements OnInit
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items; this.items = items});
   }
 
   onSelect(item: Inkomst): void
@@ -117,5 +119,36 @@ export class InkomstenComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek() : void
+  {
+    this.zoekResultaat = this.items.filter(
+      item => new RegExp(this.searchText, 'gi').test(item.labelNavigation.naam) 
+      || (item.persoonNavigation !== null && new RegExp(this.searchText, 'gi').test(item.persoonNavigation.voornaam))
+      || (item.persoonNavigation !== null && new RegExp(this.searchText, 'gi').test(item.persoonNavigation.achternaam))
+      || (new Date(item.begindatum).setHours(0) <= this.parse(this.searchText).setHours(0) && ((item.einddatum == null && this.parse(this.searchText).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parse(this.searchText).setHours(0)))
+      );
+  }
+
+  showdate(datum: Date) : Date
+  {
+    alert(datum);
+    return datum;
+  }
+
+  parse(value: any): Date | null {
+    if ((typeof value === 'string') && (value.indexOf('-') > -1)) {
+      const str = value.split('-');
+
+      const year = Number(str[2]);
+      const month = Number(str[1]) - 1;
+      const date = Number(str[0]);
+
+      //alert(new Date(year, month, date));
+
+      return new Date(year, month, date);
+    }
+    return new Date(9999, 12, 31);
   }
 }

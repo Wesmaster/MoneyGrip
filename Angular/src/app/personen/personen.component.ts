@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
 import { Persoon } from './persoon/persoon';
-import { PersoonService } from './persoon.service';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { PersoonComponent } from './persoon/persoon.component';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';

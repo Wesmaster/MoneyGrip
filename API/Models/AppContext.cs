@@ -25,6 +25,7 @@ namespace MoneyGrip.Models
         public virtual DbSet<Reservering> Reservering { get; set; }
         public virtual DbSet<Afschrijving> Afschrijving { get; set; }
         public virtual DbSet<Spaardoel> Spaardoel { get; set; }
+        public virtual DbSet<BackupOverzicht> BackupOverzicht { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,6 +63,13 @@ namespace MoneyGrip.Models
                 entity.Property(e => e.Voornaam)
                     .IsRequired()
                     .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<BackupOverzicht>(entity =>
+            {
+                entity.Property(e => e.Bestandsnaam)
+                    .IsRequired()
+                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<Inkomst>(entity =>

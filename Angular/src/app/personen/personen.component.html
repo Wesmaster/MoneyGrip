@@ -7,7 +7,7 @@
     <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
   </div>
   <div>
-    <!--input [(ngModel)]="searchText" placeholder="Snel zoeken.." class="advancedSearchTextbox"-->
+    <!--input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox"-->
     <mg-table [headers]="tabelHeaders" [data]="items" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)"></mg-table>
   </div>
 </div>

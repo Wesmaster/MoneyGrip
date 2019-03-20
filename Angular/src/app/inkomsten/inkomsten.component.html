@@ -7,6 +7,7 @@
     <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
   </div>
   <div>
+    <input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox">
     <table class='table'>
       <thead>
         <tr class="d-flex">
@@ -20,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="d-flex" *ngFor="let item of items" [ngClass]="{'selected': item.id == selectedId}">
+        <tr class="d-flex" *ngFor="let item of zoekResultaat" [ngClass]="{'selected': item.id == selectedId}">
           <td class="col-1" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.naam }}</td>
           <td class="col-2" (click)="onSelect(item)">{{ item.persoonNavigation == null ? '' : item.persoonNavigation.voornaam }} {{ item.persoonNavigation == null ? '' : item.persoonNavigation.achternaam }}</td>
           <td class="col-1" (click)="onSelect(item)">€ {{ item.bedrag | customCurrency }}</td>
