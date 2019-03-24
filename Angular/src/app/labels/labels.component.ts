@@ -3,15 +3,15 @@ import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Label } from './label/label';
 import { LabelComponent } from './label/label.component';
-import { LabelService } from './label.service';
-import { environment } from '../../environments/environment';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
   styleUrls: ['./labels.component.scss']
 })
-export class LabelsComponent implements OnInit
+export class LabelsComponent extends BasisOverzichtComponent implements OnInit
 {
   items: Label[];
   selectedId: number;
@@ -22,60 +22,22 @@ export class LabelsComponent implements OnInit
   titel = "Labels";
   docpage = this.titel.toLowerCase();
   tabelHeaders = ["Categorie", "Naam"];
+  tabel: any[];
 
-  constructor(private service: LabelService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog)
   {
+    super(service);
+    service.setAccessPointUrl('label');
 
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  getValue(item: Label, header: string)
-  {
-    return item.getValue(header);
+    this.tabel = [
+      {kolomnaam: "Categorie", kolombreedte: 2},
+      {kolomnaam: "Naam", kolombreedte: 0},
+    ];
   }
 
   get(): void
   {
     this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Label(), x)); this.items = items.map(x => Object.assign(new Label(), x))});
-  }
-
-  onSelect(id: number): void
-  {
-    this.selectedId = id;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
   }
 
   openDeleteDialog(item: Label): void {
@@ -94,7 +56,7 @@ export class LabelsComponent implements OnInit
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(LabelComponent, {
       data: id,
@@ -114,8 +76,8 @@ export class LabelsComponent implements OnInit
     });
   }
 
-  zoek() : void
+  zoek(zoekTekst: string) : void
   {
-    this.zoekResultaat = this.items.filter(item => new RegExp(this.searchText, 'gi').test(item.naam) || new RegExp(this.searchText, 'gi').test(item.categorieNavigation.naam));
+    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi').test(item.categorieNavigation.naam));
   }
 }

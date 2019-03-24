@@ -1,35 +1,15 @@
 <div class="pagina">
   <div class="pagina-header row">
-    <h4 class="display-4 col">Afschrijvingen</h4>
-    <a class="col-1" href="{{ read_the_docs }}moneygrip/afschrijvingen.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
+    <titel class = "col" [naam]="titel"></titel>
+    <doclink class="col-1 doclink" [pagina]="docpage"></doclink>
   </div>
   <div class="buttongroup-top">
-    <app-button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></app-button-toevoegen>
+    <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
   </div>
-  <div class="statictable">
-    <table class='table'>
-      <thead>
-        <tr class="d-flex">
-          <th class="col-2 lead">Label</th>
-          <th class="col-2 lead">Aankoopdatum</th>
-          <th class="col-2 lead">Aankoopbedrag</th>
-          <th class="col-2 lead">Verwachte levensduur</th>
-          <th class="col-1 lead">Garantie</th>
-          <th class="col lead">Factuur</th>
-          <th class="col-sm-0-25"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="d-flex" *ngFor="let item of items" [ngClass]="{'selected': item.id == selectedId}">
-          <td class="col-2" (click)="onSelect(item)">{{ item.labelNavigation == null ? '' : item.labelNavigation.naam }}</td>
-          <td class="col-2" (click)="onSelect(item)">{{ item.aankoopdatum | date: 'dd-MM-yyyy' }}</td>
-          <td class="col-2" (click)="onSelect(item)">€ {{ item.aankoopbedrag | customCurrency }}</td>
-          <td class="col-2" (click)="onSelect(item)">{{ item.verwachteLevensduur }} maanden</td>
-          <td class="col-1" (click)="onSelect(item)">{{ item.garantie }}</td>
-          <td class="col"><em class="fas fa-file-invoice" (click)="openFactuur(item)" *ngIf="item.factuur"></em></td>
-          <td class="col-sm-0-25 text-right"><em class="fas fa-trash-alt" (click)="openDeleteDialog(item)"></em></td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="data-section">
+    <div class="customZoekbalk">
+      <zoekbalk (zoekTekst)="zoek($event)"></zoekbalk>
+    </div>
+    <mg-table [setupValues]="tabel" [data]="zoekResultaat" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)" (uitvoeren)="openFactuur($event)"></mg-table>
   </div>
 </div>

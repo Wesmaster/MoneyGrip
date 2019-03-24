@@ -2,15 +2,15 @@
   <thead>
     <tr class="d-flex scrollbar-padding">
       <th class="col-sm-0-50"></th>
-      <th class="col-1 lead" *ngFor="let header of headers">{{ header }}</th>
-      <th class="col"></th>
+      <th class="lead" [ngClass]="setup.kolombreedte === 0 ? 'col' : 'col-'+ setup.kolombreedte" *ngFor="let setup of setupValues">{{ setup.kolomnaam }}</th>
     </tr>
   </thead>
   <tbody>
     <tr class="d-flex" *ngFor="let item of data" [ngClass]="{'selected': item.id == selectedId}">
       <td class="col-sm-0-50"><em class="fas fa-trash-alt" (click)="onDelete(item)"></em></td>
-      <td class="col-1" (click)="onSelect(item)" *ngFor="let header of headers">{{ getValue(item, header) }}</td>
-      <td class="col" (click)="onSelect(item)"></td>
+      <td [ngClass]="setup.kolombreedte === 0 ? 'col' : 'col-'+ setup.kolombreedte" (click)="setup.icoon ? '' : onSelect(item)" *ngFor="let setup of setupValues">
+        <em [ngClass]="setup.icoon.class" (click)="voerActieUit(item)" *ngIf="setup.icoon && item.factuur"></em>{{ setup.icoon ? "" : getValue(item, setup.kolomnaam) }}
+      </td>
     </tr>
   </tbody>
 </table>

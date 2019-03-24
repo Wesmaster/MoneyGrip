@@ -8,7 +8,7 @@ import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-personen',
-  templateUrl: './personen.component.html',
+  templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./personen.component.scss']
 })
 export class PersonenComponent extends BasisOverzichtComponent implements OnInit
@@ -18,22 +18,23 @@ export class PersonenComponent extends BasisOverzichtComponent implements OnInit
   searchText: string;
   titel = "Personen";
   docpage = this.titel.toLowerCase();
-  tabelHeaders = ["Voornaam", "Achternaam"];
+  tabel: any[];
+  zoekResultaat: Persoon[];
 
   constructor(public service: BasisService, public dialog: MatDialog)
   {
     super(service);
     service.setAccessPointUrl('persoon');
-  }
 
-  getValue(item: Persoon, header: string)
-  {
-    return item.getValue(header);
+    this.tabel = [
+      {kolomnaam: "Voornaam", kolombreedte: 2},
+      {kolomnaam: "Achternaam", kolombreedte: 0}
+    ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items.map(x => Object.assign(new Persoon(), x)));
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Persoon(), x)); this.items = items.map(x => Object.assign(new Persoon(), x))});
   }
 
   openDeleteDialog(item: Persoon): void {
@@ -70,5 +71,10 @@ export class PersonenComponent extends BasisOverzichtComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek(zoekTekst: string) : void
+  {
+    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.voornaam) || new RegExp(zoekTekst, 'gi').test(item.achternaam));
   }
 }

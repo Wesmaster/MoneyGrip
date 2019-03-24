@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
 import { Categorie } from './categorie/categorie';
-import { CategorieService } from './categorie.service';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { CategorieType } from './type.enum';
@@ -58,7 +57,7 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(CategorieComponent, {
       data: id,
@@ -78,8 +77,8 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
     });
   }
 
-  zoek() : void
+  zoek(zoekTekst: string) : void
   {
-    this.zoekResultaat = this.items.filter(item => new RegExp(this.searchText, 'gi').test(item.naam) || new RegExp(this.searchText, 'gi').test(CategorieType[item.type]));
+    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi').test(CategorieType[item.type]));
   }
 }

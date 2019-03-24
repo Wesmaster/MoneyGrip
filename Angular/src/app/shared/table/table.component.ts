@@ -9,10 +9,11 @@ import { EventEmitter } from '@angular/core';
 })
 export class TableComponent implements OnInit
 {
-  @Input() headers: [];
+  @Input() setupValues: [];
   @Input() data: BasisBeheerOverzicht;
   @Output() selected = new EventEmitter<number>();
   @Output() verwijder = new EventEmitter<BasisBeheerOverzicht>();
+  @Output() uitvoeren = new EventEmitter<BasisBeheerOverzicht>();
 
   constructor()
   {
@@ -37,5 +38,10 @@ export class TableComponent implements OnInit
   onDelete(item: BasisBeheerOverzicht): void
   {
     this.verwijder.emit(item);
+  }
+
+  voerActieUit(item: BasisBeheerOverzicht): void
+  {
+    this.uitvoeren.emit(item);
   }
 }

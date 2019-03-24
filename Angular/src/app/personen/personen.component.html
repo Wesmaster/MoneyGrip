@@ -6,8 +6,10 @@
   <div class="buttongroup-top">
     <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
   </div>
-  <div>
-    <!--input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox"-->
-    <mg-table [headers]="tabelHeaders" [data]="items" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)"></mg-table>
+  <div class="data-section">
+    <div class="customZoekbalk">
+      <zoekbalk (zoekTekst)="zoek($event)"></zoekbalk>
+    </div>
+    <mg-table [setupValues]="tabel" [data]="zoekResultaat" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)"></mg-table>
   </div>
 </div>

@@ -46,6 +46,21 @@ export default abstract class BasisOverzichtComponent
       this.openAddDialog(this.selectedId);
     }
 
+    parseDatum(value: any): Date | null 
+    {
+      if ((typeof value === 'string') && (value.indexOf('-') > -1))
+      {
+        const str = value.split('-');
+  
+        const year = Number(str[2]);
+        const month = Number(str[1]) - 1;
+        const date = Number(str[0]);
+  
+        return new Date(year, month, date);
+      }
+      return new Date(9999, 12, 31);
+    }
+
     verwijderen(id: number): void
     {
       this.service.delete(id).subscribe(item => {

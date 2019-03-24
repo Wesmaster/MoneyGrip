@@ -3,69 +3,44 @@ import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Afschrijving } from './afschrijving/afschrijving';
 import { AfschrijvingComponent } from './afschrijving/afschrijving.component';
-import { AfschrijvingService } from './afschrijving.service';
 import { CurrencyPipe } from '../currency.pipe';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-afschrijvingen',
   templateUrl: './afschrijvingen.component.html',
   styleUrls: ['./afschrijvingen.component.scss']
 })
-export class AfschrijvingenComponent implements OnInit {
+export class AfschrijvingenComponent extends BasisOverzichtComponent implements OnInit 
+{
   items: Afschrijving[];
   selectedId: number;
   rowSelected: boolean;
   buttonText = "Afschrijving";
-  searchText: string;
+  zoekResultaat: Afschrijving[];
+  titel = "Afschrijvingen";
+  docpage = this.titel.toLowerCase();
+  tabel: any[];
 
-  constructor(private service: AfschrijvingService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
+    super(service);
+    service.setAccessPointUrl('afschrijving');
 
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    this.tabel = [
+      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Aankoopdatum", kolombreedte: 2},
+      {kolomnaam: "Aankoopbedrag", kolombreedte: 2},
+      {kolomnaam: "Verwachte levensduur", kolombreedte: 2},
+      {kolomnaam: "Garantie", kolombreedte: 1},
+      {kolomnaam: "Factuur", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
+    ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
-  }
-
-  onSelect(item: Afschrijving): void
-  {
-    this.selectedId = item.id;
-    this.rowSelected = true;
-
-    this.openAddDialog(item.id);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x))});
   }
 
   openFactuur(item: Afschrijving): void
@@ -120,5 +95,15 @@ export class AfschrijvingenComponent implements OnInit {
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek(zoekTekst: string): void
+  {
+    this.zoekResultaat = this.items.filter(
+      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam)
+      || (new Date(item.aankoopdatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0)
+        && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)
+        )
+    );
   }
 }

@@ -7,7 +7,9 @@
     <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
   </div>
   <div>
-    <input [(ngModel)]="searchText" (ngModelChange)="zoek($event)" placeholder="Snel zoeken.." class="advancedSearchTextbox">
+    <div class="customZoekbalk">
+      <zoekbalk (zoekTekst)="zoek($event)"></zoekbalk>
+    </div>
     <table class='table'>
       <thead>
         <tr class="d-flex">
