@@ -9,7 +9,7 @@
     <tr class="d-flex" *ngFor="let item of data" [ngClass]="{'selected': item.id == selectedId}">
       <td class="col-sm-0-50"><em class="fas fa-trash-alt" (click)="onDelete(item)"></em></td>
       <td [ngClass]="setup.kolombreedte === 0 ? 'col' : 'col-'+ setup.kolombreedte" (click)="setup.icoon ? '' : onSelect(item)" *ngFor="let setup of setupValues">
-        <em [ngClass]="setup.icoon.class" (click)="voerActieUit(item)" *ngIf="setup.icoon && item.factuur"></em>{{ setup.icoon ? "" : getValue(item, setup.kolomnaam) }}
+        <em [ngClass]="setup.icoon.class" (click)="voerActieUit(item)" *ngIf="setup.icoon && getValue(item, setup.kolomnaam)"></em>{{ setup.icoon ? "" : getValue(item, setup.kolomnaam) }}
       </td>
     </tr>
   </tbody>
