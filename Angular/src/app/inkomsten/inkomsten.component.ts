@@ -32,7 +32,7 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
     service.setAccessPointUrl('inkomst');
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 1},
+      {kolomnaam: "Label", kolombreedte: 2},
       {kolomnaam: "Persoon", kolombreedte: 2},
       {kolomnaam: "Bedrag", kolombreedte: 1},
       {kolomnaam: "Begindatum", kolombreedte: 1},

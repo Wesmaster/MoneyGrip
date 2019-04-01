@@ -33,7 +33,7 @@ export class BudgettenComponent extends BasisOverzichtComponent implements OnIni
 
     this.tabel = [
       {kolomnaam: "Categorie", kolombreedte: 2},
-      {kolomnaam: "Label", kolombreedte: 1},
+      {kolomnaam: "Label", kolombreedte: 2},
       {kolomnaam: "Bedrag", kolombreedte: 1},
       {kolomnaam: "Begindatum", kolombreedte: 1},
       {kolomnaam: "Einddatum", kolombreedte: 1},

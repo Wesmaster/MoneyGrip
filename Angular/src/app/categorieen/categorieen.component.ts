@@ -9,7 +9,7 @@ import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-categorieen',
-  templateUrl: './categorieen.component.html',
+  templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./categorieen.component.scss']
 })
 export class CategorieenComponent extends BasisOverzichtComponent implements OnInit
@@ -23,17 +23,18 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
   zoekResultaat: Categorie[];
   titel = "Categorieën";
   docpage = this.titel.toLowerCase();
-  tabelHeaders = ["", "Naam", "Type"];
+  tabel: any[];
 
   constructor(public service: BasisService, public dialog: MatDialog)
   {
     super(service);
     service.setAccessPointUrl('categorie');
-  }
 
-  getValue(item: Categorie, header: string)
-  {
-    return item.getValue(header);
+    this.tabel = [
+      {kolomnaam: "", kolombreedte: -99, icoon: {class: "fas fa-bookmark"}},
+      {kolomnaam: "Naam", kolombreedte: 2},
+      {kolomnaam: "Type", kolombreedte: 0},
+    ];
   }
 
   get(): void

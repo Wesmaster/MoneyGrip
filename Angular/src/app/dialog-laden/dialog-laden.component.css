@@ -1,7 +1,6 @@
 .fa, .fas
 {
   font-weight: 900;
-  font-family: "Font Awesome 5 Free";
   -webkit-font-smoothing: antialiased;
   display: inline-block;
   font-style: normal;
@@ -10,5 +9,4 @@
   line-height: 1;
   animation: rotate 1s ease-in-out 0s;
   color: #607D8B;
-  font-weight: bold;
 }
