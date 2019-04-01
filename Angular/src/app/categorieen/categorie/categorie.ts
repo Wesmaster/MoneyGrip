@@ -7,6 +7,7 @@ export class Categorie extends BasisBeheerOverzicht
   laatstGewijzigd: Date;
   naam: string;
   type: CategorieType;
+  kleur: string;
 
   getValue(value: string) : any
   {
@@ -18,7 +19,7 @@ export class Categorie extends BasisBeheerOverzicht
         break;
       case "Id": return this.id;
         break;
-      default: return "";
+      default: return this.kleur;
     }
   }
 }

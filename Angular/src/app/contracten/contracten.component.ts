@@ -3,72 +3,47 @@ import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Contract } from './contract/contract';
 import { ContractComponent } from './contract/contract.component';
-import { ContractService } from './contract.service';
 import { Interval } from '../interval.enum';
 import { CurrencyPipe } from '../currency.pipe';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-contracten',
   templateUrl: './contracten.component.html',
   styleUrls: ['./contracten.component.scss']
 })
-export class ContractenComponent implements OnInit
+export class ContractenComponent extends BasisOverzichtComponent implements OnInit
 {
   items: Contract[];
   IntervalEnum: typeof Interval = Interval;
   selectedId: number;
   rowSelected: boolean;
   buttonText = "Contract";
-  searchText: string;
+  zoekResultaat: Contract[];
+  titel = "Contracten";
+  docpage = this.titel.toLowerCase();
+  tabel: any[];
 
-  constructor(private service: ContractService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
+    super(service);
+    service.setAccessPointUrl('contract');
 
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    this.tabel = [
+      {kolomnaam: "Categorie", kolombreedte: 2},
+      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Bedrag", kolombreedte: 1},
+      {kolomnaam: "Begindatum", kolombreedte: 1},
+      {kolomnaam: "Einddatum", kolombreedte: 1},
+      {kolomnaam: "Interval", kolombreedte: 1},
+      {kolomnaam: "Document", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
+    ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
-  }
-
-  onSelect(item: Contract): void
-  {
-    this.selectedId = item.id;
-    this.rowSelected = true;
-
-    this.openAddDialog(item.id);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Contract(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Contract(this.customCurrency), x))});
   }
 
   openDocument(item: Contract): void
@@ -105,7 +80,7 @@ export class ContractenComponent implements OnInit
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(ContractComponent, {
       data: id,
@@ -123,5 +98,14 @@ export class ContractenComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek(zoekTekst: string): void
+  {
+    this.zoekResultaat = this.items.filter(
+      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
+      || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam)
+      || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
+    );
   }
 }

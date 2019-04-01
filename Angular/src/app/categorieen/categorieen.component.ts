@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
 import { Categorie } from './categorie/categorie';
-import { CategorieService } from './categorie.service';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { CategorieType } from './type.enum';
@@ -10,7 +9,7 @@ import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-categorieen',
-  templateUrl: './categorieen.component.html',
+  templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./categorieen.component.scss']
 })
 export class CategorieenComponent extends BasisOverzichtComponent implements OnInit
@@ -24,17 +23,18 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
   zoekResultaat: Categorie[];
   titel = "Categorieën";
   docpage = this.titel.toLowerCase();
-  tabelHeaders = ["", "Naam", "Type"];
+  tabel: any[];
 
   constructor(public service: BasisService, public dialog: MatDialog)
   {
     super(service);
     service.setAccessPointUrl('categorie');
-  }
 
-  getValue(item: Categorie, header: string)
-  {
-    return item.getValue(header);
+    this.tabel = [
+      {kolomnaam: "", kolombreedte: -99, icoon: {class: "fas fa-bookmark"}},
+      {kolomnaam: "Naam", kolombreedte: 2},
+      {kolomnaam: "Type", kolombreedte: 0},
+    ];
   }
 
   get(): void
@@ -58,7 +58,7 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(CategorieComponent, {
       data: id,
@@ -78,8 +78,8 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
     });
   }
 
-  zoek() : void
+  zoek(zoekTekst: string) : void
   {
-    this.zoekResultaat = this.items.filter(item => new RegExp(this.searchText, 'gi').test(item.naam) || new RegExp(this.searchText, 'gi').test(CategorieType[item.type]));
+    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi').test(CategorieType[item.type]));
   }
 }

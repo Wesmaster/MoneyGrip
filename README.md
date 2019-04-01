@@ -16,25 +16,24 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- Er kan nu gefilterd worden op de inkomsten pagina
-- Categoriepagina heeft de nieuwe Angular structuur
-- Backuppagina is gebruiksvriendelijker gemaakt
+- Er kan nu gefilterd worden op alle pagina's behalve de backup pagina
+- Alle pagina's hebben de nieuwe Angular structuur
+- De backup en herstel functionaliteit is gerepareerd
 - Styling is op verschillende punten verbeterd
 
-## Known issues
-- De backup en herstel functie werkt momenteel niet
-
 # Roadmap
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/WesMaster/MoneyGrip.svg?columns=To%20Do,In%20Progress,Done)](https://waffle.io/WesMaster/MoneyGrip) 
+
 Hoogtepunten volgende versie:
 
-- Backup en herstel functie repareren
-- Filteren op de afschrijvingen pagina
-- Alle pagina's naar nieuwe Angular structuur
-- Noodzaak assets onderzoeken
+- #124 Document verwijderen
+- #125 Gekoppeld document tonen in edit scherm
+- #104 Afschrijving laatste termijn berekening
+- #105 Logging toevoegen
+- #32 Interface verfrissen
 
 # MoneyGrip
-![Screen](https://raw.github.com/wesmaster/moneygrip/develop/Screen.png)
+![Categorieen](https://raw.github.com/wesmaster/moneygrip/develop/Categorieen.png)
+![Backup](https://raw.github.com/wesmaster/moneygrip/develop/Backup.png)
 ## Wat is het?
 MoneyGrip moet een handvat bieden voor het huishouden met de focus op de financiële kant.
 

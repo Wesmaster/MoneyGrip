@@ -3,16 +3,17 @@ import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Budget } from './budget/budget';
 import { BudgetComponent } from './budget/budget.component';
-import { BudgetService } from './budget.service';
 import { Interval } from '../interval.enum';
 import { CurrencyPipe } from '../currency.pipe';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-budgetten',
-  templateUrl: './budgetten.component.html',
+  templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./budgetten.component.scss']
 })
-export class BudgettenComponent implements OnInit
+export class BudgettenComponent extends BasisOverzichtComponent implements OnInit
 {
   items: Budget[];
   IntervalEnum: typeof Interval = Interval;
@@ -20,55 +21,29 @@ export class BudgettenComponent implements OnInit
   rowSelected: boolean;
   buttonText = "Budget";
   searchText: string;
+  zoekResultaat: Budget[];
+  titel = "Budgetten";
+  docpage = this.titel.toLowerCase();
+  tabel: any[];
 
-  constructor(private service: BudgetService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
+    super(service);
+    service.setAccessPointUrl('budget');
 
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    this.tabel = [
+      {kolomnaam: "Categorie", kolombreedte: 2},
+      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Bedrag", kolombreedte: 1},
+      {kolomnaam: "Begindatum", kolombreedte: 1},
+      {kolomnaam: "Einddatum", kolombreedte: 1},
+      {kolomnaam: "Interval", kolombreedte: 0}
+    ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
-  }
-
-  onSelect(item: Budget): void
-  {
-    this.selectedId = item.id;
-    this.rowSelected = true;
-
-    this.openAddDialog(item.id);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Budget(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Budget(this.customCurrency), x))});
   }
 
   openDeleteDialog(item: Budget): void
@@ -94,7 +69,7 @@ export class BudgettenComponent implements OnInit
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(BudgetComponent, {
       data: id,
@@ -112,5 +87,14 @@ export class BudgettenComponent implements OnInit
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek(zoekTekst: string): void
+  {
+    this.zoekResultaat = this.items.filter(
+      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
+      || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam) 
+      || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
+    );
   }
 }

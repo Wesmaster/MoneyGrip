@@ -3,74 +3,48 @@ import { MatDialog} from '@angular/material';
 import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Spaardoel } from './spaardoel/spaardoel';
 import { SpaardoelComponent } from './spaardoel/spaardoel.component';
-import { SpaardoelService } from './spaardoel.service';
 import { CurrencyPipe } from '../currency.pipe';
 import { Maanden } from '../maanden.enum';
 import { environment } from '../../environments/environment';
+import BasisOverzichtComponent  from '../base/basis-overzicht.component';
+import { BasisService } from '../base/basis.service';
 
 @Component({
   selector: 'app-spaardoelen',
-  templateUrl: './spaardoelen.component.html',
+  templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./spaardoelen.component.scss']
 })
-export class SpaardoelenComponent implements OnInit {
+export class SpaardoelenComponent extends BasisOverzichtComponent implements OnInit {
   items: Spaardoel[];
   selectedId: number;
   rowSelected: boolean;
   buttonText = "Spaardoel";
-  searchText: string;
   MaandenEnum: typeof Maanden = Maanden;
+  zoekResultaat: Spaardoel[];
+  titel = "Spaardoelen";
+  docpage = this.titel.toLowerCase();
+  tabel: any[];
 
   public read_the_docs: string = environment.read_the_docs;
 
-  constructor(private service: SpaardoelService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
+    super(service);
+    service.setAccessPointUrl('spaardoel');
 
-  }
-
-  ngOnInit()
-  {
-    this.get();
-    this.selectedId = null;
-    this.rowSelected = false;
+    this.tabel = [
+      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Percentage", kolombreedte: 1},
+      {kolomnaam: "Eindbedrag", kolombreedte: 1},
+      {kolomnaam: "Eerste maand", kolombreedte: 2},
+      {kolomnaam: "Laatste maand", kolombreedte: 2},
+      {kolomnaam: "Omschrijving", kolombreedte: 0}
+    ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => this.items = items);
-  }
-
-  onSelect(item: Spaardoel): void
-  {
-    this.selectedId = item.id;
-    this.rowSelected = true;
-
-    this.openAddDialog(item.id);
-  }
-
-  afterEdit(id): void
-  {
-    if(id !== null)
-    {
-      this.get();
-    }
-    this.selectedId = null;
-    this.rowSelected = false;
-  }
-
-  add(): void
-  {
-    this.selectedId = 0;
-    this.rowSelected = true;
-
-    this.openAddDialog(this.selectedId);
-  }
-
-  verwijderen(id): void
-  {
-    this.service.delete(id).subscribe(item => {
-      this.afterEdit(id);
-    });
+    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Spaardoel(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Spaardoel(this.customCurrency), x))});
   }
 
   openDeleteDialog(item: Spaardoel): void
@@ -102,7 +76,7 @@ export class SpaardoelenComponent implements OnInit {
     });
   }
 
-  openAddDialog(id): void
+  openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(SpaardoelComponent, {
       data: id,
@@ -120,5 +94,19 @@ export class SpaardoelenComponent implements OnInit {
         this.afterEdit(null);
       }
     });
+  }
+
+  zoek(zoekTekst: string): void
+  {
+    this.zoekResultaat = this.items.filter(
+      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
+      || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
+      || (item.eersteMaand <= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)] && item.laatsteMaand >= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)])
+    );
+  }
+
+  maakEersteLetterHoofdletter(tekst: string): string
+  {
+    return tekst.charAt(0).toUpperCase() + tekst.slice(1);
   }
 }
