@@ -13,6 +13,7 @@ export class Contract
     einddatum: Date;
     interval: Interval;
     document: string;
+    documentNaam: string;
     labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
@@ -34,6 +35,8 @@ export class Contract
         case "Interval": return Interval[this.interval];
           break;
         case "Document": return this.document;
+          break;
+        case "DocumentNaam": return this.documentNaam;
           break;
         case "Id": return this.id;
           break;

@@ -10,6 +10,7 @@ namespace MoneyGrip.Models
         public DateTime LaatstGewijzigd { get; set; }
         public int? Label { get; set; }
         public byte[] Document { get; set; }
+        public string DocumentNaam { get; set; }
 
         public Label LabelNavigation { get; set; }
     }

@@ -1,6 +1,13 @@
+@import './basis';
+
+.btn
+{
+    min-width: 60px;
+}
+
 .btn:focus
 {
-    border-color: #CFD8DC;
+    border-color: $color1;
     box-shadow: 0px 0px 10px 2px #CFD8DC;
     outline: 0;
 }

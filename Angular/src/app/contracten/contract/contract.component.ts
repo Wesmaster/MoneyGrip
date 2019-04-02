@@ -46,7 +46,7 @@ export class ContractComponent implements OnInit
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: "", documentNaam: ""});
     }
     else
     {
@@ -98,7 +98,8 @@ export class ContractComponent implements OnInit
       interval: new FormControl('',[
         Validators.required
       ]),
-      document: new FormControl('')
+      document: new FormControl(''),
+      documentNaam: new FormControl('')
     }, {validators: this.customValidator.dateLessThanValidator()});
   }
 
@@ -111,14 +112,16 @@ export class ContractComponent implements OnInit
     });
   }
 
-  onFileChange(event) {
+  onFileChange(event) 
+  {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.form.get('document').setValue(reader.result.toString().split(",")[1])
-        this.documentText = file.name;
+        this.form.get('document').setValue(reader.result.toString().split(",")[1]);
+        this.form.get('documentNaam').setValue(file.name);
+        this.form.markAsDirty();
       };
     }
   }
@@ -152,5 +155,21 @@ export class ContractComponent implements OnInit
   getCategorieen()
   {
     this.categorieService.getAll().subscribe(items => this.categorieen = items);
+  }
+
+  verwijderDocument()
+  {
+    this.form.get('document').reset();
+    this.form.get('documentNaam').reset();
+    this.form.markAsDirty();
+  }
+
+  truncate(text: string)
+  {
+    if(text && text.length > 12)
+    {
+      return text.substring(0, 12) + '..';
+    }
+    return text;
   }
 }
