@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PersoonService } from '../persoon.service';
 import { EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { BaseEditComponent } from '../../base/base-edit.component';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-persoon',
@@ -17,6 +18,7 @@ export class PersoonComponent extends BaseEditComponent implements OnInit {
 
   form: FormGroup;
   titelText: string = "Persoon";
+  faDownload = faDownload;
 
   constructor(private service: PersoonService, public dialogRef: MatDialogRef<PersoonComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)

@@ -1,29 +1,13 @@
 @import '../../../basis';
 
-.col-025
+.iconDelete
 {
-  width: 2.08%;
-}
-
-.col--1
-{
-  width: 4.16%;
-}
-
-.fas
-{
-    color: $color1;
+    color: $red;
 }
 
 .scrollbar-padding
 {
     padding-right: 17px;
-}
-
-.selected:hover
-{
-    background-color: $color2-hover;
-    cursor: pointer;
 }
 
 .table
@@ -34,44 +18,47 @@
     tbody
     {
         display: block;
-        height: calc(100vh - 240px);
+        height: calc(100vh - 225px);
         overflow-y: scroll;
 
         td
         {
             border-top: none;
+            padding: .45rem;
+            &:hover
+            {
+                .iconDelete
+                {
+                    text-shadow: none;
+                    color: $primary;
+                }
+            }
         }
 
         tr
         {
-            border-bottom: 1px solid $color1;
+            border-bottom: 1px solid $bg-dark;
             &:hover
             {
-                background-color: $color2-hover;
-                color: $color2;
+                background-color: $bg-medium;
+                color: $text-dark;
                 cursor: pointer;
-            }
-
-            .fas
-            {
-                &:hover
-                {
-                    color: $color2;
-                }
             }
         }
     }
 
     thead
     {
-        background-color: $color1;
-        color: $color1-text;
+        background-color: $primary;
+        color: $text-light;
         display: block;
 
         th
         {
             border-bottom: none;
             border-top: none;
+            padding-left: .45rem;
+            padding-right: .45rem;
         }
     }
 }

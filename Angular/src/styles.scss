@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import './basis';
 
 html, body
 {
@@ -8,18 +9,20 @@ html, body
 .loading .mid
 {
     height: 20vh;
-    background-color: #607D8B;
-    color: #607D8B;
+    color: $secondary;
     font-weight: bold;
 }
 
 input
 {
     background-clip: padding-box;
-    background-color: #F5F6F7;
-    border: 1px solid #CED4DA;
-    border-radius: 0.25rem;
-    color: #495057;
+    background-color: $input-dark;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid $bg-dark;
+    border-radius: 0px;
+    color: $text-dark;
     display: block;
     font-size: 1rem;
     height: calc(2.25rem + 2px);
@@ -31,17 +34,39 @@ input
 
 input:focus
 {
-    background-color: #F5F6F7;
-    border-color: #CFD8DC;
-    box-shadow: 0px 0px 10px 2px #CFD8DC;
-    color: #495057;
+    background-color: $input-dark;
+    border-color: $secondary;
+    color: $text-dark;
     outline: 0;
 }
 
+button[type=submit]
+{
+    background-color: $green;
+    color: $text-light;
+
+    &:hover
+    {
+        background-color: $secondary;
+        color: $text-light;
+    }
+}
+
+.btn:focus
+{
+    box-shadow: none;
+    outline: 0;
+}
+
+.dropdown:hover>.dropdown-menu {
+    display: block;
+    margin: -50px 0px 0px 100%;
+  }
+
 thead
 {
-    background-color: #455A64;
-    color: #FFFFFF;
+    background-color: $primary;
+    color: $text-light;
 }
 
 .bold
@@ -51,22 +76,38 @@ thead
 
 .btn
 {
-    background-color: #455A64;
-    color: #FFFFFF;
 	border-radius: 0px;
 }
 
 .btn:hover
 {
-    background-color: #607D8B;
-	color: #FFFFFF;
+    background-color: $primary;
+    color: $text-light;
+}
+
+.btn-confirm
+{
+    background-color: $green;
+    color: $text-light;
+}
+
+.btn-cancel
+{
+    background-color: $red;
+    color: $text-light;
+}
+
+.btn-general
+{
+    background-color: $grey;
+    color: $text-dark;
 }
 
 .dialog-add .mat-dialog-container
 {
-    background-color: #E0E1E2;
+    background-color: $bg-light;
     border-radius: 0px;
-    color: #212121;
+    color: $text-dark;
     min-width: 400px;
     max-width: 400px;
     padding: 0px 0px 15px 0px;
@@ -84,9 +125,9 @@ thead
 
 .dialog-delete .mat-dialog-container
 {
-    background-color: #E0E1E2;
+    background-color: $bg-light;
     border-radius: 0px;
-    color: #212121;
+    color: $text-dark;
     padding: 15px;
 }
 
@@ -112,20 +153,20 @@ thead
 
 .mh-bg-dark
 {
-    background-color: #455A64;
-    color: #FFFFFF;
+    background-color: $bg-dark;
+    color: $text-light;
 }
 
 .mh-bg-med
 {
-    background-color: #607D8B;
-    color: #FFFFFF;
+    background-color: $bg-medium;
+    color: $text-light;
 }
 
 .mh-bg-light
 {
-    background-color: #F5F6F7;
-    color: #212121;
+    background-color: $bg-light;
+    color: $text-dark;
 }
 
 .hide
@@ -133,47 +174,17 @@ thead
     display: none;
 }
 
-.selected
+.row
 {
-    background-color: #CFD8DC;
-    color: #212121;
+    flex-wrap: nowrap;
 }
 
-.table
+.col--2
 {
-    table-layout: fixed;
+  width: 2.08%;
 }
 
-.table tbody 
+.col--1
 {
-    display: block;
-    height: calc(100vh - 240px);
-    overflow-y: scroll;
-}
-
-.table tbody tr:hover, .selected:hover
-{
-    background-color: #CFD8DC;
-    cursor: pointer;
-}
-
-.table tbody tr
-{
-    border-bottom: 1px solid #455A64;
-}
-
-.table tbody td
-{
-    border-top: none;
-}
-
-.table thead
-{
-    display: block;
-}
-
-.table thead th
-{
-    border-bottom: none;
-    border-top: none;
+  width: 4.16%;
 }

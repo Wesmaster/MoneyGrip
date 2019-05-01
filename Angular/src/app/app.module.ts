@@ -50,6 +50,7 @@ import { registerLocaleData } from '@angular/common';
 import localeNL from '@angular/common/locales/nl';
 import { LOCALE_ID } from '@angular/core';
 import { DialogLadenComponent } from './dialog-laden/dialog-laden.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(localeNL);
 
@@ -101,7 +102,8 @@ registerLocaleData(localeNL);
     BrowserAnimationsModule,
     MatInputModule,
     NgbModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}],
   bootstrap: [AppComponent],

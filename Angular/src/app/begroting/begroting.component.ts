@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BegrotingService } from './begroting.service';
 import { Begroting } from './begroting';
-import { environment } from '../../environments/environment';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-begroting',
@@ -22,8 +22,9 @@ export class BegrotingComponent implements OnInit
   uitgaven: Begroting;
   begroting: Begroting[] = [];
   filterOptie: number;
+  titel: string = "Begroting";
 
-  public read_the_docs: string = environment.read_the_docs;
+  faCheck = faCheck;
 
   constructor(private service: BegrotingService)
   {
@@ -44,7 +45,7 @@ export class BegrotingComponent implements OnInit
     });
   }
 
-  getResultaat(maand): number
+  getResultaat(maand: number): number
   {
     var resultaat;
     switch(maand)
@@ -59,7 +60,7 @@ export class BegrotingComponent implements OnInit
     return resultaat;
   }
 
-  berekenen(jaar): void
+  berekenen(jaar: number): void
   {
     this.service.get(jaar).subscribe(item => {
       this.resultaat = item["resultaat"];

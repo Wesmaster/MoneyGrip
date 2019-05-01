@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ContractService } from '../contract.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
@@ -10,6 +10,7 @@ import { Categorie } from '../../categorieen/categorie/categorie';
 import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
+import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-contract',
@@ -26,8 +27,10 @@ export class ContractComponent implements OnInit
   categorieen: Categorie[] = [];
   intervalEnum = Interval;
   selectedCategorie: number;
-  documentText: string = "Kies document";
   titelText: string = "Contract";
+  faFileUpload = faFileUpload;
+  faTimesCircle = faTimesCircle;
+  faDownload = faDownload;
 
   constructor(private service: ContractService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ContractComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
@@ -162,14 +165,5 @@ export class ContractComponent implements OnInit
     this.form.get('document').reset();
     this.form.get('documentNaam').reset();
     this.form.markAsDirty();
-  }
-
-  truncate(text: string)
-  {
-    if(text && text.length > 12)
-    {
-      return text.substring(0, 12) + '..';
-    }
-    return text;
   }
 }

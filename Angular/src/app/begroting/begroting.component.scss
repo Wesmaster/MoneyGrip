@@ -1,9 +1,10 @@
+@import '../../beheer-overzicht.scss';
 @import '../../beheer-editor.scss';
 @import '../../basis';
 
 .filterbar
 {
-    padding: 0px 0px 15px 0px;
+    padding: 0px 0px 10px 0px;
     width: 100%;
 }
 
@@ -20,25 +21,20 @@
 
 .table tbody tr:hover, .selected:hover
 {
-    background-color: #CFD8DC;
-    color: #212121;
-    cursor: default;
+    background-color: $secondary;
+    color: $text-light;
+    cursor: pointer;
 }
 
 .table tbody td:hover
 {
-    font-weight: bold;
-    cursor: pointer;
+    text-decoration: underline;
 }
 
 .negative
 {
-    color: #8D021F;
-}
-
-.inkomst
-{
-    background-color: #9DC183;
+    color: $red;
+   // color: #8D021F;
 }
 
 .table tbody {
@@ -55,28 +51,62 @@
 
 .begroting-spaardoelen tbody
 {
-    height: calc(100vh - 465px);
+    height: calc(100vh - 440px);
     display: block;
     overflow-y: auto;
 }
 
-.fa-check
+.iconCheck
 {
-    color: #9DC183;
-}
-
-.pagina-header a
-{
-    padding-top: 15px;
-    text-align: right;
-}
-
-.fa-question-circle
-{
-    color: #455A64;
+    color: $green;
+    margin-right: 15px;
+    //color: #9DC183;
 }
 
 .totaal
 {
-    background-color: $color2-hover;
+    background-color: $bg-medium;
+    color: $text-dark;
+}
+
+.table
+{
+    margin-bottom: 0px;
+    table-layout: fixed;
+
+    tbody
+    {
+        display: block;
+        overflow-y: scroll;
+
+        td
+        {
+            border-top: none;
+            padding: .45rem;
+        }
+
+        tr
+        {
+            border-bottom: 1px solid $bg-dark;
+            &:hover
+            {
+                background-color: $bg-medium;
+                color: $text-dark;
+                cursor: pointer;
+            }
+        }
+    }
+
+    thead
+    {
+        background-color: $primary;
+        color: $text-light;
+        display: block;
+
+        th
+        {
+            border-bottom: none;
+            border-top: none;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ReserveringService } from '../reservering.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
@@ -9,6 +9,7 @@ import { CategorieService } from '../../categorieen/categorie.service';
 import { Categorie } from '../../categorieen/categorie/categorie';
 import { Maanden } from '../../maanden.enum';
 import { CurrencyPipe } from '../../currency.pipe';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-reservering',
@@ -26,6 +27,7 @@ export class ReserveringComponent implements OnInit {
   maandenEnum = Maanden;
   selectedCategorie: number;
   titelText: string = "Reservering";
+  faDownload = faDownload;
 
   constructor(private service: ReserveringService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ReserveringComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe)

@@ -33,9 +33,9 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
     this.tabel = [
       {kolomnaam: "Categorie", kolombreedte: 2},
       {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Bedrag", kolombreedte: 1},
-      {kolomnaam: "Begindatum", kolombreedte: 1},
-      {kolomnaam: "Einddatum", kolombreedte: 1},
+      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Begindatum", kolombreedte: 1, align: "center"},
+      {kolomnaam: "Einddatum", kolombreedte: 1, align: "center"},
       {kolomnaam: "Interval", kolombreedte: 1},
       {kolomnaam: "Document", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
     ];
@@ -101,6 +101,7 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
 
   zoek(zoekTekst: string): void
   {
+      alert(zoekTekst);
     this.zoekResultaat = this.items.filter(
       item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
       || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam)

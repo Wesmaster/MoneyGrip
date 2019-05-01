@@ -17,6 +17,8 @@ namespace MoneyGrip.Models
 
         public Categorie CategorieNavigation { get; set; }
 
+   //     public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
+
         public ICollection<Inkomst> Inkomst { get; set; }
         public ICollection<Contract> Contract { get; set; }
         public ICollection<Budget> Budget { get; set; }

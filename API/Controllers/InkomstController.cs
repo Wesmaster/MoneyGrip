@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
@@ -24,7 +23,22 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<Inkomst> GetInkomst()
         {
-            return _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).OrderBy(l => l.LabelNavigation.Naam).ThenBy(l => l.PersoonNavigation.Achternaam).ThenBy(p => p.PersoonNavigation.Voornaam);
+
+         //   return _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).Include(i => i.InkomstLabels).OrderBy(l => l.LabelNavigation.Naam).ThenBy(l => l.PersoonNavigation.Achternaam).ThenBy(p => p.PersoonNavigation.Voornaam);
+
+            /*  return _context.Inkomst.Select(i => new Inkomst
+               {
+                   Id = i.Id,
+                   LaatstGewijzigd = i.LaatstGewijzigd,
+                   Persoon = i.PersoonNavigation.Id,
+                   Bedrag = i.Bedrag,
+                   Begindatum = i.Begindatum,
+                   Einddatum = i.Einddatum,
+                   Interval = i.Interval,
+                   InkomstLabels = i.InkomstLabels.Select(il => new InkomstLabel { LabelId = il.LabelId }).ToList()
+               });*/
+
+             return _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).OrderBy(l => l.LabelNavigation.Naam).ThenBy(l => l.PersoonNavigation.Achternaam).ThenBy(p => p.PersoonNavigation.Voornaam);
         }
 
         // GET: api/Inkomst/5
@@ -36,7 +50,7 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var inkomst = await _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            var inkomst = await _context.Inkomst.Include(s => s.PersoonNavigation).FirstOrDefaultAsync(i => i.Id == id);
 
             if (inkomst == null)
             {

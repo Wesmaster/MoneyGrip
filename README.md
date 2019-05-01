@@ -16,20 +16,17 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- Er kan nu gefilterd worden op alle pagina's behalve de backup pagina
-- Alle pagina's hebben de nieuwe Angular structuur
-- De backup en herstel functionaliteit is gerepareerd
-- Styling is op verschillende punten verbeterd
-
-# Roadmap
-
-Hoogtepunten volgende versie:
-
 - #124 Document verwijderen
 - #125 Gekoppeld document tonen in edit scherm
 - #104 Afschrijving laatste termijn berekening
 - #105 Logging toevoegen
 - #32 Interface verfrissen
+
+# Roadmap
+
+Hoogtepunten volgende versie:
+- #131 & #132 Meerdere labels ondersteunen
+- #109 Refactor backend begroting
 
 # MoneyGrip
 ![Categorieen](https://raw.github.com/wesmaster/moneygrip/develop/Categorieen.png)

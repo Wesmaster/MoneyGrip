@@ -1,1 +1,7 @@
 @import '../../button.scss';
+
+button
+{
+    background-color: $secondary;
+    color: $text-light;
+}

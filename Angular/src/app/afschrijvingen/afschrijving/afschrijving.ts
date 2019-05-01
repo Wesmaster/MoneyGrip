@@ -12,6 +12,7 @@ export class Afschrijving
     verwachteLevensduur: number;
     garantie: number;
     factuur: string;
+    factuurNaam: string;
     labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
@@ -31,6 +32,8 @@ export class Afschrijving
         case "Garantie": return this.garantie ? this.garantie + " maanden" : "";
           break;
         case "Factuur": return this.factuur;
+          break;
+        case "FactuurNaam": return this.factuurNaam;
           break;
         case "Id": return this.id;
           break;

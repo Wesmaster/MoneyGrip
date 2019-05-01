@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-button-verwijderen',
@@ -9,6 +10,7 @@ import { EventEmitter } from '@angular/core';
 export class ButtonVerwijderenComponent implements OnInit {
 
   @Output() verwijderChange = new EventEmitter<boolean>();
+  faTrashAlt = faTrashAlt;
 
   constructor() { }
 

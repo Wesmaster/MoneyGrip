@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-button-annuleren',
@@ -9,6 +10,7 @@ import { EventEmitter } from '@angular/core';
 export class ButtonAnnulerenComponent implements OnInit {
 
   @Output() annuleerChange = new EventEmitter<boolean>();
+  faTimes = faTimes;
 
   constructor() { }
 

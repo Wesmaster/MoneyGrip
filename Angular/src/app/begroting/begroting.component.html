@@ -1,8 +1,8 @@
 <div class="pagina">
   <div class="pagina-header row">
-    <h4 class="display-4 col">Begroting</h4>
-    <a class="col-1" href= "{{ read_the_docs }}moneygrip/begroting.html" target="_blank"><em class="fas fa-question-circle fa-4x"></em></a>
-  </div> 
+    <titel class = "col" [naam]="titel"></titel>
+    <doclink class="col-1 doclink" [pagina]="docpage"></doclink>
+  </div>
   <div class="filterbar row">
     <div class="col-sm-1">
       <select class="form-control" id="filter" [(ngModel)]="filterOptie">
@@ -78,7 +78,7 @@
       </thead>
       <tbody class="">
         <tr class="d-flex" *ngFor="let item of spaardoelen" [ngClass]="{'totaal': item.type == 'Totaal'}">
-          <td class="col" (click)="onSelect(item)" placement="top" ngbTooltip="{{(item.type.length>12 && item.eindbedrag > 0 && item.totaal >= item.eindbedrag) ? item.type :(item.type.length>15) ? item.type : ''}}"><em class="fas fa-check" *ngIf="item.eindbedrag > 0 && item.totaal >= item.eindbedrag"></em>{{ (item.type.length>12 && item.eindbedrag > 0 && item.totaal >= item.eindbedrag) ? (item.type | slice:0:12)+'..':(item.type.length>15) ? (item.type | slice:0:15)+'..':(item.type) }}</td>
+          <td class="col" (click)="onSelect(item)" placement="top" ngbTooltip="{{(item.type.length>12 && item.eindbedrag > 0 && item.totaal >= item.eindbedrag) ? item.type :(item.type.length>15) ? item.type : ''}}"><fa-icon [icon]="faCheck" class="iconCheck" *ngIf="item.eindbedrag > 0 && item.totaal >= item.eindbedrag"></fa-icon>{{ (item.type.length>12 && item.eindbedrag > 0 && item.totaal >= item.eindbedrag) ? (item.type | slice:0:12)+'..':(item.type.length>15) ? (item.type | slice:0:15)+'..':(item.type) }}</td>
           <td class="col-sm-1 text-right totaal" (click)="onSelect(item)">€ {{ item.totaal == null ? '' : item.totaal | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.januari < 0}">{{ item.januari == null ? '' : item.januari | customCurrency }}</td>
           <td class="col-sm-0-75 text-right" (click)="onSelect(item)" [ngClass]="{'negative': item.februari < 0}">{{ item.februari == null ? '' : item.februari | customCurrency }}</td>

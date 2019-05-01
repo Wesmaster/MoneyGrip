@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'zoekbalk',
   templateUrl: './zoekbalk.component.html',
-  styleUrls: ['./zoekbalk.component.css']
+  styleUrls: ['./zoekbalk.component.scss']
 })
 export class ZoekbalkComponent implements OnInit
 {

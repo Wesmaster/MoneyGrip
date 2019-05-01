@@ -1,4 +1,10 @@
-.fas
+@import '../../../basis';
+
+.fa-question-circle
 {
-    color: #455A64;
+    color: $secondary;
+    &:hover
+    {
+        color: $primary;
+    }
 }

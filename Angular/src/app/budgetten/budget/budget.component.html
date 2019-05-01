@@ -39,7 +39,7 @@
   <div class="form-group row">
     <label for="bedrag" class="col-sm-5 col-form-label">Bedrag</label>
     <div class="input-group col-sm-7">
-      <div class="input-group-prepend">
+      <div class="input-group-prepend" [ngClass]="form.get('bedrag').valid ? 'valid' : 'invalid'">
         <span class="input-group-text">€</span>
       </div>
       <input type="text" class="form-control" id="bedrag" formControlName="bedrag" [value]="form.get('bedrag').value | customCurrency" required>
@@ -61,14 +61,14 @@
     <label for="interval" class="col-sm-5 col-form-label">Interval</label>
     <div class="col-sm-7">
       <select class="form-control" id="interval" formControlName="interval" required>
-      <option *ngFor="let item of keys(intervalEnum)"
-              value={{intervalEnum[item]}}>
-        {{ item }}
-      </option>
-    </select>
+        <option *ngFor="let item of keys(intervalEnum)"
+                value={{intervalEnum[item]}}>
+          {{ item }}
+        </option>
+      </select>
     </div>  
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download"></em>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><fa-icon [icon]="faDownload" class="fas-margin"></fa-icon>Opslaan</button>
   </div>
 </form>

@@ -39,7 +39,7 @@
     <div class="form-group row">
       <label for="bedrag" class="col-sm-5 col-form-label">Bedrag</label>
       <div class="input-group col-sm-7">
-        <div class="input-group-prepend">
+        <div class="input-group-prepend" [ngClass]="form.get('bedrag').valid ? 'valid' : 'invalid'">
           <span class="input-group-text">€</span>
         </div>
         <input type="text" class="form-control" id="bedrag" formControlName="bedrag" [value]="form.get('bedrag').value | customCurrency" required>
@@ -72,13 +72,13 @@
       <label for="document" class="col-sm-5 col-form-label">Document</label>
       <div class="input-group col-sm-7">
         <input type="file" id="document" class="own-custom-file-input" (change)="onFileChange($event)">
-        <label class="own-custom-file-label form-control" for="document"><em class="fas fa-file-upload"></em>{{ truncate(form.get('documentNaam').value) }}</label>
-        <div class="input-group-append">
-          <button class="btn" type="button"><em class="fas fa-trash-alt" (click)="verwijderDocument()"></em></button>
+        <label class="own-custom-file-label form-control ellipsis" for="document"><fa-icon [icon]="faFileUpload" class="fas-margin iconUpload"></fa-icon>{{ form.get('documentNaam').value }}</label>
+        <div class="input-group-append" [ngClass]="form.get('documentNaam').valid ? 'optional' : 'invalid'">
+          <button class="btn delete" type="button"><fa-icon [icon]="faTimesCircle" class="iconDelete" (click)="verwijderDocument()"></fa-icon></button>
         </div>
       </div>
     </div>
     <div class="buttongroup-bottom">
-      <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download fas-margin"></em>Opslaan</button>
+      <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><fa-icon [icon]="faDownload" class="fas-margin"></fa-icon>Opslaan</button>
     </div>
   </form>

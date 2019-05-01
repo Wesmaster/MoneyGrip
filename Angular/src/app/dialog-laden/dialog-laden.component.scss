@@ -1,3 +1,5 @@
+@import '../../basis';
+
 .fa, .fas
 {
   font-weight: 900;
@@ -8,5 +10,5 @@
   text-rendering: auto;
   line-height: 1;
   animation: rotate 1s ease-in-out 0s;
-  color: #607D8B;
+  color: $secondary;
 }

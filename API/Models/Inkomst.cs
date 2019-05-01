@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace MoneyGrip.Models
 {
@@ -10,6 +11,7 @@ namespace MoneyGrip.Models
         public int? Label { get; set; }
         public int? Persoon { get; set; }
 
+     //   public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
         public Label LabelNavigation { get; set; }
         public Persoon PersoonNavigation { get; set; }
     }

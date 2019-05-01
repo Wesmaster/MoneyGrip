@@ -35,7 +35,7 @@
   <div class="form-group row">
     <label for="aankoopbedrag" class="col-sm-5 col-form-label">Aankoopbedrag</label>
     <div class="input-group col-sm-7">
-      <div class="input-group-prepend">
+      <div class="input-group-prepend" [ngClass]="form.get('aankoopbedrag').valid ? 'valid' : 'invalid'">
         <span class="input-group-text">€</span>
       </div>
       <input type="text" class="form-control" id="aankoopbedrag" formControlName="aankoopbedrag" [value]="form.get('aankoopbedrag').value | customCurrency" required>
@@ -45,7 +45,7 @@
     <label for="verwachteLevensduur" class="col-sm-5 col-form-label" placement="top" ngbTooltip="Verwachte levensduur" tooltipClass="custom-tooltip">Verw. levensduur</label>
     <div class="input-group col-sm-7">
       <input type="text" class="form-control" id="verwachteLevensduur" formControlName="verwachteLevensduur" required>
-      <div class="input-group-append">
+      <div class="input-group-append" [ngClass]="form.get('verwachteLevensduur').valid ? 'valid' : 'invalid'">
         <span class="input-group-text" id="verwachteLevensduur_addon">maanden</span>
       </div>
     </div>  
@@ -54,19 +54,22 @@
     <label for="garantie" class="col-sm-5 col-form-label">Garantie</label>
     <div class="input-group col-sm-7">
       <input type="text" class="form-control" id="garantie" formControlName="garantie">
-      <div class="input-group-append">
+      <div class="input-group-append" [ngClass]="form.get('garantie').valid ? 'optional' : 'invalid'">
         <span class="input-group-text" id="garantie_addon">maanden</span>
       </div>
     </div>  
   </div>
   <div class="form-group row">
     <label for="factuur" class="col-sm-5 col-form-label">Factuur</label>
-    <div class="col-sm-7 custom-file">
-      <input type="file" class="own-custom-file-input" id="factuur" (change)="onFileChange($event)">
-      <label class="own-custom-file-label form-control" for="factuur"><em class="fas fa-file-upload"></em>{{ factuurText }}</label>
-    </div>  
+    <div class="input-group col-sm-7">
+      <input type="file" id="factuur" class="own-custom-file-input" (change)="onFileChange($event)" value="form.get('factuurNaam').value">
+      <label class="own-custom-file-label form-control ellipsis" for="factuur"><fa-icon [icon]="faFileUpload" class="fas-margin iconUpload"></fa-icon>{{ form.get('factuurNaam').value }}</label>
+      <div class="input-group-append" [ngClass]="form.get('factuurNaam').valid ? 'optional' : 'invalid'">
+        <button class="btn delete" type="button"><fa-icon [icon]="faTimesCircle" class="iconDelete" (click)="verwijderDocument()"></fa-icon></button>
+      </div>
+    </div>
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download"></em>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><fa-icon [icon]="faDownload" class="fas-margin"></fa-icon>Opslaan</button>
   </div>
 </form>

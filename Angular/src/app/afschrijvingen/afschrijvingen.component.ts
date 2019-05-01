@@ -31,9 +31,9 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
     this.tabel = [
       {kolomnaam: "Label", kolombreedte: 2},
       {kolomnaam: "Aankoopdatum", kolombreedte: 2},
-      {kolomnaam: "Aankoopbedrag", kolombreedte: 2},
-      {kolomnaam: "Verwachte levensduur", kolombreedte: 2},
-      {kolomnaam: "Garantie", kolombreedte: 1},
+      {kolomnaam: "Aankoopbedrag", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Verwachte levensduur", kolombreedte: 2, align: "center"},
+      {kolomnaam: "Garantie", kolombreedte: 1, align: "center"},
       {kolomnaam: "Factuur", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
     ];
   }

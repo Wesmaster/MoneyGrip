@@ -24,7 +24,7 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<Spaardoel> GetSpaardoel()
         {
-            return _context.Spaardoel.Include(s => s.LabelNavigation).OrderBy(l => l.LabelNavigation.Naam);
+            return _context.Spaardoel.Include(s => s.LabelNavigation).OrderBy(s => s.LaatsteMaand).ThenBy(s => s.EersteMaand).ThenBy(l => l.LabelNavigation.Naam);
         }
 
         // GET: api/Spaardoel/5

@@ -14,14 +14,18 @@ namespace MoneyGrip.Models
             foreach (Afschrijving afschrijving in afschrijvingen)
             {
                 DateTime afloopDatum = afschrijving.Aankoopdatum.AddMonths(afschrijving.VerwachteLevensduur);
+                int maandBedrag = afschrijving.Aankoopbedrag / afschrijving.VerwachteLevensduur;
                 if (
                    (afschrijving.Aankoopdatum.Year < jaar || (afschrijving.Aankoopdatum.Year == jaar && afschrijving.Aankoopdatum.Month <= maand))
                    && 
-                   (jaar < afloopDatum.Year || (jaar == afloopDatum.Year && maand <= afloopDatum.Month))
+                   (jaar < afloopDatum.Year || (jaar == afloopDatum.Year && maand < afloopDatum.Month))
                    )
                 {
-                    int berekendBedrag = (afschrijving.Aankoopbedrag * 100 / afschrijving.VerwachteLevensduur + 50) / 100;
-                    bedrag += berekendBedrag;
+                    bedrag += maandBedrag;
+                }
+                else if(jaar == afloopDatum.Year && maand == afloopDatum.Month)
+                {
+                    bedrag += maandBedrag + (afschrijving.Aankoopbedrag - (maandBedrag * afschrijving.VerwachteLevensduur));
                 }
             }
 

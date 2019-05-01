@@ -30,7 +30,7 @@
     <label for="percentage" class="col-sm-5 col-form-label">Percentage</label>
     <div class="input-group col-sm-7">
       <input type="text" class="form-control" id="percentage" formControlName="percentage" [required]="!form.get('eindbedrag').value">
-      <div class="input-group-append">
+      <div class="input-group-append" [ngClass]="!form.get('eindbedrag').value ? form.get('percentage').valid && form.get('percentage').value ? 'valid' : 'invalid' : 'optional'">
         <span class="input-group-text">%</span>
       </div>
     </div>  
@@ -38,7 +38,7 @@
   <div class="form-group row">
     <label for="eindbedrag" class="col-sm-5 col-form-label">Eindbedrag</label>
     <div class="input-group col-sm-7">
-      <div class="input-group-prepend">
+      <div class="input-group-prepend" [ngClass]="!form.get('percentage').value ? form.get('eindbedrag').valid && form.get('eindbedrag').value ? 'valid' : 'invalid' : 'optional'">
         <span class="input-group-text">€</span>
       </div>
       <input type="text" class="form-control" id="eindbedrag" formControlName="eindbedrag" [value]="form.get('eindbedrag').value | customCurrency" [required]="!form.get('percentage').value">
@@ -73,6 +73,6 @@
     </div>  
   </div>
   <div class="buttongroup-bottom">
-    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><em class="fas fa-download"></em>Opslaan</button>
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><fa-icon [icon]="faDownload" class="fas-margin"></fa-icon>Opslaan</button>
   </div>
 </form>

@@ -10,6 +10,7 @@ import { Persoon } from '../../personen/persoon/persoon';
 import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-inkomst',
@@ -26,6 +27,7 @@ export class InkomstComponent implements OnInit
   personen: Persoon[];
   intervalEnum = Interval;
   titelText: string = "Inkomst";
+  faDownload = faDownload;
 
   constructor(private service: InkomstService, private labelService: LabelService, private persoonService: PersoonService, public dialogRef: MatDialogRef<InkomstComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)

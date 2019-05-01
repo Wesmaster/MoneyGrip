@@ -33,8 +33,8 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
     this.tabel = [
       {kolomnaam: "Categorie", kolombreedte: 2},
       {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Bedrag", kolombreedte: 1},
-      {kolomnaam: "Maand", kolombreedte: 1},
+      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Maand", kolombreedte: 1, align: "center"},
       {kolomnaam: "Omschrijving", kolombreedte: 0}
     ];
   }

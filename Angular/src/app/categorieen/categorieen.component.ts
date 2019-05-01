@@ -31,7 +31,7 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
     service.setAccessPointUrl('categorie');
 
     this.tabel = [
-      {kolomnaam: "", kolombreedte: -99, icoon: {class: "fas fa-bookmark"}},
+      {kolomnaam: "", kolombreedte: -2, icoon: {class: "fas fa-bookmark"}},
       {kolomnaam: "Naam", kolombreedte: 2},
       {kolomnaam: "Type", kolombreedte: 0},
     ];
