@@ -1,18 +1,20 @@
+@import './basis';
+
 .advancedSearchTextbox
 {
     border-radius: 0px;
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 .customZoekbalk
 {
-    margin: 0px 0px 15px 0px;
+    margin: 0px 0px 10px 0px;
 }
 
 .buttongroup-top
 {
     display: inline-block;
-    padding: 0px 0px 15px 0px;
+    padding: 0px 0px 10px 0px;
     width: 100%;
 }
 
@@ -33,7 +35,7 @@
 
 .fas
 {
-    color: #455A64;
+    color: $primary;
 }
 
 .pagina
@@ -44,17 +46,12 @@
 
 .table tbody tr:hover .fas:hover
 {
-    color: #607D8B;
-}
-
-.no-bg
-{
-    background-color: #FFFFFF;
+    color: $secondary;
 }
 
 .pagina-header a, .pagina-header .doclink
 {
-    padding-top: 15px;
+    padding-top: 10px;
     text-align: right;
 }
 

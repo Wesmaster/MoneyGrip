@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import BasisBeheerOverzicht from '../../basisBeheerOverzicht';
 import { EventEmitter } from '@angular/core';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'mg-table',
@@ -14,6 +15,8 @@ export class TableComponent implements OnInit
   @Output() selected = new EventEmitter<number>();
   @Output() verwijder = new EventEmitter<BasisBeheerOverzicht>();
   @Output() uitvoeren = new EventEmitter<BasisBeheerOverzicht>();
+
+  faTimesCircle = faTimesCircle;
 
   constructor()
   {

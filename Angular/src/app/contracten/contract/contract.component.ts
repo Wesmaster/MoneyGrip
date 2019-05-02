@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ContractService } from '../contract.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
@@ -10,6 +10,7 @@ import { Categorie } from '../../categorieen/categorie/categorie';
 import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
+import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-contract',
@@ -26,8 +27,10 @@ export class ContractComponent implements OnInit
   categorieen: Categorie[] = [];
   intervalEnum = Interval;
   selectedCategorie: number;
-  documentText: string = "Kies document";
   titelText: string = "Contract";
+  faFileUpload = faFileUpload;
+  faTimesCircle = faTimesCircle;
+  faDownload = faDownload;
 
   constructor(private service: ContractService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<ContractComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
@@ -46,7 +49,7 @@ export class ContractComponent implements OnInit
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: "", documentNaam: ""});
     }
     else
     {
@@ -98,7 +101,8 @@ export class ContractComponent implements OnInit
       interval: new FormControl('',[
         Validators.required
       ]),
-      document: new FormControl('')
+      document: new FormControl(''),
+      documentNaam: new FormControl('')
     }, {validators: this.customValidator.dateLessThanValidator()});
   }
 
@@ -111,14 +115,16 @@ export class ContractComponent implements OnInit
     });
   }
 
-  onFileChange(event) {
+  onFileChange(event) 
+  {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.form.get('document').setValue(reader.result.toString().split(",")[1])
-        this.documentText = file.name;
+        this.form.get('document').setValue(reader.result.toString().split(",")[1]);
+        this.form.get('documentNaam').setValue(file.name);
+        this.form.markAsDirty();
       };
     }
   }
@@ -152,5 +158,12 @@ export class ContractComponent implements OnInit
   getCategorieen()
   {
     this.categorieService.getAll().subscribe(items => this.categorieen = items);
+  }
+
+  verwijderDocument()
+  {
+    this.form.get('document').reset();
+    this.form.get('documentNaam').reset();
+    this.form.markAsDirty();
   }
 }

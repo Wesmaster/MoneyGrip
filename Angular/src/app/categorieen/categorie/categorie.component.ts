@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { CategorieService } from '../categorie.service';
 import { CategorieType } from '../type.enum';
 import { BaseEditComponent } from '../../base/base-edit.component';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-categorie',
@@ -19,6 +20,7 @@ export class CategorieComponent extends BaseEditComponent implements OnInit {
   form: FormGroup;
   typeEnum = CategorieType;
   titelText: string = "Categorie";
+  faDownload = faDownload;
 
   constructor(private service: CategorieService, public dialogRef: MatDialogRef<CategorieComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)

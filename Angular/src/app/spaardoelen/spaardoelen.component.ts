@@ -34,10 +34,10 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
 
     this.tabel = [
       {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Percentage", kolombreedte: 1},
-      {kolomnaam: "Eindbedrag", kolombreedte: 1},
-      {kolomnaam: "Eerste maand", kolombreedte: 2},
-      {kolomnaam: "Laatste maand", kolombreedte: 2},
+      {kolomnaam: "Percentage", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Eindbedrag", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Eerste maand", kolombreedte: 2, align: "center"},
+      {kolomnaam: "Laatste maand", kolombreedte: 2, align: "center"},
       {kolomnaam: "Omschrijving", kolombreedte: 0}
     ];
   }

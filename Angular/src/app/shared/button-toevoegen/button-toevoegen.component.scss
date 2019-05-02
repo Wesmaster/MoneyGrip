@@ -1,1 +1,19 @@
 @import '../../../button.scss';
+
+.btn-add
+{
+    background-color: $secondary;
+    color: $text-light;
+}
+
+.btn-add:hover
+{
+    background-color: $primary;
+    border-color: $primary;
+    color: $text-light;
+}
+
+.btn-add:focus
+{
+    border-color: $secondary;
+}

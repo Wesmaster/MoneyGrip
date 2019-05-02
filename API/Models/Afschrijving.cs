@@ -14,6 +14,7 @@ namespace MoneyGrip.Models
         public short VerwachteLevensduur { get; set; }
         public short? Garantie { get; set; }
         public byte[] Factuur { get; set; }
+        public string FactuurNaam { get; set; }
 
         public Label LabelNavigation { get; set; }
     }

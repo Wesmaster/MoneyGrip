@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AfschrijvingService } from '../afschrijving.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
 import { CurrencyPipe } from '../../currency.pipe';
+import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-afschrijving',
@@ -18,8 +19,10 @@ export class AfschrijvingComponent implements OnInit {
 
   form: FormGroup;
   labels: Label[] = [];
-  factuurText: string = "Kies factuur";
   titelText: string = "Afschrijving";
+  faFileUpload = faFileUpload;
+  faTimesCircle = faTimesCircle;
+  faDownload = faDownload;
 
   constructor(private service: AfschrijvingService, private labelService: LabelService, public dialogRef: MatDialogRef<AfschrijvingComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe)
@@ -37,7 +40,7 @@ export class AfschrijvingComponent implements OnInit {
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", label: "", aankoopdatum: "", aankoopbedrag: "", verwachteLevensduur: "", garantie: "", factuur: "", factuurnaam: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", label: "", aankoopdatum: "", aankoopbedrag: "", verwachteLevensduur: "", garantie: "", factuur: "", factuurNaam: ""});
     }
     else
     {
@@ -77,10 +80,14 @@ export class AfschrijvingComponent implements OnInit {
         Validators.pattern('[0-9,\.]*')
       ]),
       verwachteLevensduur: new FormControl('',[
-        Validators.required
+        Validators.required,
+        Validators.pattern('[0-9]*')
       ]),
-      garantie: new FormControl(''),
-      factuur: new FormControl('')
+      garantie: new FormControl('',[
+        Validators.pattern('[0-9]*')
+      ]),
+      factuur: new FormControl(''),
+      factuurNaam: new FormControl('')
     });
   }
 
@@ -98,8 +105,10 @@ export class AfschrijvingComponent implements OnInit {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.form.get('factuur').setValue(reader.result.toString().split(",")[1])
-        this.factuurText = file.name;
+        this.form.get('factuur').setValue(reader.result.toString().split(",")[1]);
+        alert(file.name);
+        this.form.get('factuurNaam').setValue(file.name);
+        this.form.markAsDirty();
       };
     }
   }
@@ -127,5 +136,13 @@ export class AfschrijvingComponent implements OnInit {
   getLabels()
   {
     this.labelService.getAll().subscribe(items => this.labels = items);
+  }
+
+  verwijderDocument()
+  {
+    alert("verwijder");
+    this.form.get('factuur').reset();
+    this.form.get('factuurNaam').reset();
+    this.form.markAsDirty();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatDialog} from '@angular/material';
 import { BudgetService } from '../budget.service';
 import { LabelService } from '../../labels/label.service';
@@ -12,6 +12,7 @@ import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
 import { DialogMeldingComponent } from '../../dialog-melding/dialog-melding.component';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-budget',
@@ -29,6 +30,7 @@ export class BudgetComponent implements OnInit
   intervalEnum = Interval;
   selectedCategorie: number;
   titelText: string = "Budget";
+  faDownload = faDownload;
 
   constructor(private service: BudgetService, private labelService: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<BudgetComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, public dialog: MatDialog, private customValidator: CustomValidator)

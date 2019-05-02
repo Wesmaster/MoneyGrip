@@ -1,3 +1,5 @@
+@import '../../basis';
+
 .top
 {
     height: 20vh;
@@ -6,8 +8,8 @@
 .mid
 {
     height: 20vh;
-    background-color: #607D8B;
-    color: #607D8B;
+    //background-color: $primary;
+    color: $secondary;
     font-weight: bold;
 }
 

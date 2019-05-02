@@ -1,24 +1,33 @@
-$color1: #455A64;
-$color2: #607D8B;
-$color3: #F5F6F7;
+$primary: #4D3C4F;
+$secondary: #6D5F6F;
+$accent: #D2BF55;
 
-$color1-text: #FFFFFF;
-$color2-text: #FFFFFF;
-$color3-text: #212121;
+$text-dark: #212121;
+$text-light: #FFFFFF;
+$text-blend: #AFA7B0;//#948A96;
 
-$color1-hover: #607D8B;
-$color2-hover: #CFD8DC;
-$color3-hover: #CFD8DC;
+$bg-dark: #D8D7D9;//C5C3C6
+$bg-medium: #EBEBEC;
+$bg-light: #FFFFFF;
 
-$color-valid: #0A966C;
-$color-invalid: #AF1818;
+$input-dark: #FFFFFF;
+
+$green: #0A966C;
+$red: #AF1818;
+$blue: #A2BCCA;
+$grey: #BFC0C0;
 
 .tooltip .tooltip-inner
 {
-    background-color: $color1 !important;
+    background-color: $primary !important;
+}
+
+.tooltip.show
+{
+    opacity: 1.0 !important;
 }
 
 .tooltip .arrow::before
 {
-    border-top-color: $color1 !important;
+    border-top-color: $primary !important;
 }

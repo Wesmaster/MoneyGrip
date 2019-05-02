@@ -24,7 +24,7 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<Contract> GetContract()
         {
-            return _context.Contract.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
+            return _context.Contract.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderByDescending(c => c.Begindatum <= DateTime.Now && (c.Einddatum >= DateTime.Now || c.Einddatum == null)).ThenBy(c => c.Einddatum == null).ThenBy(c => c.Einddatum).ThenBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
         }
 
         // GET: api/Contract/5

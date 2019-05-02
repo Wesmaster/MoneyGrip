@@ -1,6 +1,14 @@
+@import './basis';
+
+button:disabled
+{
+    background-color: $grey;
+    color: $text-dark;
+}
+
 input[readonly]
 {
-    background-color: #E0E1E2;
+    background-color: $bg-light;
     border: none;
     cursor: default;
 }
@@ -25,22 +33,15 @@ p
     float: right;
 }
 
-.btn:focus
-{
-    border-color: #CFD8DC;
-    box-shadow: 0px 0px 10px 2px #CFD8DC;
-    outline: 0;
-}
-
 .buttongroup-bottom
 {
-    padding: 10px 0px 0px 0px;
+    padding: 15px 0px 0px 0px;
 }
 
 .buttongroup-top
 {
-    background-color: #455A64;
-    color: #FFFFFF;
+    background-color: $primary;
+    color: $text-light;
     display: inline-block;
     padding: 0px 0px 0px 15px;
     width: 100%;
@@ -57,34 +58,62 @@ p
     padding: 0px 0px 0px 0px;
 }
 
+.delete
+{
+    color: $red;
+    padding: 0px;
+
+    &:hover
+    {
+        background-color: $bg-light;
+        color: $secondary;
+    }
+}
+
 .display-5
 {
     line-height: 1.7;
 }
 
-.fas
+.ellipsis
 {
-    margin: 0px 10px 0px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fas-margin
+{
+    margin: 0px 15px 0px 0px;
 }
 
 .form-control
 {
     padding-right: 0px;
     /*height: calc(2.50rem + 2px);*/
-    color: #212121;
-    background-color: #FFFFFF;
+    color: $text-dark;
+    background-color: $input-dark;
     background-clip: padding-box;
-    border: 1px solid #ced4da;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid $bg-dark;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-control:focus:not([readonly])
 {
-    color: #495057;
-    background-color: #FFFFFF;
-    border-color: #CFD8DC;
+    color: $primary;
+    background-color: $input-dark;
     outline: 0;
-    box-shadow: 0px 0px 10px 2px #CFD8DC;
+    box-shadow: none;
+}
+
+.input-group-text
+{
+    color: $text-dark;
+    background-color: $input-dark;
+    border: none;
 }
 
 .own-custom-file-label
@@ -92,9 +121,9 @@ p
     cursor: pointer;
 }
 
-.own-custom-file-label i
+.own-custom-file-label fa-icon
 {
-    color: #455A64;
+    color: $primary;
 }
 
 .own-custom-file-input {
@@ -103,7 +132,7 @@ p
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
-	z-index: -1;
+    z-index: -1;
 }
 
 .form-group
@@ -113,20 +142,35 @@ p
 
 .ng-valid[required], .ng-valid.required
 {
-    border-bottom: 2px solid #0a966c;
+    border-bottom: 2px solid $green;
 }
 
 .ng-valid[required]:focus, .ng-valid.required:focus
 {
-    border-bottom: 2px solid #0a966c !important;
+    border-bottom: 2px solid $green !important;
 }
   
 .ng-invalid:not(form)
 {
-    border-bottom: 2px solid rgb(143, 41, 16);
+    border-bottom: 2px solid $red;
 }
 
 .ng-invalid:not(form):focus
 {
-    border-bottom: 2px solid rgb(143, 41, 16) !important;
+    border-bottom: 2px solid $red !important;
+}
+
+.valid
+{
+    border-bottom: 2px solid $green;
+}
+
+.invalid
+{
+    border-bottom: 2px solid $red;
+}
+
+.optional
+{
+    border-bottom: 1px solid $bg-dark;
 }

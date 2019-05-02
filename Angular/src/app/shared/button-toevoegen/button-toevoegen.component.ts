@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'button-toevoegen',
@@ -10,6 +11,7 @@ export class ButtonToevoegenComponent implements OnInit {
 
   @Input() buttonText: string;
   @Output() toevoegChange = new EventEmitter<boolean>();
+  faPlus = faPlus;
 
   constructor() { }
 

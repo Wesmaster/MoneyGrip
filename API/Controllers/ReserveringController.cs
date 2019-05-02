@@ -23,7 +23,7 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<Reservering> GetReservering()
         {
-            return _context.Reservering.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
+            return _context.Reservering.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderBy(l => l.Maand).ThenBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
         }
 
         // GET: api/Reservering/5

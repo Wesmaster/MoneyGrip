@@ -1,13 +1,14 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, SELECT_PANEL_INDENT_PADDING_X } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SpaardoelService } from '../spaardoel.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
 import { Maanden } from '../../maanden.enum';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-spaardoel',
@@ -22,6 +23,7 @@ export class SpaardoelComponent implements OnInit {
   labels: Label[] = [];
   maandenEnum = Maanden;
   titelText: string = "Spaardoel";
+  faDownload = faDownload;
 
   constructor(private service: SpaardoelService, private labelService: LabelService, public dialogRef: MatDialogRef<SpaardoelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)

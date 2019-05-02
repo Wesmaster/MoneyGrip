@@ -6,6 +6,7 @@ import { LabelService } from '../label.service';
 import { CategorieService } from '../../categorieen/categorie.service';
 import { Categorie } from '../../categorieen/categorie/categorie';
 import { BaseEditComponent } from '../../base/base-edit.component';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-label',
@@ -20,6 +21,7 @@ export class LabelComponent extends BaseEditComponent implements OnInit
   form: FormGroup;
   items: Categorie[];
   titelText: string = "Label";
+  faDownload = faDownload;
 
   constructor(private service: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<LabelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
