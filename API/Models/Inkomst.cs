@@ -8,11 +8,9 @@ namespace MoneyGrip.Models
     {
         public int Id { get; set; }
         public DateTime LaatstGewijzigd { get; set; }
-        public int? Label { get; set; }
         public int? Persoon { get; set; }
 
-     //   public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
-        public Label LabelNavigation { get; set; }
+        public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
         public Persoon PersoonNavigation { get; set; }
     }
 }

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule, MatNativeDateModule, DateAdapter, MatDialogModule, MatInputModule } from '@angular/material';
+import { MatDatepickerModule, MatChipsModule, DateAdapter, MatDialogModule, MatInputModule, MatIconModule, MatAutocompleteModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -103,7 +103,10 @@ registerLocaleData(localeNL);
     MatInputModule,
     NgbModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}],
   bootstrap: [AppComponent],

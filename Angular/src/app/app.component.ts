@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from '../environments/environment';
+import { LabelService } from './labels/label.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,14 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   public title: string = environment.app_name;
+
+  constructor(private labelService: LabelService)
+  {
+
+  }
+
+  ngOnInit()
+  {
+    this.labelService.loadAll();
+  }
 }

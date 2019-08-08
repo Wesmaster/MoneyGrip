@@ -49,14 +49,14 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
   openDeleteDialog(item: Inkomst): void
   {
     var vraagVariabele = "";
-    if(item.labelNavigation != null)
-    {
-      vraagVariabele = item.labelNavigation.naam + " ";
-      if(item.persoonNavigation != null)
+   // if(item.labelNavigation != null)
+   // {
+    //  vraagVariabele = item.labelNavigation.naam + " ";
+/*      if(item.persoon != null)
       {
-        vraagVariabele += "van " + item.persoonNavigation.voornaam + " " + item.persoonNavigation.achternaam + " ";
-      }
-    }
+        vraagVariabele += "van " + item.persoon.voornaam + " " + item.persoon.achternaam + " ";
+      }*/
+ //   }
     vraagVariabele += "met bedrag € " + this.customCurrency.transform(item.bedrag);
     var vraag = 'Weet je zeker dat je de inkomst "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
@@ -95,11 +95,11 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
+ /*   this.zoekResultaat = this.items.filter(
       item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || (item.persoonNavigation !== null && new RegExp(zoekTekst, 'gi').test(item.persoonNavigation.voornaam))
-      || (item.persoonNavigation !== null && new RegExp(zoekTekst, 'gi').test(item.persoonNavigation.achternaam))
+      || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.voornaam))
+      || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.achternaam))
       || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
-    );
+    );*/
   }
 }

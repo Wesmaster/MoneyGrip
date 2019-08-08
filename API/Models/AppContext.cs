@@ -26,7 +26,7 @@ namespace MoneyGrip.Models
         public virtual DbSet<Afschrijving> Afschrijving { get; set; }
         public virtual DbSet<Spaardoel> Spaardoel { get; set; }
         public virtual DbSet<BackupOverzicht> BackupOverzicht { get; set; }
-      //  public virtual DbSet<InkomstLabel> InkomstLabel { get; set; }
+        public virtual DbSet<InkomstLabel> InkomstLabel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -84,10 +84,10 @@ namespace MoneyGrip.Models
                 entity.Property(e => e.Bedrag)
                     .IsRequired();
 
-                entity.HasOne(d => d.LabelNavigation)
+              /*  entity.HasOne(d => d.LabelNavigation)
                     .WithMany(p => p.Inkomst)
                     .HasForeignKey(d => d.Label)
-                    .HasConstraintName("FK_Inkomst_Label");
+                    .HasConstraintName("FK_Inkomst_Label");*/
 
                 entity.HasOne(d => d.PersoonNavigation)
                     .WithMany(p => p.Inkomst)
@@ -181,7 +181,7 @@ namespace MoneyGrip.Models
                     .HasConstraintName("FK_Spaardoel_Label");
             });
 
-        /*    modelBuilder.Entity<InkomstLabel>()
+            modelBuilder.Entity<InkomstLabel>()
                 .HasKey(il => new { il.InkomstId, il.LabelId });
 
             modelBuilder.Entity<InkomstLabel>()
@@ -194,7 +194,7 @@ namespace MoneyGrip.Models
                 .HasOne(il => il.Label)
                 .WithMany(i => i.InkomstLabels)
                 .HasForeignKey(il => il.LabelId)
-                .HasConstraintName("FK_Koppeling_Label");*/
+                .HasConstraintName("FK_Koppeling_Label");
         }
     }
 }

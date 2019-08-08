@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatChipList } from '@angular/material';
 import { InkomstService } from '../inkomst.service';
 import { LabelService } from '../../labels/label.service';
 import { Label } from '../../labels/label/label';
@@ -11,6 +11,13 @@ import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {ElementRef, ViewChild} from '@angular/core';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-inkomst',
@@ -23,11 +30,25 @@ export class InkomstComponent implements OnInit
   @Output() getChange = new EventEmitter<number>();
 
   form: FormGroup;
-  labels: Label[] = [];
+  allLabels: string[] = [];
   personen: Persoon[];
   intervalEnum = Interval;
   titelText: string = "Inkomst";
   faDownload = faDownload;
+  labelsLoaded: Promise<boolean>;
+
+  visible = true;
+  selectable = false;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruitCtrl = new FormControl();
+  filteredFruits: Observable<string[]>;
+  labels: Label[] = [];
+
+  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('chipList') chipList: MatChipList;
 
   constructor(private service: InkomstService, private labelService: LabelService, private persoonService: PersoonService, public dialogRef: MatDialogRef<InkomstComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
@@ -40,18 +61,24 @@ export class InkomstComponent implements OnInit
     }
 
     delete this.form;
-    this.getLabels();
     this.getPersonen();
     this.createForm();
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", label: "", persoon: "", bedrag: "", begindatum: "", einddatum: "", interval: ""});
+      this.form.reset({id: 0, label: "", persoon: "", bedrag: "", begindatum: "", einddatum: "", interval: ""});
+      this.labelsLoaded = Promise.resolve(true);
     }
     else
     {
       this.get();
     }
+
+    this.allLabels = this.labelService.grapLabelNames();
+
+    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+        startWith(null),
+        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allLabels.slice()));
   }
 
   keys(any): Array<string>
@@ -74,14 +101,13 @@ export class InkomstComponent implements OnInit
   {
     this.form = new FormGroup({
       id: new FormControl(0),
-      laatstGewijzigd: new FormControl(''),
       label: new FormControl('',[
         Validators.required
       ]),
       persoon: new FormControl(''),
       bedrag: new FormControl('',[
         Validators.required,
-        Validators.pattern('[0-9,\.]*')
+        Validators.pattern('[0-9,\.]*'),
       ]),
       begindatum: new FormControl('',[
         Validators.required
@@ -95,7 +121,14 @@ export class InkomstComponent implements OnInit
 
   get(): void
   {
-    this.service.get(this.id).subscribe(item => this.form.patchValue(item));
+    this.service.get(this.id).subscribe(item => {this.form.patchValue(item);
+        
+    this.labels.splice(0,this.labels.length);
+    item.label.forEach(labelObject => {
+        this.labels.push(labelObject);
+    })
+        this.labelsLoaded = Promise.resolve(true);
+    });
   }
 
   async onSubmit()
@@ -119,11 +152,6 @@ export class InkomstComponent implements OnInit
     this.dialogRef.close(true);
   }
 
-  getLabels()
-  {
-    this.labelService.getAll().subscribe(items => this.labels = items);
-  }
-
   getPersonen()
   {
     this.persoonService.getAll().subscribe(items => this.personen = items);
@@ -133,5 +161,71 @@ export class InkomstComponent implements OnInit
   {
     var num = value.replace(",", "").replace("€", "");
     return Number(num);
+  }
+
+  getKeyByValue(object, value) {
+    return object.keys().find(key => object.get(key) === value);
+  }
+
+
+  add(event: MatChipInputEvent): void {
+    // Add fruit only when MatAutocomplete is not open
+    // To make sure this does not conflict with OptionSelected Event
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      
+
+      // Add our fruit
+      if ((value || '').trim()) {
+     //   this.labels.push(value.trim());
+      }
+
+      this.updateFormControlLabel();
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.fruitCtrl.setValue(null);
+    }
+  }
+
+  remove(fruit: Label): void {
+    const index = this.labels.indexOf(fruit);
+
+    if (index >= 0) {
+      this.labels.splice(index, 1);
+    }
+
+    this.updateFormControlLabel();
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.labels.push(event.option.value);
+
+    this.updateFormControlLabel();
+
+    this.fruitInput.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allLabels.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private updateFormControlLabel()
+  {
+    var labelIds: number[] = [];
+    this.labels.forEach(label => {
+         labelIds.push(label.id);
+    });
+    this.form.patchValue({label: labelIds});
+
+    this.form.markAsDirty();
   }
 }

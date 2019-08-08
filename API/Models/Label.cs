@@ -5,11 +5,6 @@ namespace MoneyGrip.Models
 {
     public partial class Label
     {
-        public Label()
-        {
-            Inkomst = new HashSet<Inkomst>();
-        }
-
         public int Id { get; set; }
         public DateTime LaatstGewijzigd { get; set; }
         public string Naam { get; set; }
@@ -17,9 +12,8 @@ namespace MoneyGrip.Models
 
         public Categorie CategorieNavigation { get; set; }
 
-   //     public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
+        public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
 
-        public ICollection<Inkomst> Inkomst { get; set; }
         public ICollection<Contract> Contract { get; set; }
         public ICollection<Budget> Budget { get; set; }
         public ICollection<Reservering> Reservering { get; set; }
