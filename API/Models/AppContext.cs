@@ -84,11 +84,6 @@ namespace MoneyGrip.Models
                 entity.Property(e => e.Bedrag)
                     .IsRequired();
 
-              /*  entity.HasOne(d => d.LabelNavigation)
-                    .WithMany(p => p.Inkomst)
-                    .HasForeignKey(d => d.Label)
-                    .HasConstraintName("FK_Inkomst_Label");*/
-
                 entity.HasOne(d => d.PersoonNavigation)
                     .WithMany(p => p.Inkomst)
                     .HasForeignKey(d => d.Persoon)
@@ -122,14 +117,6 @@ namespace MoneyGrip.Models
 
                 entity.Property(e => e.Bedrag)
                     .IsRequired();
-
-                entity.Property(e => e.Label)
-                    .IsRequired();
-
-                entity.HasOne(d => d.LabelNavigation)
-                    .WithMany(p => p.Budget)
-                    .HasForeignKey(d => d.Label)
-                    .HasConstraintName("FK_Budget_Label");
             });
 
             modelBuilder.Entity<Reservering>(entity =>
@@ -195,6 +182,21 @@ namespace MoneyGrip.Models
                 .WithMany(i => i.InkomstLabels)
                 .HasForeignKey(il => il.LabelId)
                 .HasConstraintName("FK_Koppeling_Label");
+
+            modelBuilder.Entity<BudgetLabel>()
+                .HasKey(bl => new { bl.BudgetId, bl.LabelId });
+
+            modelBuilder.Entity<BudgetLabel>()
+                .HasOne(bl => bl.Budget)
+                .WithMany(b => b.BudgetLabels)
+                .HasForeignKey(bl => bl.BudgetId)
+                .HasConstraintName("FK_BudgetLabel_Koppeling_Budget");
+
+            modelBuilder.Entity<BudgetLabel>()
+                .HasOne(bl => bl.Label)
+                .WithMany(b => b.BudgetLabels)
+                .HasForeignKey(bl => bl.LabelId)
+                .HasConstraintName("FK_BudgetLabel_Koppeling_Label");
         }
     }
 }

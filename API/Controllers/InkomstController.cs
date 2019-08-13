@@ -209,7 +209,6 @@ namespace MoneyGrip.Controllers
                     Naam = ikl.Label.Naam
                 };
                 returnList.Add(lvm);
-        //  returnList
 
             }
             return returnList;

@@ -95,7 +95,7 @@ namespace MoneyGrip.Controllers
             _context.Label.Add(label);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLabel", new { id = label.Id }, label);
+            return Ok(label.Id);
         }
 
         // DELETE: api/Label/5

@@ -19,8 +19,13 @@ export class Inkomst {
     {
       switch(value)
       {
-    //    case "Label": return this.labelNavigation.naam;
-    //      break;
+        case "Label": 
+        var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
+          break;
         case "Persoon": return this.persoon ? this.persoon.voornaam + " " + this.persoon.achternaam : "";
           break;
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);

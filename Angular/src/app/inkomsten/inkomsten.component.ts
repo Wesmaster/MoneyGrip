@@ -32,7 +32,7 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
     service.setAccessPointUrl('inkomst');
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Label", kolombreedte: 3},
       {kolomnaam: "Persoon", kolombreedte: 2},
       {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
       {kolomnaam: "Begindatum", kolombreedte: 1, align: "center"},
@@ -49,14 +49,18 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
   openDeleteDialog(item: Inkomst): void
   {
     var vraagVariabele = "";
-   // if(item.labelNavigation != null)
-   // {
-    //  vraagVariabele = item.labelNavigation.naam + " ";
-/*      if(item.persoon != null)
+    if(item.label != null)
+    {
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
+      vraagVariabele = labelList.join(", ") + " ";
+      if(item.persoon != null)
       {
         vraagVariabele += "van " + item.persoon.voornaam + " " + item.persoon.achternaam + " ";
-      }*/
- //   }
+      }
+    }
     vraagVariabele += "met bedrag € " + this.customCurrency.transform(item.bedrag);
     var vraag = 'Weet je zeker dat je de inkomst "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
@@ -95,11 +99,18 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
 
   zoek(zoekTekst: string): void
   {
- /*   this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.voornaam))
-      || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.achternaam))
-      || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
-    );*/
+      if(zoekTekst == "")
+      {
+          this.zoekResultaat = this.items;
+      }
+      else
+      {
+        this.zoekResultaat = this.items.filter(
+            item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
+            || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.voornaam))
+            || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.achternaam))
+            || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
+        );
+      }
   }
 }

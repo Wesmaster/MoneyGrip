@@ -30,7 +30,7 @@ export class InkomstComponent implements OnInit
   @Output() getChange = new EventEmitter<number>();
 
   form: FormGroup;
-  allLabels: string[] = [];
+  allLabels: Label[] = [];
   personen: Persoon[];
   intervalEnum = Interval;
   titelText: string = "Inkomst";
@@ -43,7 +43,7 @@ export class InkomstComponent implements OnInit
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
+  filteredFruits: Observable<Label[]>;
   labels: Label[] = [];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
@@ -74,7 +74,7 @@ export class InkomstComponent implements OnInit
       this.get();
     }
 
-    this.allLabels = this.labelService.grapLabelNames();
+    this.allLabels = this.labelService.getData();
 
     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
         startWith(null),
@@ -121,12 +121,15 @@ export class InkomstComponent implements OnInit
 
   get(): void
   {
-    this.service.get(this.id).subscribe(item => {this.form.patchValue(item);
+    this.service.get(this.id).subscribe(item => {
+        this.form.patchValue(item);
+        this.form.patchValue({persoon: item.persoon ? item.persoon.id : null});
         
     this.labels.splice(0,this.labels.length);
     item.label.forEach(labelObject => {
         this.labels.push(labelObject);
     })
+        this.updateFormControlLabel();
         this.labelsLoaded = Promise.resolve(true);
     });
   }
@@ -173,16 +176,15 @@ export class InkomstComponent implements OnInit
     // To make sure this does not conflict with OptionSelected Event
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
-
-      
+      var value = event.value.substring(0, 1).toUpperCase() + event.value.substring(1);
+        value = value.trim();
 
       // Add our fruit
-      if ((value || '').trim()) {
-     //   this.labels.push(value.trim());
-      }
+    if (value || '') {
+        this.addNewLabel(value);
+    }
 
-      this.updateFormControlLabel();
+      this.form.markAsDirty();
 
       // Reset the input value
       if (input) {
@@ -201,21 +203,23 @@ export class InkomstComponent implements OnInit
     }
 
     this.updateFormControlLabel();
+    this.form.markAsDirty();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.labels.push(event.option.value);
 
     this.updateFormControlLabel();
+    this.form.markAsDirty();
 
     this.fruitInput.nativeElement.value = '';
     this.fruitCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Label[] {
     const filterValue = value.toLowerCase();
 
-    return this.allLabels.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.allLabels.filter(fruit => fruit.naam.toLowerCase().indexOf(filterValue) === 0);
   }
 
   private updateFormControlLabel()
@@ -225,7 +229,19 @@ export class InkomstComponent implements OnInit
          labelIds.push(label.id);
     });
     this.form.patchValue({label: labelIds});
+  }
 
-    this.form.markAsDirty();
+  private async addNewLabel(naam: string)
+  {
+    var label: Label = new Label();
+    label.id = 0;
+    label.naam = naam;
+    label.categorie = 7;
+    await this.labelService.add(label).then(id => {
+        label.id = parseInt(id.toString());
+        this.allLabels.push(label);
+        this.labels.push(label);
+        this.updateFormControlLabel();
+    });
   }
 }

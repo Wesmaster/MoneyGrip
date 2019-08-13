@@ -50,14 +50,20 @@ export class LabelService
   public loadAll()
   {
     this.getAll().subscribe(items => {
-        items.forEach(item => {
+        this.data = items;
+        /*items.forEach(item => {
             
            //this.mappedLabels[item.naam] = item.id;
             this.dataStore[item.id] = item.naam;
             this.dataStoreByName[item.naam] = item.id;
             this.labelNames.push(item.naam);
-        })
+        })*/
     });
+  }
+
+  public getData(): Label[]
+  {
+    return this.data;
   }
 
   public grapLabelName(id: number): string

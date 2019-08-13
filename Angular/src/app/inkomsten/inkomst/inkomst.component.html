@@ -29,7 +29,7 @@
     </div>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let item of filteredFruits | async" [value]="item">
-        {{item}}
+        {{item.naam}}
       </mat-option>
     </mat-autocomplete>
 </div>
