@@ -29,10 +29,11 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
     service.setAccessPointUrl('afschrijving');
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Aankoopdatum", kolombreedte: 2},
-      {kolomnaam: "Aankoopbedrag", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Label", kolombreedte: 3},
+      {kolomnaam: "Startdatum", kolombreedte: 1},
+      {kolomnaam: "Waarde", kolombreedte: 1, align: "right"},
       {kolomnaam: "Verwachte levensduur", kolombreedte: 2, align: "center"},
+      {kolomnaam: "Per maand", kolombreedte: 1, align: "right"},
       {kolomnaam: "Garantie", kolombreedte: 1, align: "center"},
       {kolomnaam: "Factuur", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
     ];
@@ -47,20 +48,33 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
   {
     const linkSource = 'data:application/pdf;base64,' + item.factuur;
     const downloadLink = document.createElement("a");
-    const fileName = item.labelNavigation.naam + ".pdf";
+    if(item.label != null)
+    {
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
 
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click()
+        const fileName = labelList.join("_") + ".pdf";
+
+        downloadLink.href = linkSource;
+        downloadLink.download = fileName;
+        downloadLink.click()
+    }
   }
 
   openDeleteDialog(item: Afschrijving): void
   {
     var vraagVariabele = "";
-    if(item.labelNavigation != null)
+    if(item.label != null)
     {
-      vraagVariabele = item.labelNavigation.naam;
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
+      vraagVariabele = labelList.join(", ") + " ";
     }
+
     vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.aankoopbedrag);
     var vraag = 'Weet je zeker dat je de afschrijving "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
@@ -99,11 +113,18 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam)
-      || (new Date(item.aankoopdatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0)
-        && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)
-        )
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+            item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam))
+        || (new Date(item.aankoopdatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0)
+            && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)
+            )
+        );
+    }
   }
 }

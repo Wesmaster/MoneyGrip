@@ -13,7 +13,7 @@ namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BudgetController : ControllerBase
+    public class BudgetController : BasisController
     {
         private readonly Models.AppContext _context;
 
@@ -26,12 +26,12 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<BudgetViewModel> GetBudget()
         {
-           // return _context.Budget.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
-
             IEnumerable<Budget> budgetten = _context.Budget
             .Include(budget => budget.BudgetLabels)
             .ThenInclude(budgetLabel => budgetLabel.Label)
-            .OrderByDescending(c => c.Begindatum <= DateTime.Now && (c.Einddatum >= DateTime.Now || c.Einddatum == null)).ThenBy(c => c.Einddatum == null).ThenBy(c => c.Einddatum);
+            .OrderBy(b => b.Einddatum < DateTime.Now)
+            .ThenBy(b => b.Begindatum)
+            .ThenByDescending(b => b.Bedrag);
 
             return budgetten.Select(i => new BudgetViewModel
             {
@@ -40,7 +40,7 @@ namespace MoneyGrip.Controllers
                 Begindatum = i.Begindatum,
                 Einddatum = i.Einddatum,
                 Interval = i.Interval,
-                Label = budgetLabelNaarLabel(i.BudgetLabels)
+                Label = toLabelViewModelList(i.BudgetLabels)
             });
         }
 
@@ -71,7 +71,7 @@ namespace MoneyGrip.Controllers
                 Begindatum = budget.Begindatum,
                 Einddatum = budget.Einddatum,
                 Interval = budget.Interval,
-                Label = budgetLabelNaarLabel(budget.BudgetLabels)
+                Label = toLabelViewModelList(budget.BudgetLabels)
             };
 
             return Ok(budgetVM);
@@ -139,7 +139,7 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (BudgetOverlap(budgetPM))
+            if (OverlaptMetBestaandBudget(budgetPM))
             {
                 return Conflict();
             }
@@ -195,30 +195,34 @@ namespace MoneyGrip.Controllers
             return _context.Budget.Any(e => e.Id == id);
         }
 
-        private bool BudgetOverlap(BudgetPostModel budgetPM)
+        private bool OverlaptMetBestaandBudget(BudgetPostModel budgetPM)
         {
-           // return false;
             var result = _context.Budget
-                            .Include(budget => budget.BudgetLabels)
-                            .ThenInclude(budgetLabel => budgetLabel.Label)
-                            .Where(b => b.BudgetLabels.All(l => budgetPM.Label.Any(PMl => PMl ==l.LabelId))  && ((b.Einddatum >= budgetPM.Begindatum || b.Einddatum == null) && (b.Begindatum <= budgetPM.Einddatum || budgetPM.Einddatum == null)));
-            return result.Count() > 0;
-        }
+                         .Include(budget => budget.BudgetLabels)
+                         .ThenInclude(budgetLabel => budgetLabel.Label)
+                         .Where(b => (b.Einddatum >= budgetPM.Begindatum || b.Einddatum == null) && (b.Begindatum <= budgetPM.Einddatum || budgetPM.Einddatum == null));
 
-        private List<LabelViewModel> budgetLabelNaarLabel(ICollection<BudgetLabel> budgetLabels)
-        {
-            List<LabelViewModel> returnList = new List<LabelViewModel>();
-            foreach (BudgetLabel ikl in budgetLabels)
+            if (result.Count() < 0)
+                return false;
+
+            foreach(Budget bestaandBudget in result)
             {
-                LabelViewModel lvm = new LabelViewModel
+                foreach(BudgetLabel labels in bestaandBudget.BudgetLabels)
                 {
-                    Id = ikl.LabelId,
-                    Naam = ikl.Label.Naam
-                };
-                returnList.Add(lvm);
+                    if (budgetPM.Label.Any(l => l == labels.LabelId))
+                    {
+                        if(labels == bestaandBudget.BudgetLabels.Last())
+                        {
+                            return true;
+                        }
+                        continue;
+                    }
 
+                    break;
+                }
             }
-            return returnList;
+
+            return false;
         }
 
         private BudgetLabel nieuwBudgetLabel(Budget budget, Label label)

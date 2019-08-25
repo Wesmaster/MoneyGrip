@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
+using MoneyGrip.ViewModels;
 
 namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpaardoelController : ControllerBase
+    public class SpaardoelController : BasisController
     {
         private readonly Models.AppContext _context;
 
@@ -22,9 +22,26 @@ namespace MoneyGrip.Controllers
 
         // GET: api/Spaardoel
         [HttpGet]
-        public IEnumerable<Spaardoel> GetSpaardoel()
+        public IEnumerable<SpaardoelViewModel> GetSpaardoel()
         {
-            return _context.Spaardoel.Include(s => s.LabelNavigation).OrderBy(s => s.LaatsteMaand).ThenBy(s => s.EersteMaand).ThenBy(l => l.LabelNavigation.Naam);
+            IEnumerable<Spaardoel> spaardoelen = _context.Spaardoel
+                .Include(s => s.SpaardoelLabels)
+                .ThenInclude(sl => sl.Label)
+                .OrderBy(s => s.LaatsteMaand)
+                .ThenBy(s => s.EersteMaand)
+                .ThenByDescending(s => s.Eindbedrag)
+                .ThenByDescending(s => s.Percentage);
+                
+            return spaardoelen.Select(s => new SpaardoelViewModel
+            {
+                Id = s.Id,
+                Percentage = s.Percentage,
+                Eindbedrag = s.Eindbedrag,
+                EersteMaand = s.EersteMaand,
+                LaatsteMaand = s.LaatsteMaand,
+                Omschrijving = s.Omschrijving,
+                Label = toLabelViewModelList(s.SpaardoelLabels)
+            });
         }
 
         // GET: api/Spaardoel/5
@@ -36,31 +53,64 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var spaardoel = await _context.Spaardoel.Include(s => s.LabelNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            Spaardoel spaardoel = await _context.Spaardoel
+                .Where(r => r.Id == id)
+                .Include(r => r.SpaardoelLabels)
+                .ThenInclude(rl => rl.Label)
+                .FirstOrDefaultAsync();
 
             if (spaardoel == null)
             {
                 return NotFound();
             }
 
-            return Ok(spaardoel);
+            SpaardoelViewModel spaardoelVM = new SpaardoelViewModel
+            {
+                Id = spaardoel.Id,
+                Percentage = spaardoel.Percentage,
+                Eindbedrag = spaardoel.Eindbedrag,
+                EersteMaand = spaardoel.EersteMaand,
+                LaatsteMaand = spaardoel.LaatsteMaand,
+                Omschrijving = spaardoel.Omschrijving,
+                Label = toLabelViewModelList(spaardoel.SpaardoelLabels)
+            };
+
+            return Ok(spaardoelVM);
         }
 
         // PUT: api/Spaardoel/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSpaardoel([FromRoute] int id, [FromBody] Spaardoel spaardoel)
+        public async Task<IActionResult> PutSpaardoel([FromRoute] int id, [FromBody] SpaardoelPostModel spaardoelPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != spaardoel.Id)
+            if (id != spaardoelPM.Id)
             {
                 return BadRequest();
             }
 
+            Spaardoel spaardoel = _context.Spaardoel.Where(r => r.Id == id).Include(r => r.SpaardoelLabels).First();
+            spaardoel.Percentage = spaardoelPM.Percentage;
+            spaardoel.Eindbedrag = spaardoelPM.Eindbedrag;
+            spaardoel.EersteMaand = spaardoelPM.EersteMaand;
+            spaardoel.LaatsteMaand = spaardoelPM.LaatsteMaand;
+            spaardoel.Omschrijving = spaardoelPM.Omschrijving;
             spaardoel.LaatstGewijzigd = DateTime.Now;
+
+            spaardoel.SpaardoelLabels.Clear();
+
+            foreach (var newLabelId in spaardoelPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                spaardoel.SpaardoelLabels.Add
+                (
+                    nieuwSpaardoelLabel(spaardoel, label)
+                );
+            }
+
             _context.Entry(spaardoel).State = EntityState.Modified;
 
             try
@@ -84,14 +134,34 @@ namespace MoneyGrip.Controllers
 
         // POST: api/Spaardoel
         [HttpPost]
-        public async Task<IActionResult> PostSpaardoel([FromBody] Spaardoel spaardoel)
+        public async Task<IActionResult> PostSpaardoel([FromBody] SpaardoelPostModel spaardoelPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            spaardoel.LaatstGewijzigd = DateTime.Now;
+            Spaardoel spaardoel = new Spaardoel
+            {
+                Id = spaardoelPM.Id,
+                Percentage = spaardoelPM.Percentage,
+                Eindbedrag = spaardoelPM.Eindbedrag,
+                EersteMaand = spaardoelPM.EersteMaand,
+                LaatsteMaand = spaardoelPM.LaatsteMaand,
+                Omschrijving = spaardoelPM.Omschrijving,
+                LaatstGewijzigd = DateTime.Now,
+                SpaardoelLabels = new List<SpaardoelLabel>()
+            };
+
+            foreach (var newLabelId in spaardoelPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                spaardoel.SpaardoelLabels.Add
+                (
+                   nieuwSpaardoelLabel(spaardoel, label)
+                );
+            }
+
             _context.Spaardoel.Add(spaardoel);
             await _context.SaveChangesAsync();
 
@@ -122,6 +192,17 @@ namespace MoneyGrip.Controllers
         private bool SpaardoelExists(int id)
         {
             return _context.Spaardoel.Any(e => e.Id == id);
+        }
+
+        private SpaardoelLabel nieuwSpaardoelLabel(Spaardoel spaardoel, Label label)
+        {
+            return new SpaardoelLabel
+            {
+                Spaardoel = spaardoel,
+                Label = label,
+                SpaardoelId = spaardoel.Id,
+                LabelId = label.Id
+            };
         }
     }
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BegrotingService } from './begroting.service';
-import { Begroting } from './begroting';
+import { BedragPerMaand, Begroting } from './begroting';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { CurrencyPipe } from '../currency.pipe';
 
 @Component({
   selector: 'app-begroting',
@@ -12,23 +13,37 @@ export class BegrotingComponent implements OnInit
 {
   filter: number[] = [];
   buttonText = "Berekenen";
-  contracten: Begroting;
-  budgetten: Begroting;
-  reserveringen: Begroting;
-  inkomsten: Begroting;
-  afschrijvingen: Begroting;
-  spaardoelen: Begroting[] = [];
-  resultaat: Begroting;
-  uitgaven: Begroting;
-  begroting: Begroting[] = [];
+  contracten: BedragPerMaand;
+  budgetten: BedragPerMaand;
+  reserveringen: BedragPerMaand;
+  inkomsten: BedragPerMaand;
+  afschrijvingen: BedragPerMaand;
+  spaardoelen: BedragPerMaand[] = [];
+  resultaat: BedragPerMaand;
+  uitgaven: BedragPerMaand;
   filterOptie: number;
   titel: string = "Begroting";
+  tabel: any[];
+  data: BedragPerMaand[] = [];
 
   faCheck = faCheck;
 
-  constructor(private service: BegrotingService)
+  constructor(private service: BegrotingService, private customCurrency: CurrencyPipe)
   {
-
+    this.tabel = [
+        {kolomnaam: "Januari", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Februari", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Maart", kolombreedte: -1, align: "right"},
+        {kolomnaam: "April", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Mei", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Juni", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Juli", kolombreedte: -1, align: "right"},
+        {kolomnaam: "Augustus", kolombreedte: 1, align: "right"},
+        {kolomnaam: "September", kolombreedte: 1, align: "right"},
+        {kolomnaam: "Oktober", kolombreedte: -1, align: "right"},
+        {kolomnaam: "November", kolombreedte: 1, align: "right"},
+        {kolomnaam: "December", kolombreedte: 1, align: "right"}
+      ];
   }
 
   ngOnInit()
@@ -45,53 +60,28 @@ export class BegrotingComponent implements OnInit
     });
   }
 
-  getResultaat(maand: number): number
+  getValue(item: BedragPerMaand, header: string): string
   {
-    var resultaat;
-    switch(maand)
-    {
-      case 0: resultaat = this.resultaat.totaal;
-        break;
-      case 1: resultaat = this.resultaat.januari;
-        break;
-      default: resultaat = 0;
-    }
-
-    return resultaat;
+    return item.getValue(header);
   }
 
   berekenen(jaar: number): void
   {
     this.service.get(jaar).subscribe(item => {
-      this.resultaat = item["resultaat"];
-      this.resultaat.type = "Resultaat";
-      this.inkomsten = item["inkomsten"];
-      this.inkomsten.type = "Inkomsten";
-      this.contracten = item["contracten"];
-      this.contracten.type = "Contracten";
-      this.budgetten = item["budgetten"];
-      this.budgetten.type = "Budgetten";
-      this.reserveringen = item["reserveringen"];
-      this.reserveringen.type = "Reserveringen";
-      this.afschrijvingen = item["afschrijvingen"];
-      this.afschrijvingen.type = "Afschrijvingen";
-      this.uitgaven = item["uitgaven"];
-      this.uitgaven.type = "Uitgaven";
-      
-      var arraydoel:Begroting[] = item["spaardoelen"];
+        this.inkomsten = Object.assign(new BedragPerMaand(this.customCurrency, "Inkomsten"), item.inkomst);
+        this.afschrijvingen = Object.assign(new BedragPerMaand(this.customCurrency, "Afschrijvingen"), item.afschrijving);
+        this.budgetten = Object.assign(new BedragPerMaand(this.customCurrency, "Budgetten"), item.budget);
+        this.contracten = Object.assign(new BedragPerMaand(this.customCurrency, "Contracten"), item.contract);
+        this.reserveringen = Object.assign(new BedragPerMaand(this.customCurrency, "Reserveringen"), item.reservering);
+        this.resultaat = Object.assign(new BedragPerMaand(this.customCurrency, "Resultaat"), item.resultaat);
+        this.uitgaven = Object.assign(new BedragPerMaand(this.customCurrency, "Uitgaven"), item.uitgaven);
 
-      this.spaardoelen = [];
-      arraydoel["Totaal"].type = "Totaal";
-      this.spaardoelen.push(arraydoel["Totaal"]);
-      Object.keys(arraydoel).sort((n1, n2)=> n1 > n2 ? -1 : 1).forEach(spaardoel => {
-        if(spaardoel != "Totaal")
+        for(let label in item.spaardoel)
         {
-          arraydoel[spaardoel].type = spaardoel;
-          this.spaardoelen.push(arraydoel[spaardoel]);
+            this.spaardoelen.push(Object.assign(new BedragPerMaand(this.customCurrency, label), item.spaardoel[label]));
         }
-      });
 
-      this.begroting = [this.resultaat, this.inkomsten, this.uitgaven];
+        this.data = [this.resultaat, this.inkomsten, this.uitgaven];
     });
   }
 }

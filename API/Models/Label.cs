@@ -14,10 +14,9 @@ namespace MoneyGrip.Models
 
         public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
         public virtual ICollection<BudgetLabel> BudgetLabels { get; set; }
-
-        public ICollection<Contract> Contract { get; set; }
-        public ICollection<Reservering> Reservering { get; set; }
-        public ICollection<Afschrijving> Afschrijving { get; set; }
-        public ICollection<Spaardoel> Spaardoel { get; set; }
+        public virtual ICollection<AfschrijvingLabel> AfschrijvingLabels { get; set; }
+        public virtual ICollection<ContractLabel> ContractLabels { get; set; }
+        public virtual ICollection<ReserveringLabel> ReserveringLabels { get; set; }
+        public virtual ICollection<SpaardoelLabel> SpaardoelLabels { get; set; }
     }
 }

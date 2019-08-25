@@ -13,5 +13,22 @@ namespace MoneyGrip.Data
             Kwartaal,
             Jaar
         }
+
+        public enum Maanden : byte
+        {
+            Alle = 0,
+            Januari,
+            Februari,
+            Maart,
+            April,
+            Mei,
+            Juni,
+            Juli,
+            Augustus,
+            September,
+            Oktober,
+            November,
+            December
+        }
     }
 }

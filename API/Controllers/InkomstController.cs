@@ -29,7 +29,8 @@ namespace MoneyGrip.Controllers
                 .Include(inkomst => inkomst.PersoonNavigation)
                 .Include(inkomst => inkomst.InkomstLabels)
                 .ThenInclude(inkomstLabel => inkomstLabel.Label)
-                .OrderByDescending(c => c.Begindatum <= DateTime.Now && (c.Einddatum >= DateTime.Now || c.Einddatum == null)).ThenBy(c => c.Einddatum == null).ThenBy(c => c.Einddatum);
+                .OrderBy(i => i.Einddatum < DateTime.Now)
+                .ThenBy(i => i.Begindatum);
 
             return inkomsten.Select(i => new InkomstViewModel
             {

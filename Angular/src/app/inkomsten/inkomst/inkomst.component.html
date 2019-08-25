@@ -3,49 +3,7 @@
   <app-button-annuleren class="button-annuleren"></app-button-annuleren>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-
-  <div class="form-group row">
-    <label for="label" class="col-sm-5 col-form-label">Label</label>
-    <div class="col-sm-7 col-form-label labelContainer" *ngIf="labelsLoaded | async">        
-        <input
-        #fruitInput
-        [formControl]="fruitCtrl"
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        [matChipInputAddOnBlur]="addOnBlur"
-        (matChipInputTokenEnd)="add($event)"
-        [ngClass]="[labels.length === 0 ? 'invalid' : 'valid']">
-        <mat-chip-list #chipList ngDefaultControl class="matchiplist" id="label" formControlName="label" required>
-            <mat-chip 
-            *ngFor="let item of labels"
-            [selectable]="selectable"
-            [removable]="removable"
-            (removed)="remove(item)">
-            {{item.naam}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-            </mat-chip>
-        </mat-chip-list>
-    </div>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let item of filteredFruits | async" [value]="item">
-        {{item.naam}}
-      </mat-option>
-    </mat-autocomplete>
-</div>
-<!--
-  <div class="form-group row">
-    <label for="label" class="col-sm-5 col-form-label">Label</label>
-    <div class="col-sm-7">
-      <select class="form-control" id="label" formControlName="label" required>
-        <option></option>
-        <option *ngFor="let item of labels | filter : ['categorieNavigation.type', '2']" value={{item.id}}>
-          {{ item.naam }}
-        </option>
-      </select>
-    </div>  
-  </div>
--->
+  <labels [aanwezigeLabels]="gekozenLabels" (updateForm)="updateFormControlLabelAndMarkDirty($event)" *ngIf="labelsLoaded | async"></labels>
   <div class="form-group row">
     <label for="persoon" class="col-sm-5 col-form-label">Persoon</label>
     <div class="col-sm-7">

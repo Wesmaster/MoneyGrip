@@ -31,8 +31,7 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
     service.setAccessPointUrl('contract');
 
     this.tabel = [
-      {kolomnaam: "Categorie", kolombreedte: 2},
-      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Label", kolombreedte: 3},
       {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
       {kolomnaam: "Begindatum", kolombreedte: 1, align: "center"},
       {kolomnaam: "Einddatum", kolombreedte: 1, align: "center"},
@@ -59,9 +58,13 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
   openDeleteDialog(item: Contract): void
   {
     var vraagVariabele = "";
-    if(item.labelNavigation != null)
+    if(item.label != null)
     {
-      vraagVariabele = item.labelNavigation.naam;
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
+      vraagVariabele = labelList.join(", ") + " ";
     }
     vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
     var vraag = 'Weet je zeker dat je het contract "' + vraagVariabele + '" wilt verwijderen?';
@@ -101,11 +104,16 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
 
   zoek(zoekTekst: string): void
   {
-      alert(zoekTekst);
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam)
-      || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+            item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
+        || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
+        );
+    }
   }
 }

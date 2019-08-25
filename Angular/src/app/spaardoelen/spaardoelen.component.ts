@@ -5,7 +5,6 @@ import { Spaardoel } from './spaardoel/spaardoel';
 import { SpaardoelComponent } from './spaardoel/spaardoel.component';
 import { CurrencyPipe } from '../currency.pipe';
 import { Maanden } from '../maanden.enum';
-import { environment } from '../../environments/environment';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
 
@@ -14,7 +13,8 @@ import { BasisService } from '../base/basis.service';
   templateUrl: '../base/basis-overzicht.component.html',
   styleUrls: ['./spaardoelen.component.scss']
 })
-export class SpaardoelenComponent extends BasisOverzichtComponent implements OnInit {
+export class SpaardoelenComponent extends BasisOverzichtComponent implements OnInit 
+{
   items: Spaardoel[];
   selectedId: number;
   rowSelected: boolean;
@@ -25,16 +25,14 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
   docpage = this.titel.toLowerCase();
   tabel: any[];
 
-  public read_the_docs: string = environment.read_the_docs;
-
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
   {
     super(service);
     service.setAccessPointUrl('spaardoel');
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Percentage", kolombreedte: 1, align: "right"},
+      {kolomnaam: "Label", kolombreedte: 3},
+      {kolomnaam: "Percentage", kolombreedte: 1, align: "center"},
       {kolomnaam: "Eindbedrag", kolombreedte: 1, align: "right"},
       {kolomnaam: "Eerste maand", kolombreedte: 2, align: "center"},
       {kolomnaam: "Laatste maand", kolombreedte: 2, align: "center"},
@@ -50,10 +48,15 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
   openDeleteDialog(item: Spaardoel): void
   {
     var vraagVariabele = "";
-    if(item.labelNavigation != null)
+    if(item.label != null)
     {
-      vraagVariabele = item.labelNavigation.naam;
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
+      vraagVariabele = labelList.join(", ") + " ";
     }
+
     if(item.eindbedrag != null)
     {
       vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.eindbedrag);
@@ -98,11 +101,18 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
-      || (item.eersteMaand <= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)] && item.laatsteMaand >= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)])
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+            item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
+        || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
+        || (item.eersteMaand <= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)] && item.laatsteMaand >= Maanden[this.maakEersteLetterHoofdletter(zoekTekst)])
+        );
+    }
   }
 
   maakEersteLetterHoofdletter(tekst: string): string

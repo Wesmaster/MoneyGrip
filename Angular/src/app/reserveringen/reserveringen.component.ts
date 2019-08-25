@@ -31,8 +31,7 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
     service.setAccessPointUrl('reservering');
 
     this.tabel = [
-      {kolomnaam: "Categorie", kolombreedte: 2},
-      {kolomnaam: "Label", kolombreedte: 2},
+      {kolomnaam: "Label", kolombreedte: 3},
       {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
       {kolomnaam: "Maand", kolombreedte: 1, align: "center"},
       {kolomnaam: "Omschrijving", kolombreedte: 0}
@@ -47,10 +46,15 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
   openDeleteDialog(item: Reservering): void
   {
     var vraagVariabele = "";
-    if(item.labelNavigation != null)
+    if(item.label != null)
     {
-      vraagVariabele = item.labelNavigation.naam;
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
+      vraagVariabele = labelList.join(", ") + " ";
     }
+
     vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
     var vraag = 'Weet je zeker dat je de reservering "' + vraagVariabele + '" wilt verwijderen?';
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
@@ -89,11 +93,17 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam)
-      || new RegExp(zoekTekst, 'gi').test(Maanden[item.maand])
-      || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+        item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
+        || new RegExp(zoekTekst, 'gi').test(Maanden[item.maand])
+        || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
+        );
+    }
   }
 }

@@ -2,15 +2,11 @@
 using Newtonsoft.Json;
 using static MoneyGrip.Data.Enums;
 using MoneyGrip.Models;
-using System.Collections.Generic;
-using MoneyGrip.Models.ViewModels;
 
 namespace MoneyGrip.ViewModels
 {
-    public class BudgetViewModel
+    public class BudgetViewModel : BasisViewModel
     {
-        public int Id { get; set; }
-        public List<LabelViewModel> Label { get; set; }
         public int Bedrag { get; set; }
 
         [JsonConverter(typeof(OnlyDateConverter))]

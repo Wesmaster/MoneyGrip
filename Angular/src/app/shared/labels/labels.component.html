@@ -1,0 +1,29 @@
+<div class="form-group row">
+    <label for="label" class="col-sm-5 col-form-label">Label</label>
+    <div class="col-sm-7 col-form-label labelContainer">        
+        <input
+        #labelInput
+        [formControl]="labelInputCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        [matChipInputAddOnBlur]="addOnBlur"
+        (matChipInputTokenEnd)="add($event)"
+        [ngClass]="[aanwezigeLabels.length === 0 ? 'invalid' : 'valid']">
+        <mat-chip-list #chipList ngDefaultControl class="matchiplist" id="label" required>
+            <mat-chip 
+            *ngFor="let item of aanwezigeLabels"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(item)">
+            {{item.naam}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </div>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let item of gefilterdeLabels | async" [value]="item">
+        {{item.naam}}
+    </mat-option>
+    </mat-autocomplete>
+</div>
