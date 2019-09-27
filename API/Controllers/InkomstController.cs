@@ -227,8 +227,7 @@ namespace MoneyGrip.Controllers
                 Inkomst = inkomst,
                 Label = label,
                 InkomstId = inkomst.Id,
-                LabelId = label.Id,
-                LaatstGewijzigd = DateTime.Now
+                LabelId = label.Id
             };
         }
     }

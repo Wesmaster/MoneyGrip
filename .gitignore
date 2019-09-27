@@ -36,3 +36,7 @@ Angular/sonar-project.properties
 Angular/e2e/protractor.conf.js
 Angular/e2e/
 Badges.txt
+Katalon/
+Unittests/
+Sonarqube analyze project extern.bat
+.gitattributes

@@ -7,6 +7,9 @@ import { CurrencyPipe } from '../currency.pipe';
 import { Maanden } from '../maanden.enum';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
+import BasisBeheerOverzicht from '../basisBeheerOverzicht';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-spaardoelen',
@@ -24,19 +27,22 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
   titel = "Spaardoelen";
   docpage = this.titel.toLowerCase();
   tabel: any[];
+  geselecteerd: Spaardoel[] = [];
+  faTrash = faTrash;
+  actionsAvailable: boolean = false;
 
-  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('spaardoel');
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 3},
-      {kolomnaam: "Percentage", kolombreedte: 1, align: "center"},
-      {kolomnaam: "Eindbedrag", kolombreedte: 1, align: "right"},
-      {kolomnaam: "Eerste maand", kolombreedte: 2, align: "center"},
-      {kolomnaam: "Laatste maand", kolombreedte: 2, align: "center"},
-      {kolomnaam: "Omschrijving", kolombreedte: 0}
+      {kolomnaam: "Label", kolombreedte: 3, align: "left", mobiel: true},
+      {kolomnaam: "Percentage", kolombreedte: 1, align: "center", mobiel: true},
+      {kolomnaam: "Eindbedrag", kolombreedte: 1, align: "right", mobiel: true},
+      {kolomnaam: "Eerste maand", kolombreedte: 2, align: "center", mobiel: true},
+      {kolomnaam: "Laatste maand", kolombreedte: 2, align: "center", mobiel: true},
+      {kolomnaam: "Omschrijving", kolombreedte: 0, align: "left", mobiel: false}
     ];
   }
 
@@ -45,26 +51,30 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
     this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Spaardoel(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Spaardoel(this.customCurrency), x))});
   }
 
-  openDeleteDialog(item: Spaardoel): void
+  onDelete(): void
   {
-    var vraagVariabele = "";
-    if(item.label != null)
-    {
-        var labelList: string[] = [];
-        item.label.forEach(element => {
-             labelList.push(element.naam);
-        });
-      vraagVariabele = labelList.join(", ") + " ";
-    }
+      var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];
+    this.geselecteerd.forEach(item => {
+        var vraagVariabele = "";
+        if(item.label != null)
+        {
+            var labelList: string[] = [];
+            item.label.forEach(element => {
+                labelList.push(element.naam);
+            });
+        vraagVariabele = labelList.join(", ");
+        }
 
-    if(item.eindbedrag != null)
-    {
-      vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.eindbedrag);
-    }else if(item.percentage != null)
-    {
-      vraagVariabele += " met percentage " + item.percentage + "%";
-    }
-    var vraag = 'Weet je zeker dat je het spaardoel "' + vraagVariabele + '" wilt verwijderen?';
+        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.eindbedrag);
+        vraagArray.push(vraagVariabele);
+    });
+    var vraag = vraagArray.join("\n");
+    this.openDeleteDialog(vraag);
+  }
+
+
+  openDeleteDialog(vraag: string): void
+  {
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Spaardoel verwijderen?"},
       panelClass: 'dialog-delete',
@@ -74,7 +84,12 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
     dialogRef.afterClosed().subscribe(result => {
       if(result)
       {
-        this.verwijderen(item.id);
+        this.geselecteerd.forEach(item => {
+            this.verwijderen(item.id);
+        });
+
+        this.geselecteerd = [];
+        this.ngOnInit();
       }
     });
   }
@@ -118,5 +133,15 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
   maakEersteLetterHoofdletter(tekst: string): string
   {
     return tekst.charAt(0).toUpperCase() + tekst.slice(1);
+  }
+
+  updateSelected(geselecteerd: BasisBeheerOverzicht[]): void
+  {
+      this.geselecteerd = [];
+      this.actionsAvailable = false;
+    geselecteerd.forEach(item => {
+        this.geselecteerd.push(Object.assign(new Spaardoel(this.customCurrency), item));
+        this.actionsAvailable = true;
+    });
   }
 }

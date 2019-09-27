@@ -27,21 +27,13 @@ export class Contract
                 returnList.push(element.naam);
             });
             return returnList.join(", ");
-          break;
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
-          break;
         case "Begindatum": return formatDate(this.begindatum, 'dd-MM-yyyy', "nl");
-          break;
         case "Einddatum": return this.einddatum ? formatDate(this.einddatum, 'dd-MM-yyyy', "nl") : "";
-          break;
         case "Interval": return Interval[this.interval];
-          break;
         case "Document": return this.document;
-          break;
-        case "DocumentNaam": return this.documentNaam;
-          break;
+        case "Documentnaam": return this.documentNaam;
         case "Id": return this.id;
-          break;
         default: return "";
       }
     }

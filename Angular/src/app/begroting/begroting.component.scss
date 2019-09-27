@@ -1,5 +1,4 @@
 @import '../../beheer-overzicht.scss';
-@import '../../beheer-editor.scss';
 @import '../../basis';
 
 .filterbar
@@ -11,12 +10,6 @@
 .col-sm--1
 {
   width: 6.24%;
-}
-
-.pagina
-{
-    height: 100%;
-    overflow: hidden;
 }
 
 .negative
@@ -44,11 +37,27 @@
     overflow-y: auto;
 }
 
+.data-section
+{
+    display: flex;
+    flex-direction: column;
+}
+
 .iconCheck
 {
     color: $green;
     margin-right: 15px;
     //color: #9DC183;
+}
+
+.overzicht
+{
+    margin: 0px 0px 10px 0px;
+}
+
+.spaardoelen
+{
+    height: 100%;
 }
 
 .totaal
@@ -57,52 +66,30 @@
     color: $text-dark;
 }
 
-.table
+.form-control
 {
-    margin-bottom: 0px;
-    table-layout: fixed;
+    padding-right: 0px;
+    /*height: calc(2.50rem + 2px);*/
+    color: $text-dark;
+    background-color: $input-light;
+    background-clip: padding-box;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid $bg-dark;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 
-    tbody
-    {
-        display: block;
-        overflow-y: scroll;
+.form-control:focus:not([readonly])
+{
+    color: $primary;
+    background-color: $input-light;
+    outline: 0;
+    box-shadow: none;
+}
 
-        td
-        {
-            border-top: none;
-            &:hover
-            {
-                text-decoration: underline;
-            }
-        }
 
-        tr
-        {
-            border-bottom: 1px solid $bg-dark;
-            &:hover
-            {
-                background-color: $bg-medium;
-                color: $text-dark;
-                cursor: pointer;
-            }
-        }
-    }
-
-    thead
-    {
-        background-color: $primary;
-        color: $text-light;
-        display: block;
-
-        th
-        {
-            border-bottom: none;
-            border-top: none;
-        }
-
-        tr
-        {
-            padding-right: 17px;
-        }
-    }
+#filter
+{
+    margin: 0px 10px 0px 0px;
 }

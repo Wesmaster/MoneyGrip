@@ -25,12 +25,14 @@ export class BegrotingComponent implements OnInit
   titel: string = "Begroting";
   tabel: any[];
   data: BedragPerMaand[] = [];
+  spaardoelenTitel: string = "Spaardoelen";
 
   faCheck = faCheck;
 
   constructor(private service: BegrotingService, private customCurrency: CurrencyPipe)
   {
     this.tabel = [
+        {kolomnaam: " "},
         {kolomnaam: "Januari", kolombreedte: -1, align: "right"},
         {kolomnaam: "Februari", kolombreedte: -1, align: "right"},
         {kolomnaam: "Maart", kolombreedte: -1, align: "right"},
@@ -76,12 +78,14 @@ export class BegrotingComponent implements OnInit
         this.resultaat = Object.assign(new BedragPerMaand(this.customCurrency, "Resultaat"), item.resultaat);
         this.uitgaven = Object.assign(new BedragPerMaand(this.customCurrency, "Uitgaven"), item.uitgaven);
 
+        var tempArray = [];
         for(let label in item.spaardoel)
         {
-            this.spaardoelen.push(Object.assign(new BedragPerMaand(this.customCurrency, label), item.spaardoel[label]));
-        }
+            tempArray.push(Object.assign(new BedragPerMaand(this.customCurrency, label), item.spaardoel[label]));
 
-        this.data = [this.resultaat, this.inkomsten, this.uitgaven];
+        }
+        this.spaardoelen = tempArray;
+        this.data = [this.resultaat, this.inkomsten, this.contracten, this.reserveringen, this.budgetten, this.afschrijvingen];
     });
   }
 }

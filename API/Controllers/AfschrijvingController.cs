@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
-using MoneyGrip.Models.ViewModels;
 using MoneyGrip.ViewModels;
 
 namespace MoneyGrip.Controllers
@@ -20,6 +18,22 @@ namespace MoneyGrip.Controllers
         public AfschrijvingController(Models.AppContext context)
         {
             _context = context;
+        }
+
+        [Route("algemeen")]
+        [HttpGet]
+        public async Task<IActionResult> getAfschrijvingenAlgemeen()
+        {
+            var TotaalPerMaand = await _context.Afschrijving.Where(a => a.Aankoopdatum.AddMonths(a.VerwachteLevensduur) > DateTime.Now).SumAsync(a => a.Aankoopbedrag / a.VerwachteLevensduur);
+            var GewensteStand = await _context.Afschrijving.SumAsync(a => (a.Aankoopbedrag / a.VerwachteLevensduur) * ((DateTime.Now.Year - a.Aankoopdatum.Year) * 12 + DateTime.Now.Month - a.Aankoopdatum.Month));
+
+            AfschrijvingAlgemeenViewModel algemeenVM = new AfschrijvingAlgemeenViewModel()
+            {
+                TotaalPerMaand = TotaalPerMaand,
+                GewensteStand = GewensteStand
+            };
+
+            return Ok(algemeenVM);
         }
 
         // GET: api/Afschrijving
@@ -41,7 +55,8 @@ namespace MoneyGrip.Controllers
                 Garantie = i.Garantie,
                 Factuur = i.Factuur,
                 FactuurNaam = i.FactuurNaam,
-                Label = toLabelViewModelList(i.AfschrijvingLabels)
+                Label = toLabelViewModelList(i.AfschrijvingLabels),
+                BedragPerMaand = i.Aankoopbedrag / i.VerwachteLevensduur
             });
         }
 
@@ -75,7 +90,8 @@ namespace MoneyGrip.Controllers
                 VerwachteLevensduur = afschrijving.VerwachteLevensduur,
                 Garantie = afschrijving.Garantie,
                 Factuur = afschrijving.Factuur,
-                FactuurNaam = afschrijving.FactuurNaam
+                FactuurNaam = afschrijving.FactuurNaam,
+                BedragPerMaand = afschrijving.Aankoopbedrag / afschrijving.VerwachteLevensduur
             };
 
             return Ok(afschrijvingVM);

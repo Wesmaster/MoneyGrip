@@ -9,10 +9,11 @@ import { ZoekbalkComponent } from './zoekbalk/zoekbalk.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LabelsComponent } from './labels/labels.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatChipsModule, MatIconModule, MatAutocompleteModule } from '@angular/material';
+import { MatChipsModule, MatIconModule, MatAutocompleteModule, MatTableModule, MatCheckboxModule } from '@angular/material';
+import { AlgemeenComponent } from './algemeen/algemeen.component';
 
 @NgModule({
-  declarations: [TableComponent, TitelComponent, DoclinkComponent, ButtonToevoegenComponent, ZoekbalkComponent, LabelsComponent],
+  declarations: [TableComponent, TitelComponent, DoclinkComponent, ButtonToevoegenComponent, ZoekbalkComponent, LabelsComponent, AlgemeenComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,7 +21,9 @@ import { MatChipsModule, MatIconModule, MatAutocompleteModule } from '@angular/m
     ReactiveFormsModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   exports: [
     TableComponent,
@@ -28,7 +31,8 @@ import { MatChipsModule, MatIconModule, MatAutocompleteModule } from '@angular/m
     DoclinkComponent,
     ButtonToevoegenComponent,
     ZoekbalkComponent,
-    LabelsComponent
+    LabelsComponent,
+    AlgemeenComponent
   ]
 })
 export class SharedModule { }

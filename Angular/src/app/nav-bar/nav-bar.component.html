@@ -1,0 +1,115 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+
+    <mat-nav-list>
+        <a mat-list-item class="rapportages" (click)="toonRapportages=!toonRapportages">
+            <fa-icon [icon]="faChartLine"></fa-icon>
+            <span class="lead col">RAPPORTAGES</span>
+            <fa-icon [icon]="toonRapportages ? faCaretUp : faCaretDown" class="iconCaret"></fa-icon>
+        </a>
+        <div class="submenu" [ngClass]="toonRapportages ? 'visible' : 'invisible'">
+            <a mat-list-item [routerLink]='["/begroting"]'>
+                <fa-icon [icon]="faBars"></fa-icon>
+                <span class="lead col">BEGROTING</span>
+            </a>
+        </div>
+        <a mat-list-item [routerLink]='["/inkomsten"]'>
+            <fa-icon [icon]="faSignInAlt"></fa-icon>
+            <span class="lead col">INKOMSTEN</span>
+        </a>
+        <a mat-list-item (click)="toonUitgaven=!toonUitgaven">
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            <span class="lead col">UITGAVEN</span>
+            <fa-icon [icon]="toonUitgaven ? faCaretUp : faCaretDown" class="iconCaret"></fa-icon>
+        </a>
+        <div class="submenu" [ngClass]="toonUitgaven ? 'visible' : 'invisible'">
+            <a mat-list-item [routerLink]='["/afschrijvingen"]'>
+                <fa-icon [icon]="faFileInvoice"></fa-icon>
+                <span class="lead col">AFSCHRIJVINGEN</span>
+            </a>
+            <a mat-list-item [routerLink]='["/budgetten"]'>
+                <fa-icon [icon]="faAlignLeft"></fa-icon>
+                <span class="lead col">BUDGETTEN</span>
+            </a>
+            <a mat-list-item [routerLink]='["/contracten"]'>
+                <fa-icon [icon]="faFileContract"></fa-icon>
+                <span class="lead col">CONTRACTEN</span>
+            </a>
+            <a mat-list-item [routerLink]='["/reserveringen"]'>
+                <fa-icon [icon]="faCalendarAlt"></fa-icon>
+                <span class="lead col">RESERVERINGEN</span>
+            </a>
+            <a mat-list-item [routerLink]='["/spaardoelen"]'>
+                <fa-icon [icon]="faPiggyBank"></fa-icon>
+                <span class="lead col">SPAARDOELEN</span>
+            </a>
+        </div>
+        <a mat-list-item (click)="toonInstellingen=!toonInstellingen">
+            <fa-icon [icon]="faEdit"></fa-icon>
+            <span class="lead col">INSTELLINGEN</span>
+            <fa-icon [icon]="toonInstellingen ? faCaretUp : faCaretDown" class="iconCaret"></fa-icon>
+        </a>
+        <div class="submenu" [ngClass]="toonInstellingen ? 'visible' : 'invisible'">
+            <a mat-list-item [routerLink]='["/labels"]'>
+                <fa-icon [icon]="faTag"></fa-icon>
+                <span class="lead col">LABELS</span>
+            </a>
+            <a mat-list-item [routerLink]='["/personen"]'>
+                <fa-icon [icon]="faUsers"></fa-icon>
+                <span class="lead col">PERSONEN</span>
+            </a>
+        </div>
+        <a mat-list-item class="beheer" (click)="toonBeheer=!toonBeheer">
+            <fa-icon [icon]="faCogs"></fa-icon>
+            <span class="lead col">BEHEER</span>
+            <fa-icon [icon]="toonBeheer ? faCaretUp : faCaretDown" class="iconCaret"></fa-icon>
+        </a>
+        <div class="submenu" [ngClass]="toonBeheer ? 'visible' : 'invisible'">
+            <a mat-list-item [routerLink]='["/backup"]'>
+                <fa-icon [icon]="faDatabase"></fa-icon>
+                <span class="lead col">BACKUP</span>
+            </a>
+        </div>
+        <a mat-list-item (click)="toonHelp=!toonHelp">
+            <fa-icon [icon]="faQuestionCircle"></fa-icon>
+            <span class="lead col">HELP</span>
+            <fa-icon [icon]="toonHelp ? faCaretUp : faCaretDown" class="iconCaret"></fa-icon>
+        </a>
+        <div class="submenu" [ngClass]="toonHelp ? 'visible' : 'invisible'">
+            <a mat-list-item href='{{ read_the_docs }}' target="_blank">
+                <fa-icon [icon]="faBook"></fa-icon>
+                <span class="lead col">HANDLEIDING</span>
+            </a>
+            <a mat-list-item (click)="toonInfo()">
+                <fa-icon [icon]="faInfoCircle"></fa-icon>
+                <span class="lead col">INFO</span>
+            </a>
+        </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        class="menuButton">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span class="col"></span>
+      <img src="assets/Logo.png" alt="MoneyGrip" height="32px" width="32px">
+      <div class="display-6 text-left">
+          {{ app_name }}
+      </div>
+      <span class="col"></span>
+      <doclink class="doclink"></doclink>
+    </mat-toolbar>
+    <div class="wrapper">
+        <ng-content></ng-content>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -7,6 +7,9 @@ import { Interval } from '../interval.enum';
 import { CurrencyPipe } from '../currency.pipe';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
+import BasisBeheerOverzicht from '../basisBeheerOverzicht';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-inkomsten',
@@ -23,21 +26,24 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
   buttonText = "Inkomst";
   zoekResultaat: Inkomst[];
   titel = "Inkomsten";
-  docpage = this.titel.toLowerCase();
   tabel: any[];
+  geselecteerd: Inkomst[] = [];
+  faTrash = faTrash;
+  actionsAvailable: boolean = false;
 
-  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('inkomst');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 3},
-      {kolomnaam: "Persoon", kolombreedte: 2},
-      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
-      {kolomnaam: "Begindatum", kolombreedte: 1, align: "center"},
-      {kolomnaam: "Einddatum", kolombreedte: 1, align: "center"},
-      {kolomnaam: "Interval", kolombreedte: 0}
+      {kolomnaam: "Label", kolombreedte: 3, align: "left", mobiel: true},
+      {kolomnaam: "Persoon", kolombreedte: 2, align: "left", mobiel: false},
+      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right", mobiel: true},
+      {kolomnaam: "Begindatum", kolombreedte: 1, align: "center", mobiel: false},
+      {kolomnaam: "Einddatum", kolombreedte: 1, align: "center", mobiel: false},
+      {kolomnaam: "Interval", kolombreedte: 0, align: "left", mobiel: false}
     ];
   }
 
@@ -46,23 +52,29 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
     this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Inkomst(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Inkomst(this.customCurrency), x))});
   }
 
-  openDeleteDialog(item: Inkomst): void
+  onDelete(): void
   {
-    var vraagVariabele = "";
-    if(item.label != null)
-    {
-        var labelList: string[] = [];
-        item.label.forEach(element => {
-             labelList.push(element.naam);
-        });
-      vraagVariabele = labelList.join(", ") + " ";
-      if(item.persoon != null)
-      {
-        vraagVariabele += "van " + item.persoon.voornaam + " " + item.persoon.achternaam + " ";
-      }
-    }
-    vraagVariabele += "met bedrag € " + this.customCurrency.transform(item.bedrag);
-    var vraag = 'Weet je zeker dat je de inkomst "' + vraagVariabele + '" wilt verwijderen?';
+      var vraagArray = ["Weet je zeker dat je de volgende inkomst(en) wilt verwijderen?"];
+    this.geselecteerd.forEach(item => {
+        var vraagVariabele = "";
+        if(item.label != null)
+        {
+            var labelList: string[] = [];
+            item.label.forEach(element => {
+                labelList.push(element.naam);
+            });
+        vraagVariabele = labelList.join(", ");
+        }
+
+        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
+        vraagArray.push(vraagVariabele);
+    });
+    var vraag = vraagArray.join("\n");
+    this.openDeleteDialog(vraag);
+  }
+
+  openDeleteDialog(vraag: string): void
+  {
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Inkomst verwijderen?"},
       panelClass: 'dialog-delete',
@@ -72,7 +84,12 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
     dialogRef.afterClosed().subscribe(result => {
       if(result)
       {
-        this.verwijderen(item.id);
+        this.geselecteerd.forEach(item => {
+            this.verwijderen(item.id);
+        });
+
+        this.geselecteerd = [];
+        this.ngOnInit();
       }
     });
   }
@@ -112,5 +129,15 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
             || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
         );
       }
+  }
+
+  updateSelected(geselecteerd: BasisBeheerOverzicht[]): void
+  {
+      this.geselecteerd = [];
+      this.actionsAvailable = false;
+    geselecteerd.forEach(item => {
+        this.geselecteerd.push(Object.assign(new Inkomst(this.customCurrency), item));
+        this.actionsAvailable = true;
+    });
   }
 }

@@ -16,12 +16,12 @@ export class BaseEditComponent
 
     protected changeDialogPosition()
     {
-      this.dialogRef.updatePosition({top: '5%', left: '39%'});
+      this.dialogRef.updatePosition({top: '5%'});
     }
 
     protected setDialogSize()
     {
-        this.dialogRef.updateSize('22%');
+      //  this.dialogRef.updateSize('22%');
     }
 
     protected getForm(): FormGroup

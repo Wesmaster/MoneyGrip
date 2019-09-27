@@ -1,15 +1,17 @@
 <div class="pagina">
-  <div class="pagina-header row">
-    <titel class = "col" [naam]="titel"></titel>
-    <doclink class="col-1 doclink" [pagina]="docpage"></doclink>
-  </div>
-  <div class="buttongroup-top">
-    <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
-  </div>
-  <div class="data-section">
-    <div class="customZoekbalk">
-      <zoekbalk (zoekTekst)="zoek($event)"></zoekbalk>
+    <div class="pagina-wrapper row">
+        <div>
+            <div class="pagina-header">
+                <titel [naam]="titel"></titel>
+            </div>
+            <div class="buttongroup-top row">
+                <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
+                <zoekbalk class="col" (zoekTekst)="zoek($event)"></zoekbalk>
+            </div>
+        </div> 
+        <algemeen class="col" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
     </div>
+  <div class="data-section">
     <mg-table [setupValues]="tabel" [data]="zoekResultaat" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)"></mg-table>
   </div>
 </div>

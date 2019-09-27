@@ -6,7 +6,7 @@ Het is mogelijk om te filteren op: Label, Persoon en Geldig op
 
 Invoervelden:
 
-* Label
+* Label (verplicht)
 * Persoon
 * Bedrag (verplicht)
 * Begindatum (verplicht)

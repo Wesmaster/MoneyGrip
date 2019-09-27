@@ -1,55 +1,27 @@
 <div class="pagina">
-  <div class="pagina-header row">
-    <titel class = "col" [naam]="titel"></titel>
-    <doclink class="col-1 doclink" [pagina]="docpage"></doclink>
-  </div>
-  <div class="filterbar row">
-    <div class="col-sm-1">
-      <select class="form-control" id="filter" [(ngModel)]="filterOptie">
-        <option *ngFor="let item of filter">
-          {{ item }}
-        </option>
-      </select>
+    <div class="row">
+        <div>
+            <div class="pagina-header">
+                <titel [naam]="titel"></titel>
+            </div>
+            <div class="buttongroup-top row">
+                <select class="form-control" id="filter" [(ngModel)]="filterOptie">
+                    <option *ngFor="let item of filter">
+                        {{ item }}
+                    </option>
+                </select>
+                <app-button-actie [buttonText]="buttonText" (actieChange)="berekenen(filterOptie)"></app-button-actie>
+            </div>
+        </div> 
+        <algemeen class="col" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
     </div>
-    <div class="col-sm-0-25"></div>
-    <div class="col">
-      <app-button-actie [buttonText]="buttonText" (actieChange)="berekenen(filterOptie)"></app-button-actie>
-    </div>  
-  </div>
-  <div>
-    <table class='table begroting'>
-        <thead>
-            <tr class="d-flex">
-                <th class="lead col-2"></th>
-                <th class="lead" [ngClass]="[kolom.kolombreedte === 0 ? 'col' : 'col-sm-'+ kolom.kolombreedte, 'text-' + kolom.align]" *ngFor="let kolom of tabel">{{ kolom.kolomnaam }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="d-flex" *ngFor="let item of data" [ngClass]="{'selected': item.id == selectedId}">
-                <td class="col-2">{{ item.type }}</td>
-                <td [ngClass]="[kolom.kolombreedte === 0 ? 'col' : 'col-sm-'+ kolom.kolombreedte, 'text-' + kolom.align]" *ngFor="let kolom of tabel">
-                    {{ getValue(item, kolom.kolomnaam) }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
-  <div>
-    <table class='table begroting-spaardoelen'>
-        <thead>
-            <tr class="d-flex">
-                <th class="lead col-2">Spaardoel</th>
-                <th class="lead" [ngClass]="[kolom.kolombreedte === 0 ? 'col' : 'col-sm-'+ kolom.kolombreedte, 'text-' + kolom.align]" *ngFor="let kolom of tabel">{{ kolom.kolomnaam }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="d-flex" *ngFor="let item of spaardoelen" [ngClass]="{'selected': item.id == selectedId}">
-                <td class="col-2">{{ item.type }}</td>
-                <td [ngClass]="[kolom.kolombreedte === 0 ? 'col' : 'col-sm-'+ kolom.kolombreedte, 'text-' + kolom.align]" *ngFor="let kolom of tabel">
-                    {{ getValue(item, kolom.kolomnaam) }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
+    <div class="data-section">
+        <div class="overzicht">
+            <mg-table [setupValues]="tabel" [data]="data"></mg-table>
+        </div>
+        <titel [naam]="spaardoelenTitel"></titel>
+        <div class="spaardoelen">
+            <mg-table [setupValues]="tabel" [data]="spaardoelen"></mg-table>
+        </div>
+    </div>
 </div>

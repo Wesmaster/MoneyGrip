@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import BasisBeheerOverzicht from '../basisBeheerOverzicht';
 
@@ -33,7 +33,7 @@ export class BasisService
     return this.http.get<BasisBeheerOverzicht[]>(this.accessPointUrl, {headers: this.headers});
   }
 
-  public get(id): Observable<BasisBeheerOverzicht>
+  public get(id: number): Observable<BasisBeheerOverzicht>
   {
     return this.http.get<BasisBeheerOverzicht>(this.accessPointUrl + '/' + id, {headers: this.headers});
   }
@@ -43,7 +43,7 @@ export class BasisService
     return await this.http.put<BasisBeheerOverzicht>(this.accessPointUrl + '/' + item.id, item, {headers: this.headers}).toPromise();
   }
 
-  public delete(id)
+  public delete(id: number)
   {
     return this.http.delete(this.accessPointUrl + '/' + id, {headers: this.headers});
   }

@@ -3,8 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LabelService } from '../label.service';
-import { CategorieService } from '../../categorieen/categorie.service';
-import { Categorie } from '../../categorieen/categorie/categorie';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
@@ -19,11 +17,10 @@ export class LabelComponent extends BaseEditComponent implements OnInit
   @Output() getChange = new EventEmitter<number>();
 
   form: FormGroup;
-  items: Categorie[];
   titelText: string = "Label";
   faDownload = faDownload;
 
-  constructor(private service: LabelService, private categorieService: CategorieService, public dialogRef: MatDialogRef<LabelComponent>,
+  constructor(private service: LabelService, public dialogRef: MatDialogRef<LabelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
   {
     super(dialogRef);
@@ -36,12 +33,11 @@ export class LabelComponent extends BaseEditComponent implements OnInit
     }
 
     delete this.form;
-    this.getCategorieen();
     this.createForm();
 
     if(this.id == 0)
     {
-      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", naam: "", categorie: ""});
+      this.form.reset({id: 0, laatstGewijzigd: "01-01-1900", naam: ""});
     }
     else
     {
@@ -63,9 +59,6 @@ export class LabelComponent extends BaseEditComponent implements OnInit
       naam: new FormControl('',[
         Validators.required,
         Validators.maxLength(50)
-      ]),
-      categorie: new FormControl('',[
-        Validators.required
       ]),
     });
   }
@@ -92,10 +85,5 @@ export class LabelComponent extends BaseEditComponent implements OnInit
 
     this.id = null;
     this.dialogRef.close(true);
-  }
-
-  getCategorieen()
-  {
-    this.categorieService.getAll().subscribe(items => this.items = items);
   }
 }

@@ -1,9 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import './basis';
 
+
 html, body
 {
     height: 100vh;
+}
+
+a
+{
+    &:hover
+    {
+        color: $accent !important;
+        text-decoration: none !important;
+    }
+}
+
+.row
+{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 
 .loading .mid
@@ -13,6 +29,11 @@ html, body
     font-weight: bold;
 }
 
+label
+{
+    margin-bottom: 0px !important;
+}
+
 input
 {
     background-clip: padding-box;
@@ -20,9 +41,9 @@ input
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: 1px solid $bg-dark;
+    border-bottom: 1px solid $bg-medium;
     border-radius: 0px;
-    color: $text-dark;
+    color: $text-light;
     display: block;
     font-size: 1rem;
     height: calc(2.25rem + 2px);
@@ -36,7 +57,7 @@ input:focus
 {
     background-color: $input-dark;
     border-color: $secondary;
-    color: $text-dark;
+    color: $text-light;
     outline: 0;
 }
 
@@ -55,7 +76,15 @@ button[type=submit]
 .btn:focus
 {
     box-shadow: none;
-    outline: 0;
+    outline: 0 !important;
+}
+
+button
+{
+    &:focus
+    {
+        outline: 0 !important;
+    }
 }
 
 .dropdown:hover>.dropdown-menu {
@@ -188,3 +217,36 @@ thead
 {
   width: 4.16%;
 }
+/*
+@font-face {
+    font-family: OpenDyslexic;
+    src: url('assets/font/OpenDyslexic-Regular.otf');
+}
+@font-face {
+    font-family: OpenDyslexic-Bold;
+    src: url('assets/font/OpenDyslexic-Bold.otf');
+}
+@font-face {
+    font-family: OpenDyslexic-Bolditalic;
+    src: url('assets/font/OpenDyslexic-Bolditalic.otf');
+}
+@font-face {
+    font-family: OpenDyslexic-Italic;
+    src: url('assets/font/OpenDyslexic-Italic.otf');
+}
+
+body{
+  font-family: OpenDyslexic;
+}
+b{
+  font-family: OpenDyslexic-Bold;
+}
+i, em {
+  font-family: OpenDyslexic-Italic;
+}
+b > i, em {
+  font-family: OpenDyslexic-Bolditalic;
+}
+i, em > b {
+  font-family: OpenDyslexic-Bolditalic;
+}*/

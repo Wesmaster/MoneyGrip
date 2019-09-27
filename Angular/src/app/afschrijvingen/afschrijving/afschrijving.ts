@@ -1,8 +1,9 @@
 import { Label } from "../../labels/label/label";
 import { formatDate } from '@angular/common';
 import { CurrencyPipe } from '../../currency.pipe';
+import BasisBeheerOverzicht from "../../basisBeheerOverzicht";
 
-export class Afschrijving
+export class Afschrijving extends BasisBeheerOverzicht
 {
     id: number;
     laatstGewijzidgd: Date;
@@ -13,8 +14,12 @@ export class Afschrijving
     garantie: number;
     factuur: string;
     factuurNaam: string;
+    bedragPerMaand: number;
 
-    constructor(private customCurrency: CurrencyPipe) {}
+    constructor(private customCurrency: CurrencyPipe)
+    {
+        super();
+    }
 
     getValue(value: string) : any
     {
@@ -37,12 +42,18 @@ export class Afschrijving
           break;
         case "Factuur": return this.factuur;
           break;
-        case "FactuurNaam": return this.factuurNaam;
+        case "Factuurnaam": return this.factuurNaam;
           break;
         case "Id": return this.id;
           break;
-        case "Per maand": return "€ " + this.customCurrency.transform(Math.round(this.aankoopbedrag / this.verwachteLevensduur));
+        case "Per maand": return "€ " + this.customCurrency.transform(this.bedragPerMaand);
         default: return "";
       }
     }
+}
+
+export class AfschrijvingAlgemeen
+{
+    totaalPerMaand: number;
+    gewensteStand: number;
 }

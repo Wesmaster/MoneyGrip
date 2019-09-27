@@ -51,7 +51,7 @@ export class ContractComponent extends BaseEditComponent implements OnInit
     if(this.id == 0)
     {
         this.labelsLoaded = Promise.resolve(true);
-      this.form.reset({id: 0, categorie: "", label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: "", documentNaam: ""});
+      this.form.reset({id: 0, label: "", bedrag: "", begindatum: "", einddatum: "", interval: "", document: "", documentNaam: ""});
     }
     else
     {

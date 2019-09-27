@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule, MatChipsModule, DateAdapter, MatDialogModule, MatInputModule, MatIconModule, MatAutocompleteModule } from '@angular/material';
+import { MatDatepickerModule, MatChipsModule, DateAdapter, MatDialogModule, MatInputModule, MatIconModule, MatAutocompleteModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -51,6 +51,9 @@ import localeNL from '@angular/common/locales/nl';
 import { LOCALE_ID } from '@angular/core';
 import { DialogLadenComponent } from './dialog-laden/dialog-laden.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { Globals } from './globals';
 
 registerLocaleData(localeNL);
 
@@ -90,7 +93,8 @@ registerLocaleData(localeNL);
     BegrotingComponent,
     InfoComponent,
     BackupComponent,
-    DialogLadenComponent
+    DialogLadenComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -106,9 +110,14 @@ registerLocaleData(localeNL);
     FontAwesomeModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule
   ],
-  providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}],
+  providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}, Globals],
   bootstrap: [AppComponent],
   entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent]
 })

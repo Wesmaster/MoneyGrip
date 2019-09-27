@@ -52,11 +52,6 @@ namespace MoneyGrip.Models
                 entity.Property(e => e.Naam)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.HasOne(d => d.CategorieNavigation)
-                    .WithMany(p => p.Label)
-                    .HasForeignKey(d => d.Categorie)
-                    .HasConstraintName("FK_Label_Categorie");
             });
 
             modelBuilder.Entity<Persoon>(entity =>

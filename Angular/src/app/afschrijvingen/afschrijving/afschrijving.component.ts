@@ -100,7 +100,6 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.form.get('factuur').setValue(reader.result.toString().split(",")[1]);
-        alert(file.name);
         this.form.get('factuurNaam').setValue(file.name);
         this.form.markAsDirty();
       };

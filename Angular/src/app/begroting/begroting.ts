@@ -15,7 +15,10 @@ export class BedragPerMaand
     november: number;
     december: number;
 
-    constructor(private customCurrency: CurrencyPipe, public type: string) {}
+    constructor(private customCurrency: CurrencyPipe, public type: string)
+    {
+
+    }
 
     getValue(value: string): string
     {
@@ -33,6 +36,7 @@ export class BedragPerMaand
             case "Oktober": return this.transformeerNaarBedrag(this.oktober);
             case "November": return this.transformeerNaarBedrag(this.november);
             case "December": return this.transformeerNaarBedrag(this.december);
+            case " ": return this.type;
             default: return "";
         }
     }

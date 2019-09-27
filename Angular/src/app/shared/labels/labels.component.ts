@@ -107,7 +107,6 @@ export class LabelsComponent implements OnInit
     var label: Label = new Label();
     label.id = 0;
     label.naam = naam;
-    label.categorie = 7;
     await this.labelService.add(label).then(id => {
         label.id = parseInt(id.toString());
         this.allLabels.push(label);
