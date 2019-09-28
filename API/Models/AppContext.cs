@@ -13,7 +13,6 @@ namespace MoneyGrip.Models
         {
         }
 
-        public virtual DbSet<Categorie> Categorie { get; set; }
         public virtual DbSet<Label> Label { get; set; }
         public virtual DbSet<Persoon> Persoon { get; set; }
         public virtual DbSet<Inkomst> Inkomst { get; set; }
@@ -32,21 +31,6 @@ namespace MoneyGrip.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Categorie>(entity =>
-            {
-                entity.Property(e => e.Kleur)
-                    .IsRequired()
-                    .HasMaxLength(7)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Naam)
-                    .IsRequired()
-                    .HasMaxLength(20);
-
-                entity.Property(e => e.Type)
-                    .IsRequired();
-            });
-
             modelBuilder.Entity<Label>(entity =>
             {
                 entity.Property(e => e.Naam)
