@@ -2,7 +2,7 @@ Personen
 ========
 
 Personen worden momenteel nog niet veel gebruikt binnen MoneyGrip. Alleen bij de inkomsten is het mogelijk een persoon op te geven.
-In een later stadium zal dit waarschijnlijk nog worden uitgebreid om zo ook een overzicht per persoon mogelijk te maken.
+In de toekomst zal dit ook verdwijnen. Een persoon kan nu als Label worden toegevoegd.
 
 Invoervelden:
 

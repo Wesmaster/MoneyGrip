@@ -7,6 +7,9 @@ import { Maanden } from '../maanden.enum';
 import { CurrencyPipe } from '../currency.pipe';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
+import BasisBeheerOverzicht from '../basisBeheerOverzicht';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-reserveringen',
@@ -22,20 +25,22 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
   buttonText = "Reservering";
   zoekResultaat: Reservering[];
   titel = "Reserveringen";
-  docpage = this.titel.toLowerCase();
   tabel: any[];
+  geselecteerd: Reservering[] = [];
+  faTrash = faTrash;
+  actionsAvailable: boolean = false;
 
-  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('reservering');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
-      {kolomnaam: "Categorie", kolombreedte: 2},
-      {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right"},
-      {kolomnaam: "Maand", kolombreedte: 1, align: "center"},
-      {kolomnaam: "Omschrijving", kolombreedte: 0}
+      {kolomnaam: "Label", kolombreedte: 3, align: "left", mobiel: true},
+      {kolomnaam: "Bedrag", kolombreedte: 1, align: "right", mobiel: true},
+      {kolomnaam: "Maand", kolombreedte: 1, align: "center", mobiel: true},
+      {kolomnaam: "Omschrijving", kolombreedte: 0, align: "left", mobiel: false}
     ];
   }
 
@@ -44,15 +49,29 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
     this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Reservering(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Reservering(this.customCurrency), x))});
   }
 
-  openDeleteDialog(item: Reservering): void
+  onDelete(): void
   {
-    var vraagVariabele = "";
-    if(item.labelNavigation != null)
-    {
-      vraagVariabele = item.labelNavigation.naam;
-    }
-    vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
-    var vraag = 'Weet je zeker dat je de reservering "' + vraagVariabele + '" wilt verwijderen?';
+      var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];
+    this.geselecteerd.forEach(item => {
+        var vraagVariabele = "";
+        if(item.label != null)
+        {
+            var labelList: string[] = [];
+            item.label.forEach(element => {
+                labelList.push(element.naam);
+            });
+        vraagVariabele = labelList.join(", ");
+        }
+
+        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
+        vraagArray.push(vraagVariabele);
+    });
+    var vraag = vraagArray.join("\n");
+    this.openDeleteDialog(vraag);
+  }
+
+  openDeleteDialog(vraag: string): void
+  {
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Reservering verwijderen?"},
       panelClass: 'dialog-delete',
@@ -62,7 +81,12 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
     dialogRef.afterClosed().subscribe(result => {
       if(result)
       {
-        this.verwijderen(item.id);
+        this.geselecteerd.forEach(item => {
+            this.verwijderen(item.id);
+        });
+
+        this.geselecteerd = [];
+        this.ngOnInit();
       }
     });
   }
@@ -89,11 +113,27 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam) 
-      || new RegExp(zoekTekst, 'gi').test(item.labelNavigation.categorieNavigation.naam)
-      || new RegExp(zoekTekst, 'gi').test(Maanden[item.maand])
-      || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+        item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
+        || new RegExp(zoekTekst, 'gi').test(Maanden[item.maand])
+        || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
+        );
+    }
+  }
+
+  updateSelected(geselecteerd: BasisBeheerOverzicht[]): void
+  {
+      this.geselecteerd = [];
+      this.actionsAvailable = false;
+    geselecteerd.forEach(item => {
+        this.geselecteerd.push(Object.assign(new Reservering(this.customCurrency), item));
+        this.actionsAvailable = true;
+    });
   }
 }

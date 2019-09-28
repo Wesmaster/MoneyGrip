@@ -2,7 +2,6 @@ import BasisBeheerOverzicht from '../../basisBeheerOverzicht'
 
 export class Persoon extends BasisBeheerOverzicht {
   id: number;
-  laatstGewijzigd: Date;
   voornaam: string;
   achternaam?: string;
 

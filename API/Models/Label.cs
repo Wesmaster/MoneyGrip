@@ -5,25 +5,15 @@ namespace MoneyGrip.Models
 {
     public partial class Label
     {
-        public Label()
-        {
-            Inkomst = new HashSet<Inkomst>();
-        }
-
         public int Id { get; set; }
         public DateTime LaatstGewijzigd { get; set; }
         public string Naam { get; set; }
-        public int Categorie { get; set; }
 
-        public Categorie CategorieNavigation { get; set; }
-
-   //     public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
-
-        public ICollection<Inkomst> Inkomst { get; set; }
-        public ICollection<Contract> Contract { get; set; }
-        public ICollection<Budget> Budget { get; set; }
-        public ICollection<Reservering> Reservering { get; set; }
-        public ICollection<Afschrijving> Afschrijving { get; set; }
-        public ICollection<Spaardoel> Spaardoel { get; set; }
+        public virtual ICollection<InkomstLabel> InkomstLabels { get; set; }
+        public virtual ICollection<BudgetLabel> BudgetLabels { get; set; }
+        public virtual ICollection<AfschrijvingLabel> AfschrijvingLabels { get; set; }
+        public virtual ICollection<ContractLabel> ContractLabels { get; set; }
+        public virtual ICollection<ReserveringLabel> ReserveringLabels { get; set; }
+        public virtual ICollection<SpaardoelLabel> SpaardoelLabels { get; set; }
     }
 }

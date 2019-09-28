@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
+using MoneyGrip.ViewModels;
 
 namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReserveringController : ControllerBase
+    public class ReserveringController : BasisController
     {
         private readonly Models.AppContext _context;
 
@@ -21,9 +22,22 @@ namespace MoneyGrip.Controllers
 
         // GET: api/Reservering
         [HttpGet]
-        public IEnumerable<Reservering> GetReservering()
+        public IEnumerable<ReserveringViewModel> GetReservering()
         {
-            return _context.Reservering.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderBy(l => l.Maand).ThenBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
+            IEnumerable<Reservering> reserveringen = _context.Reservering
+                .Include(reservering => reservering.ReserveringLabels)
+                .ThenInclude(reserveringLabel => reserveringLabel.Label)
+                .OrderBy(r => r.Maand)
+                .ThenBy(r => r.Bedrag);
+
+            return reserveringen.Select(r => new ReserveringViewModel
+            {
+                Id = r.Id,
+                Bedrag = r.Bedrag,
+                Maand = r.Maand,
+                Omschrijving = r.Omschrijving,
+                Label = toLabelViewModelList(r.ReserveringLabels)
+            });
         }
 
         // GET: api/Reservering/5
@@ -35,31 +49,60 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var reservering = await _context.Reservering.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            Reservering reservering = await _context.Reservering
+                .Where(r => r.Id == id)
+                .Include(r => r.ReserveringLabels)
+                .ThenInclude(rl => rl.Label)
+                .FirstOrDefaultAsync();
 
             if (reservering == null)
             {
                 return NotFound();
             }
 
-            return Ok(reservering);
+            ReserveringViewModel reserveringVM = new ReserveringViewModel
+            {
+                Id = reservering.Id,
+                Bedrag = reservering.Bedrag,
+                Maand = reservering.Maand,
+                Omschrijving = reservering.Omschrijving,
+                Label = toLabelViewModelList(reservering.ReserveringLabels)
+            };
+
+            return Ok(reserveringVM);
         }
 
         // PUT: api/Reservering/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReservering([FromRoute] int id, [FromBody] Reservering reservering)
+        public async Task<IActionResult> PutReservering([FromRoute] int id, [FromBody] ReserveringPostModel reserveringPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != reservering.Id)
+            if (id != reserveringPM.Id)
             {
                 return BadRequest();
             }
 
+            Reservering reservering = _context.Reservering.Where(r => r.Id == id).Include(r => r.ReserveringLabels).First();
+            reservering.Bedrag = reserveringPM.Bedrag;
+            reservering.Maand = reserveringPM.Maand;
+            reservering.Omschrijving = reserveringPM.Omschrijving;
             reservering.LaatstGewijzigd = DateTime.Now;
+
+            reservering.ReserveringLabels.Clear();
+
+            foreach (var newLabelId in reserveringPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                reservering.ReserveringLabels.Add
+                (
+                    nieuwReserveringLabel(reservering, label)
+                );
+            }
+
             _context.Entry(reservering).State = EntityState.Modified;
 
             try
@@ -83,14 +126,32 @@ namespace MoneyGrip.Controllers
 
         // POST: api/Reservering
         [HttpPost]
-        public async Task<IActionResult> PostReservering([FromBody] Reservering reservering)
+        public async Task<IActionResult> PostReservering([FromBody] ReserveringPostModel reserveringPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            reservering.LaatstGewijzigd = DateTime.Now;
+            Reservering reservering = new Reservering
+            {
+                Id = reserveringPM.Id,
+                Bedrag = reserveringPM.Bedrag,
+                Maand = reserveringPM.Maand,
+                Omschrijving = reserveringPM.Omschrijving,
+                LaatstGewijzigd = DateTime.Now,
+                ReserveringLabels = new List<ReserveringLabel>()
+            };
+
+            foreach (var newLabelId in reserveringPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                reservering.ReserveringLabels.Add
+                (
+                   nieuwReserveringLabel(reservering, label)
+                );
+            }
+
             _context.Reservering.Add(reservering);
             await _context.SaveChangesAsync();
 
@@ -121,6 +182,17 @@ namespace MoneyGrip.Controllers
         private bool ReserveringExists(int id)
         {
             return _context.Reservering.Any(e => e.Id == id);
+        }
+
+        private ReserveringLabel nieuwReserveringLabel(Reservering reservering, Label label)
+        {
+            return new ReserveringLabel
+            {
+                Reservering = reservering,
+                Label = label,
+                ReserveringId = reservering.Id,
+                LabelId = label.Id
+            };
         }
     }
 }

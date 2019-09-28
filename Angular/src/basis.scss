@@ -1,21 +1,25 @@
+
+
 $primary: #4D3C4F;
 $secondary: #6D5F6F;
 $accent: #D2BF55;
 
 $text-dark: #212121;
 $text-light: #FFFFFF;
-$text-blend: #AFA7B0;//#948A96;
+$text-blend: #AFA7B0;
 
-$bg-dark: #D8D7D9;//C5C3C6
-$bg-medium: #EBEBEC;
+$bg-dark: #303030;
+$bg-medium: #424242;
 $bg-light: #FFFFFF;
 
-$input-dark: #FFFFFF;
+$input-dark: #303030;
+$input-light: #FFFFFF;
 
 $green: #0A966C;
 $red: #AF1818;
 $blue: #A2BCCA;
 $grey: #BFC0C0;
+$white: #FFFFFF;
 
 .tooltip .tooltip-inner
 {
@@ -31,3 +35,16 @@ $grey: #BFC0C0;
 {
     border-top-color: $primary !important;
 }
+
+.input-group-text, label, input, select
+{
+    border-radius: 0px;
+}
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);

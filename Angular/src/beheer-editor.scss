@@ -18,11 +18,6 @@ input[readonly]:focus
     box-shadow: none;
 }
 
-.input-group-text, label, input, select
-{
-    border-radius: 0px;
-}
-
 p
 {
     float: left;
@@ -92,7 +87,7 @@ p
     padding-right: 0px;
     /*height: calc(2.50rem + 2px);*/
     color: $text-dark;
-    background-color: $input-dark;
+    background-color: $input-light;
     background-clip: padding-box;
     border-top: none;
     border-right: none;
@@ -104,7 +99,7 @@ p
 .form-control:focus:not([readonly])
 {
     color: $primary;
-    background-color: $input-dark;
+    background-color: $input-light;
     outline: 0;
     box-shadow: none;
 }
@@ -112,7 +107,7 @@ p
 .input-group-text
 {
     color: $text-dark;
-    background-color: $input-dark;
+    background-color: $input-light;
     border: none;
 }
 

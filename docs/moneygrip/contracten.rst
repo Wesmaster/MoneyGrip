@@ -1,13 +1,13 @@
 Contracten
 ==========
 
-Contracten zijn de vaste lasten binnen een huishouden. Repeterende uitgaven met een vastbedrag.
+Contracten zijn de vaste lasten binnen een huishouden. Repeterende uitgaven met een vast bedrag.
 
 Invoervelden:
 
-* Label
+* Label (verplicht)
 * Bedrag (verplicht)
 * Begindatum (verplicht)
 * Einddatum
 * Interval (verplicht)
-* Document (PDF bestand)
+* Documentnaam (PDF bestand)

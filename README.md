@@ -16,20 +16,25 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- #124 Document verwijderen
-- #125 Gekoppeld document tonen in edit scherm
-- #104 Afschrijving laatste termijn berekening
-- #105 Logging toevoegen
-- #32 Interface verfrissen
+- #131 & #132 Meerdere labels ondersteunen
+- #109 Refactor backend begroting
+- #45 Webapp responsive maken
+- #141 Navigatiemenu open laten bij click
+- #159 Tabelhoogte dynamischer maken
+- #47 Afschrijving inzichtelijk maken
+- #143 Sortering tabellen aanpassen
+- #149 Refactor backend
+
+Overig:
+- Kleurenschema gewijzigd. Dark-theme is nu standaard
 
 # Roadmap
 
 Hoogtepunten volgende versie:
-- #131 & #132 Meerdere labels ondersteunen
-- #109 Refactor backend begroting
+- #43 Begroting meer inzichtelijk maken
 
 # MoneyGrip
-![Categorieen](https://raw.github.com/wesmaster/moneygrip/develop/Categorieen.png)
+![Inkomsten](https://raw.github.com/wesmaster/moneygrip/develop/Inkomsten.png)
 ![Backup](https://raw.github.com/wesmaster/moneygrip/develop/Backup.png)
 ## Wat is het?
 MoneyGrip moet een handvat bieden voor het huishouden met de focus op de financiële kant.

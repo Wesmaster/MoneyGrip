@@ -5,12 +5,10 @@ import { CurrencyPipe } from '../../currency.pipe';
 export class Reservering
 {
     id: number;
-    laatstGewijzidgd: Date;
-    label: number;
+    label: Label[];
     bedrag: number;
     maand: Maanden;
     omschrijving: string;
-    labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
 
@@ -18,9 +16,12 @@ export class Reservering
     {
       switch(value)
       {
-        case "Label": return this.labelNavigation.naam;
-          break;
-        case "Categorie": return this.labelNavigation.categorieNavigation.naam;
+        case "Label": 
+            var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
           break;
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
           break;

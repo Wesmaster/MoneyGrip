@@ -2,7 +2,6 @@ Begroting
 =========
 
 De begroting is bedoeld om een overzicht te geven van alle inkomsten en uitgaven voor het komende jaar.
-Alle inkomsten en uitgaven worden omgerekend naar bedragen per maand voor zover dit niet zo was ingesteld.
 Daarnaast biedt de begroting een overzicht van de ingestelde spaardoelen, de inleg per spaardoel per maand en de haalbaarheid van spaardoelen met een eindbedrag.
 
 Berekening haalbaarheid spaardoelen

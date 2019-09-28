@@ -5,6 +5,7 @@ import { Label } from './label/label';
 import { LabelComponent } from './label/label.component';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-labels',
@@ -20,18 +21,17 @@ export class LabelsComponent extends BasisOverzichtComponent implements OnInit
   searchText: string;
   zoekResultaat: Label[];
   titel = "Labels";
-  docpage = this.titel.toLowerCase();
-  tabelHeaders = ["Categorie", "Naam"];
+  tabelHeaders = ["Naam"];
   tabel: any[];
 
-  constructor(public service: BasisService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('label');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
-      {kolomnaam: "Categorie", kolombreedte: 2},
-      {kolomnaam: "Naam", kolombreedte: 0},
+      {kolomnaam: "Naam", kolombreedte: 0, align: "left", mobiel: true},
     ];
   }
 
@@ -78,6 +78,6 @@ export class LabelsComponent extends BasisOverzichtComponent implements OnInit
 
   zoek(zoekTekst: string) : void
   {
-    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi').test(item.categorieNavigation.naam));
+    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi'));
   }
 }

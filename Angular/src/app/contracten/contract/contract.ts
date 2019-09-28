@@ -7,14 +7,13 @@ export class Contract
 {
     id: number;
     laatstGewijzidgd: Date;
-    label: number;
+    label: Label[];
     bedrag: number;
     begindatum: Date;
     einddatum: Date;
     interval: Interval;
     document: string;
     documentNaam: string;
-    labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
 
@@ -22,24 +21,19 @@ export class Contract
     {
       switch(value)
       {
-        case "Label": return this.labelNavigation.naam;
-          break;
-        case "Categorie": return this.labelNavigation.categorieNavigation.naam;
-          break;
+        case "Label": 
+            var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
-          break;
         case "Begindatum": return formatDate(this.begindatum, 'dd-MM-yyyy', "nl");
-          break;
         case "Einddatum": return this.einddatum ? formatDate(this.einddatum, 'dd-MM-yyyy', "nl") : "";
-          break;
         case "Interval": return Interval[this.interval];
-          break;
         case "Document": return this.document;
-          break;
-        case "DocumentNaam": return this.documentNaam;
-          break;
+        case "Documentnaam": return this.documentNaam;
         case "Id": return this.id;
-          break;
         default: return "";
       }
     }

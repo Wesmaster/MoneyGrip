@@ -1,12 +1,5 @@
 @import '../basis';
 
-@media (max-width: 767px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
-    padding-top: 50px;
-  }
-}
-
 .body-content
 {
   padding: 0px 10px 0px 10px;
@@ -16,14 +9,4 @@
 .container-fluid
 {
   padding: 0px;
-}
-
-.col-sm-1-5
-{
-  width: 12.5%;
-}
-
-.col-sm-10-5
-{
-  width: 87.5%;
 }

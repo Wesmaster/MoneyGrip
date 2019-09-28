@@ -5,6 +5,7 @@ import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestige
 import { PersoonComponent } from './persoon/persoon.component';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-personen',
@@ -17,18 +18,18 @@ export class PersonenComponent extends BasisOverzichtComponent implements OnInit
   buttonText = "Persoon";
   searchText: string;
   titel = "Personen";
-  docpage = this.titel.toLowerCase();
   tabel: any[];
   zoekResultaat: Persoon[];
 
-  constructor(public service: BasisService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('persoon');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
-      {kolomnaam: "Voornaam", kolombreedte: 2},
-      {kolomnaam: "Achternaam", kolombreedte: 0}
+      {kolomnaam: "Voornaam", kolombreedte: 2, align: "left", mobiel: true},
+      {kolomnaam: "Achternaam", kolombreedte: 0, align: "left", mobiel: true}
     ];
   }
 

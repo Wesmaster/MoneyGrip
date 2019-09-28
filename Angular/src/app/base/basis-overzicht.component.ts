@@ -1,16 +1,18 @@
 import { BasisService } from './basis.service';
+import { Globals } from '../globals';
 
 export default abstract class BasisOverzichtComponent
 {
     protected selectedId: number;
     protected rowSelected: boolean;
+    protected pagina: string;
 
     abstract get() : void;
     abstract openAddDialog(id: number) : void;
 
-    constructor(protected service: BasisService)
+    constructor(protected service: BasisService, protected globals: Globals)
     {
-
+        this.pagina = globals.pagina;
     }
 
     ngOnInit()
@@ -66,5 +68,10 @@ export default abstract class BasisOverzichtComponent
       this.service.delete(id).subscribe(item => {
         this.afterEdit(id);
       });
+    }
+
+    setPagina(pagina: string): void
+    {
+        this.globals.pagina = pagina;
     }
 }

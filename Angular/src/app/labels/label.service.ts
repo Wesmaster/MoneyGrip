@@ -12,7 +12,11 @@ export class LabelService
 {
   private headers: HttpHeaders;
   private accessPointUrl: string = environment.api_url + 'label';
-
+  private data: Label[] = [];
+  private dataStore: {[key: number]: string} = {};
+  private dataStoreByName: {[key: string]: number} = {};
+  private labelNames: string[] = [];
+  
   constructor(private http: HttpClient)
   {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
@@ -41,5 +45,39 @@ export class LabelService
   public delete(id)
   {
     return this.http.delete(this.accessPointUrl + "/" + id, {headers: this.headers});
+  }
+
+  public loadAll()
+  {
+    this.getAll().subscribe(items => {
+        this.data = items;
+        /*items.forEach(item => {
+            
+           //this.mappedLabels[item.naam] = item.id;
+            this.dataStore[item.id] = item.naam;
+            this.dataStoreByName[item.naam] = item.id;
+            this.labelNames.push(item.naam);
+        })*/
+    });
+  }
+
+  public getData(): Label[]
+  {
+    return this.data;
+  }
+
+  public grapLabelName(id: number): string
+  {
+    return this.dataStore[id];
+  }
+
+  public grapLabelNames(): string[]
+  {
+    return this.labelNames;
+  }
+
+  public grapLabelId(name: string): number
+  {
+    return this.dataStoreByName[name];
   }
 }

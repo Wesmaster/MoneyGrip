@@ -5,14 +5,12 @@ import { CurrencyPipe } from '../../currency.pipe';
 export class Spaardoel
 {
     id: number;
-    laatstGewijzidgd: Date;
-    label: number;
+    label: Label[];
     percentage: number;
     eindbedrag: number;
     eersteMaand: Maanden;
     laatsteMaand: Maanden;
     omschrijving: string;
-    labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
 
@@ -20,7 +18,12 @@ export class Spaardoel
     {
       switch(value)
       {
-        case "Label": return this.labelNavigation.naam;
+        case "Label":
+            var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
           break;
         case "Eindbedrag": return this.eindbedrag ? "€ " + this.customCurrency.transform(this.eindbedrag) : "";
           break;

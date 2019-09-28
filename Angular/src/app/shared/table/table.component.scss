@@ -1,64 +1,26 @@
 @import '../../../basis';
 
-.iconDelete
+table
 {
-    color: $red;
+    font-family: "Segoe UI" !important;
+    width: 100%;
 }
 
-.scrollbar-padding
+.mg-table-container {
+    height: 100%;
+    overflow: auto;
+  }
+
+.mat-row
 {
-    padding-right: 17px;
-}
-
-.table
-{
-    margin-bottom: 0px;
-    table-layout: fixed;
-
-    tbody
+    cursor: pointer;
+    &:hover
     {
-        display: block;
-        height: calc(100vh - 225px);
-        overflow-y: scroll;
-
-        td
-        {
-            border-top: none;
-            padding: .45rem;
-            &:hover
-            {
-                .iconDelete
-                {
-                    text-shadow: none;
-                    color: $primary;
-                }
-            }
-        }
-
-        tr
-        {
-            border-bottom: 1px solid $bg-dark;
-            &:hover
-            {
-                background-color: $bg-medium;
-                color: $text-dark;
-                cursor: pointer;
-            }
-        }
-    }
-
-    thead
-    {
-        background-color: $primary;
-        color: $text-light;
-        display: block;
-
-        th
-        {
-            border-bottom: none;
-            border-top: none;
-            padding-left: .45rem;
-            padding-right: .45rem;
-        }
+        background-color: rgba(255, 255, 255, 0.04);
+        color: $accent !important;
     }
 }
+
+.mat-column-select {
+    width: 75px;
+  }

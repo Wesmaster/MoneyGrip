@@ -6,6 +6,11 @@ import { AfschrijvingComponent } from './afschrijving/afschrijving.component';
 import { CurrencyPipe } from '../currency.pipe';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { AfschrijvingenService } from './afschrijvingen.service';
+import { Globals } from '../globals';
+import BasisBeheerOverzicht from '../basisBeheerOverzicht';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-afschrijvingen',
@@ -20,49 +25,91 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
   buttonText = "Afschrijving";
   zoekResultaat: Afschrijving[];
   titel = "Afschrijvingen";
-  docpage = this.titel.toLowerCase();
   tabel: any[];
-
-  constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe)
+  totaalPerMaand: string;
+  gewensteStand: string;
+  geselecteerd: Afschrijving[] = [];
+  faTrash = faTrash;
+  faFileAlt = faFileAlt;
+  deleteAvailable: boolean = false;
+  openDocumentAvailable: boolean = false;
+  
+  constructor(public service: BasisService, public algemeenService: AfschrijvingenService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('afschrijving');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
-      {kolomnaam: "Label", kolombreedte: 2},
-      {kolomnaam: "Aankoopdatum", kolombreedte: 2},
-      {kolomnaam: "Aankoopbedrag", kolombreedte: 1, align: "right"},
-      {kolomnaam: "Verwachte levensduur", kolombreedte: 2, align: "center"},
-      {kolomnaam: "Garantie", kolombreedte: 1, align: "center"},
-      {kolomnaam: "Factuur", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}}
+      {kolomnaam: "Label", kolombreedte: 3, align: "left", mobiel: true},
+      {kolomnaam: "Startdatum", kolombreedte: 1, align: "left", mobiel: true},
+      {kolomnaam: "Waarde", kolombreedte: 1, align: "right", mobiel: false},
+      {kolomnaam: "Verwachte levensduur", kolombreedte: 2, align: "center", mobiel: true},
+      {kolomnaam: "Per maand", kolombreedte: 1, align: "right", mobiel: true},
+      {kolomnaam: "Garantie", kolombreedte: 1, align: "center", mobiel: false},
+      {kolomnaam: "FactuurNaam", kolombreedte: 0, align: "left", icoon: {class: "fas fa-file-invoice"}, mobiel: false}
     ];
   }
 
   get(): void
   {
-    this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x))});
+    this.service.getAll().subscribe(items => {
+        this.zoekResultaat = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x)); 
+        this.items = items.map(x => Object.assign(new Afschrijving(this.customCurrency), x))
+    });
+    this.algemeenService.getAlgemeen().subscribe(algemeen => { 
+        this.totaalPerMaand = "Totaal per maand: € " +  this.customCurrency.transform(algemeen.totaalPerMaand) 
+        this.gewensteStand = "Gewenste stand: € " +  this.customCurrency.transform(algemeen.gewensteStand) 
+    });
+  }
+
+  onOpenDocument(): void
+  {
+    this.openFactuur(this.geselecteerd[0]);
   }
 
   openFactuur(item: Afschrijving): void
   {
     const linkSource = 'data:application/pdf;base64,' + item.factuur;
     const downloadLink = document.createElement("a");
-    const fileName = item.labelNavigation.naam + ".pdf";
+    if(item.label != null)
+    {
+        var labelList: string[] = [];
+        item.label.forEach(element => {
+             labelList.push(element.naam);
+        });
 
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click()
+        const fileName = labelList.join("_") + ".pdf";
+
+        downloadLink.href = linkSource;
+        downloadLink.download = item.factuurNaam;
+        downloadLink.click()
+    }
   }
 
-  openDeleteDialog(item: Afschrijving): void
+  onDelete(): void
   {
-    var vraagVariabele = "";
-    if(item.labelNavigation != null)
-    {
-      vraagVariabele = item.labelNavigation.naam;
-    }
-    vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.aankoopbedrag);
-    var vraag = 'Weet je zeker dat je de afschrijving "' + vraagVariabele + '" wilt verwijderen?';
+      var vraagArray = ["Weet je zeker dat je de volgende afschrijving(en) wilt verwijderen?"];
+    this.geselecteerd.forEach(item => {
+        var vraagVariabele = "";
+        if(item.label != null)
+        {
+            var labelList: string[] = [];
+            item.label.forEach(element => {
+                labelList.push(element.naam);
+            });
+        vraagVariabele = labelList.join(", ");
+        }
+
+        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.aankoopbedrag);
+        vraagArray.push(vraagVariabele);
+    });
+    var vraag = vraagArray.join("\n");
+    this.openDeleteDialog(vraag);
+  }
+
+  openDeleteDialog(vraag: string): void
+  {
     const dialogRef = this.dialog.open(DialogBevestigenComponent, {
       data: {vraag: vraag, titel: "Afschrijving verwijderen?"},
       panelClass: 'dialog-delete',
@@ -72,7 +119,12 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
     dialogRef.afterClosed().subscribe(result => {
       if(result)
       {
-        this.verwijderen(item.id);
+        this.geselecteerd.forEach(item => {
+            this.verwijderen(item.id);
+        });
+
+        this.geselecteerd = [];
+        this.ngOnInit();
       }
     });
   }
@@ -99,11 +151,38 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
 
   zoek(zoekTekst: string): void
   {
-    this.zoekResultaat = this.items.filter(
-      item => new RegExp(zoekTekst, 'gi').test(item.labelNavigation.naam)
-      || (new Date(item.aankoopdatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0)
-        && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)
-        )
-    );
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(
+            item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam))
+        || (new Date(item.aankoopdatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0)
+            && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)
+            )
+        );
+    }
+  }
+
+  updateSelected(geselecteerd: BasisBeheerOverzicht[]): void
+  {
+      this.geselecteerd = [];
+      this.deleteAvailable = false;
+      this.openDocumentAvailable = false;
+    geselecteerd.forEach(item => {
+        this.geselecteerd.push(Object.assign(new Afschrijving(this.customCurrency), item));
+    });
+
+    if(this.geselecteerd.length > 0)
+    {
+        this.deleteAvailable = true;
+        this.openDocumentAvailable = true;
+    }
+    if(this.geselecteerd.length > 1)
+    {
+        this.openDocumentAvailable = false;
+    }
   }
 }

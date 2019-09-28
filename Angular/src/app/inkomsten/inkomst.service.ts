@@ -13,6 +13,7 @@ export class InkomstService
   private headers: HttpHeaders;
   private accessPointUrl: string = environment.api_url + 'inkomst';
 
+
   constructor(private http: HttpClient)
   {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});

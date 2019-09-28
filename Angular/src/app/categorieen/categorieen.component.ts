@@ -6,6 +6,7 @@ import { CategorieComponent } from './categorie/categorie.component';
 import { CategorieType } from './type.enum';
 import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-categorieen',
@@ -22,13 +23,13 @@ export class CategorieenComponent extends BasisOverzichtComponent implements OnI
   searchText: string;
   zoekResultaat: Categorie[];
   titel = "Categorieën";
-  docpage = this.titel.toLowerCase();
   tabel: any[];
 
-  constructor(public service: BasisService, public dialog: MatDialog)
+  constructor(public service: BasisService, public dialog: MatDialog, public globals: Globals)
   {
-    super(service);
+    super(service, globals);
     service.setAccessPointUrl('categorie');
+    this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
       {kolomnaam: "", kolombreedte: -2, icoon: {class: "fas fa-bookmark"}},

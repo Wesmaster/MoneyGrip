@@ -1,31 +1,40 @@
 import { Label } from "../../labels/label/label";
 import { formatDate } from '@angular/common';
 import { CurrencyPipe } from '../../currency.pipe';
+import BasisBeheerOverzicht from "../../basisBeheerOverzicht";
 
-export class Afschrijving
+export class Afschrijving extends BasisBeheerOverzicht
 {
     id: number;
     laatstGewijzidgd: Date;
-    label: number;
+    label: Label[];
     aankoopdatum: Date;
     aankoopbedrag: number;
     verwachteLevensduur: number;
     garantie: number;
     factuur: string;
     factuurNaam: string;
-    labelNavigation: Label;
+    bedragPerMaand: number;
 
-    constructor(private customCurrency: CurrencyPipe) {}
+    constructor(private customCurrency: CurrencyPipe)
+    {
+        super();
+    }
 
     getValue(value: string) : any
     {
       switch(value)
       {
-        case "Label": return this.labelNavigation.naam;
+        case "Label": 
+            var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
           break;
-        case "Aankoopdatum": return formatDate(this.aankoopdatum, 'dd-MM-yyyy', "nl");
+        case "Startdatum": return formatDate(this.aankoopdatum, 'dd-MM-yyyy', "nl");
           break;
-        case "Aankoopbedrag": return "€ " + this.customCurrency.transform(this.aankoopbedrag);
+        case "Waarde": return "€ " + this.customCurrency.transform(this.aankoopbedrag);
           break;
         case "Verwachte levensduur": return this.verwachteLevensduur + " maanden";
           break;
@@ -33,11 +42,18 @@ export class Afschrijving
           break;
         case "Factuur": return this.factuur;
           break;
-        case "FactuurNaam": return this.factuurNaam;
+        case "Factuurnaam": return this.factuurNaam;
           break;
         case "Id": return this.id;
           break;
+        case "Per maand": return "€ " + this.customCurrency.transform(this.bedragPerMaand);
         default: return "";
       }
     }
+}
+
+export class AfschrijvingAlgemeen
+{
+    totaalPerMaand: number;
+    gewensteStand: number;
 }

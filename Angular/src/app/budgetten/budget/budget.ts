@@ -6,13 +6,11 @@ import { CurrencyPipe } from '../../currency.pipe';
 export class Budget
 {
     id: number;
-    laatstGewijzidgd: Date;
-    label: number;
+    label: Label[];
     bedrag: number;
     begindatum: Date;
     einddatum: Date;
     interval: Interval;
-    labelNavigation: Label;
 
     constructor(private customCurrency: CurrencyPipe) {}
 
@@ -20,9 +18,12 @@ export class Budget
     {
       switch(value)
       {
-        case "Label": return this.labelNavigation.naam;
-          break;
-        case "Categorie": return this.labelNavigation.categorieNavigation.naam;
+        case "Label": 
+            var returnList: string[] = [];
+            this.label.forEach(element => {
+                returnList.push(element.naam);
+            });
+            return returnList.join(", ");
           break;
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
           break;

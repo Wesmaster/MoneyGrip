@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
+using MoneyGrip.Models.ViewModels;
+using MoneyGrip.ViewModels;
 
 namespace MoneyGrip.Controllers
 {
@@ -21,24 +23,30 @@ namespace MoneyGrip.Controllers
 
         // GET: api/Inkomst
         [HttpGet]
-        public IEnumerable<Inkomst> GetInkomst()
+        public IEnumerable<InkomstViewModel> GetInkomst()
         {
+            IEnumerable<Inkomst> inkomsten = _context.Inkomst
+                .Include(inkomst => inkomst.PersoonNavigation)
+                .Include(inkomst => inkomst.InkomstLabels)
+                .ThenInclude(inkomstLabel => inkomstLabel.Label)
+                .OrderBy(i => i.Einddatum < DateTime.Now)
+                .ThenBy(i => i.Begindatum);
 
-         //   return _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).Include(i => i.InkomstLabels).OrderBy(l => l.LabelNavigation.Naam).ThenBy(l => l.PersoonNavigation.Achternaam).ThenBy(p => p.PersoonNavigation.Voornaam);
-
-            /*  return _context.Inkomst.Select(i => new Inkomst
-               {
-                   Id = i.Id,
-                   LaatstGewijzigd = i.LaatstGewijzigd,
-                   Persoon = i.PersoonNavigation.Id,
-                   Bedrag = i.Bedrag,
-                   Begindatum = i.Begindatum,
-                   Einddatum = i.Einddatum,
-                   Interval = i.Interval,
-                   InkomstLabels = i.InkomstLabels.Select(il => new InkomstLabel { LabelId = il.LabelId }).ToList()
-               });*/
-
-             return _context.Inkomst.Include(s => s.PersoonNavigation).Include(l => l.LabelNavigation).OrderBy(l => l.LabelNavigation.Naam).ThenBy(l => l.PersoonNavigation.Achternaam).ThenBy(p => p.PersoonNavigation.Voornaam);
+            return inkomsten.Select(i => new InkomstViewModel
+            {
+                Id = i.Id,
+                Persoon = i.PersoonNavigation != null ? new PersoonViewModel
+                {
+                    Id = i.PersoonNavigation.Id,
+                    Voornaam = i.PersoonNavigation.Voornaam,
+                    Achternaam = i.PersoonNavigation.Achternaam
+                } : null,
+                Bedrag = i.Bedrag,
+                Begindatum = i.Begindatum,
+                Einddatum = i.Einddatum,
+                Interval = i.Interval,
+                Label = inkomstLabelNaarLabel(i.InkomstLabels)
+            });
         }
 
         // GET: api/Inkomst/5
@@ -50,31 +58,70 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var inkomst = await _context.Inkomst.Include(s => s.PersoonNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            Inkomst inkomst = await _context.Inkomst
+                .Where(i => i.Id == id)
+                .Include(i => i.PersoonNavigation)
+                .Include(i => i.InkomstLabels)
+                .ThenInclude(inkomstLabel => inkomstLabel.Label)
+                .FirstOrDefaultAsync();
 
             if (inkomst == null)
             {
                 return NotFound();
             }
 
-            return Ok(inkomst);
+            InkomstViewModel inkomstVM = new InkomstViewModel
+            {
+                Id = inkomst.Id,
+                Persoon = inkomst.PersoonNavigation != null ? new PersoonViewModel
+                {
+                    Id = inkomst.PersoonNavigation.Id,
+                    Voornaam = inkomst.PersoonNavigation.Voornaam,
+                    Achternaam = inkomst.PersoonNavigation.Achternaam
+                } : null,
+                Bedrag = inkomst.Bedrag,
+                Begindatum = inkomst.Begindatum,
+                Einddatum = inkomst.Einddatum,
+                Interval = inkomst.Interval,
+                Label = inkomstLabelNaarLabel(inkomst.InkomstLabels)
+            };
+
+            return Ok(inkomstVM);
         }
 
         // PUT: api/Inkomst/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInkomst([FromRoute] int id, [FromBody] Inkomst inkomst)
+        public async Task<IActionResult> PutInkomst([FromRoute] int id, [FromBody] InkomstPostModel inkomstVM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != inkomst.Id)
+            if (id != inkomstVM.Id)
             {
                 return BadRequest();
             }
 
+            Inkomst inkomst = _context.Inkomst.Where(i => i.Id == id).Include(i => i.InkomstLabels).First();
+            inkomst.Persoon = inkomstVM.Persoon;
+            inkomst.Bedrag = inkomstVM.Bedrag;
+            inkomst.Begindatum = inkomstVM.Begindatum;
+            inkomst.Einddatum = inkomstVM.Einddatum;
+            inkomst.Interval = inkomstVM.Interval;
             inkomst.LaatstGewijzigd = DateTime.Now;
+
+            inkomst.InkomstLabels.Clear();
+
+            foreach (var newLabelId in inkomstVM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                inkomst.InkomstLabels.Add
+                (
+                    nieuwInkomstLabel(inkomst, label)
+                );
+            }
+
             _context.Entry(inkomst).State = EntityState.Modified;
 
             try
@@ -98,14 +145,33 @@ namespace MoneyGrip.Controllers
 
         // POST: api/Inkomst
         [HttpPost]
-        public async Task<IActionResult> PostInkomst([FromBody] Inkomst inkomst)
+        public async Task<IActionResult> PostInkomst([FromBody] InkomstPostModel inkomstVM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            inkomst.LaatstGewijzigd = DateTime.Now;
+            Inkomst inkomst = new Inkomst
+            {
+                Persoon = inkomstVM.Persoon,
+                Bedrag = inkomstVM.Bedrag,
+                Begindatum = inkomstVM.Begindatum,
+                Einddatum = inkomstVM.Einddatum,
+                Interval = inkomstVM.Interval,
+                LaatstGewijzigd = DateTime.Now,
+                InkomstLabels = new List<InkomstLabel>()
+            };
+
+            foreach (var newLabelId in inkomstVM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                inkomst.InkomstLabels.Add
+                (
+                   nieuwInkomstLabel(inkomst, label)
+                );
+            }
+
             _context.Inkomst.Add(inkomst);
             await _context.SaveChangesAsync();
 
@@ -133,9 +199,36 @@ namespace MoneyGrip.Controllers
             return Ok(inkomst);
         }
 
+        private List<LabelViewModel> inkomstLabelNaarLabel(ICollection<InkomstLabel> inkomstLabels)
+        {
+            List<LabelViewModel> returnList = new List<LabelViewModel>();
+            foreach(InkomstLabel ikl in inkomstLabels)
+            {
+                LabelViewModel lvm = new LabelViewModel
+                {
+                    Id = ikl.LabelId,
+                    Naam = ikl.Label.Naam
+                };
+                returnList.Add(lvm);
+
+            }
+            return returnList;
+        }
+
         private bool InkomstExists(int id)
         {
             return _context.Inkomst.Any(e => e.Id == id);
+        }
+
+        private InkomstLabel nieuwInkomstLabel(Inkomst inkomst, Label label)
+        {
+            return new InkomstLabel
+            {
+                Inkomst = inkomst,
+                Label = label,
+                InkomstId = inkomst.Id,
+                LabelId = label.Id
+            };
         }
     }
 }

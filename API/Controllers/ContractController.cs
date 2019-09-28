@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
+using MoneyGrip.ViewModels;
 
 namespace MoneyGrip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContractController : ControllerBase
+    public class ContractController : BasisController
     {
         private readonly Models.AppContext _context;
 
@@ -22,9 +23,29 @@ namespace MoneyGrip.Controllers
 
         // GET: api/Contract
         [HttpGet]
-        public IEnumerable<Contract> GetContract()
+        public IEnumerable<ContractViewModel> GetContract()
         {
-            return _context.Contract.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).OrderByDescending(c => c.Begindatum <= DateTime.Now && (c.Einddatum >= DateTime.Now || c.Einddatum == null)).ThenBy(c => c.Einddatum == null).ThenBy(c => c.Einddatum).ThenBy(l => l.LabelNavigation.CategorieNavigation.Naam).ThenBy(l => l.LabelNavigation.Naam);
+            IEnumerable<Contract> contracten = _context.Contract
+            .Include(contract => contract.ContractLabels)
+            .ThenInclude(contractLabel => contractLabel.Label)
+            .OrderBy(c => c.Einddatum < DateTime.Now)
+            .ThenBy(c => c.Einddatum == null)
+            .ThenBy(c => c.Einddatum)
+            .ThenBy(c => c.Begindatum);
+
+           // .OrderByDescending(c => c.Begindatum <= DateTime.Now && (c.Einddatum >= DateTime.Now || c.Einddatum == null)).ThenBy(c => c.Einddatum == null).ThenBy(c => c.Einddatum);
+
+            return contracten.Select(c => new ContractViewModel
+            {
+                Id = c.Id,
+                Bedrag = c.Bedrag,
+                Begindatum = c.Begindatum,
+                Einddatum = c.Einddatum,
+                Interval = c.Interval,
+                Document = c.Document,
+                DocumentNaam = c.DocumentNaam,
+                Label = toLabelViewModelList(c.ContractLabels)
+            });
         }
 
         // GET: api/Contract/5
@@ -36,31 +57,66 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var contract = await _context.Contract.Include(s => s.LabelNavigation).ThenInclude(l => l.CategorieNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            Contract contract = await _context.Contract
+            .Where(i => i.Id == id)
+            .Include(i => i.ContractLabels)
+            .ThenInclude(contractLabel => contractLabel.Label)
+            .FirstOrDefaultAsync();
 
             if (contract == null)
             {
                 return NotFound();
             }
 
-            return Ok(contract);
+            ContractViewModel contractVM = new ContractViewModel
+            {
+                Id = contract.Id,
+                Bedrag = contract.Bedrag,
+                Begindatum = contract.Begindatum,
+                Einddatum = contract.Einddatum,
+                Interval = contract.Interval,
+                Document = contract.Document,
+                DocumentNaam = contract.DocumentNaam,
+                Label = toLabelViewModelList(contract.ContractLabels)
+            };
+
+            return Ok(contractVM);
         }
 
         // PUT: api/Contract/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutContract([FromRoute] int id, [FromBody] Contract contract)
+        public async Task<IActionResult> PutContract([FromRoute] int id, [FromBody] ContractPostModel contractPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != contract.Id)
+            if (id != contractPM.Id)
             {
                 return BadRequest();
             }
 
+            Contract contract = _context.Contract.Where(i => i.Id == id).Include(i => i.ContractLabels).First();
+            contract.Bedrag = contractPM.Bedrag;
+            contract.Begindatum = contractPM.Begindatum;
+            contract.Einddatum = contractPM.Einddatum;
+            contract.Interval = contractPM.Interval;
+            contract.Document = contractPM.Document;
+            contract.DocumentNaam = contractPM.DocumentNaam;
             contract.LaatstGewijzigd = DateTime.Now;
+
+            contract.ContractLabels.Clear();
+
+            foreach (var newLabelId in contractPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                contract.ContractLabels.Add
+                (
+                    nieuwContractLabel(contract, label)
+                );
+            }
+
             _context.Entry(contract).State = EntityState.Modified;
 
             try
@@ -79,19 +135,39 @@ namespace MoneyGrip.Controllers
                 }
             }
 
-            return Ok();
+            return NoContent();
         }
 
         // POST: api/Contract
         [HttpPost]
-        public async Task<IActionResult> PostContract([FromBody] Contract contract)
+        public async Task<IActionResult> PostContract([FromBody] ContractPostModel contractPM)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            contract.LaatstGewijzigd = DateTime.Now;
+            Contract contract = new Contract
+            {
+                Bedrag = contractPM.Bedrag,
+                Begindatum = contractPM.Begindatum,
+                Einddatum = contractPM.Einddatum,
+                Interval = contractPM.Interval,
+                Document = contractPM.Document,
+                DocumentNaam = contractPM.DocumentNaam,
+                LaatstGewijzigd = DateTime.Now,
+                ContractLabels = new List<ContractLabel>()
+            };
+
+            foreach (var newLabelId in contractPM.Label)
+            {
+                Label label = _context.Label.Where(l => l.Id == newLabelId).First();
+                contract.ContractLabels.Add
+                (
+                   nieuwContractLabel(contract, label)
+                );
+            }
+
             _context.Contract.Add(contract);
             await _context.SaveChangesAsync();
 
@@ -122,6 +198,17 @@ namespace MoneyGrip.Controllers
         private bool ContractExists(int id)
         {
             return _context.Contract.Any(e => e.Id == id);
+        }
+
+        private ContractLabel nieuwContractLabel(Contract contract, Label label)
+        {
+            return new ContractLabel
+            {
+                Contract = contract,
+                Label = label,
+                ContractId = contract.Id,
+                LabelId = label.Id
+            };
         }
     }
 }

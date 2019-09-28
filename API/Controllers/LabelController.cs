@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoneyGrip.Models;
@@ -24,7 +23,7 @@ namespace MoneyGrip.Controllers
         [HttpGet]
         public IEnumerable<Label> GetLabel()
         {
-            return _context.Label.Include(s => s.CategorieNavigation).OrderBy(c => c.CategorieNavigation.Naam).ThenBy(l => l.Naam);
+            return _context.Label.OrderBy(l => l.Naam);
         }
 
         // GET: api/Label/5
@@ -36,7 +35,7 @@ namespace MoneyGrip.Controllers
                 return BadRequest(ModelState);
             }
 
-            var label = await _context.Label.Include(s => s.CategorieNavigation).FirstOrDefaultAsync(i => i.Id == id);
+            var label = await _context.Label.FirstOrDefaultAsync(i => i.Id == id);
 
             if (label == null)
             {
@@ -95,7 +94,7 @@ namespace MoneyGrip.Controllers
             _context.Label.Add(label);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLabel", new { id = label.Id }, label);
+            return Ok(label.Id);
         }
 
         // DELETE: api/Label/5

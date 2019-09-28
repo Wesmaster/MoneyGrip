@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Begroting } from './begroting';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class BegrotingService
     return this.http.get<number[]>(this.accessPointUrl, {headers: this.headers});
   }
 
-  public get(jaar): Observable<any>
+  public get(jaar): Observable<Begroting>
   {
     return this.http.get<any>(this.accessPointUrl + "/" + jaar, {headers: this.headers});
   }

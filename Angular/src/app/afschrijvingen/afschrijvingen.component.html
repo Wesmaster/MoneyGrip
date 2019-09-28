@@ -1,15 +1,19 @@
 <div class="pagina">
-  <div class="pagina-header row">
-    <titel class = "col" [naam]="titel"></titel>
-    <doclink class="col-1 doclink" [pagina]="docpage"></doclink>
-  </div>
-  <div class="buttongroup-top">
-    <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
-  </div>
-  <div class="data-section">
-    <div class="customZoekbalk">
-      <zoekbalk (zoekTekst)="zoek($event)"></zoekbalk>
+    <div class="row">
+        <div>
+            <div class="pagina-header">
+                <titel [naam]="titel"></titel>
+            </div>
+            <div class="buttongroup-top row">
+                <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
+                <zoekbalk class="col" (zoekTekst)="zoek($event)"></zoekbalk>
+                <fa-icon (click)="actionsAvailable && onDelete()" [icon]="faTrash" class="iconDelete actieIcoon"></fa-icon>
+                <fa-icon (click)="openDocumentAvailable && onOpenDocument()" [icon]="faFileAlt" class="iconDocument actieIcoon"></fa-icon>
+            </div>
+        </div> 
+        <algemeen class="col" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
     </div>
-    <mg-table [setupValues]="tabel" [data]="zoekResultaat" (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)" (uitvoeren)="openFactuur($event)"></mg-table>
-  </div>
+    <div class="data-section">
+        <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (geselecteerd)="updateSelected($event)"></mg-table>
+    </div>
 </div>
