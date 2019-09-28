@@ -81,8 +81,9 @@ namespace MoneyGrip.Begroting
             IEnumerable<BedragPerPeriode> bedragenPerMaand = bedragenPerPeriode.Where(b => b.Interval == Interval.Maand);
             foreach(BedragPerPeriode bedrag in bedragenPerMaand)
             {
+                Maanden beginMaand = bedrag.Begindatum.Year == jaar ? (Maanden)bedrag.Begindatum.Month : Maanden.Januari;
                 Maanden eindMaand = bedrag.Einddatum.HasValue && bedrag.Einddatum.Value.Year == jaar ? (Maanden)bedrag.Einddatum.Value.Month : Maanden.December;
-                bedragPerMaand.voegBedragToeInMaanden(bedrag.Bedrag, (Maanden)bedrag.Begindatum.Month, eindMaand);
+                bedragPerMaand.voegBedragToeInMaanden(bedrag.Bedrag, beginMaand, eindMaand);
             }
 
             IEnumerable<BedragPerPeriode> bedragenPerJaar = bedragenPerPeriode.Where(b => b.Interval == Interval.Jaar);
