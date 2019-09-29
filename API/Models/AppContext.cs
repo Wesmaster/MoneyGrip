@@ -28,6 +28,8 @@ namespace MoneyGrip.Models
         public virtual DbSet<ContractLabel> ContractLabel { get; set; }
         public virtual DbSet<ReserveringLabel> ReserveringLabel { get; set; }
         public virtual DbSet<SpaardoelLabel> SpaardoelLabel { get; set; }
+        public virtual DbSet<Lening> Lening { get; set; }
+        public virtual DbSet<LeningLabel> LeningLabel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -128,6 +130,24 @@ namespace MoneyGrip.Models
                     .IsRequired();
             });
 
+            modelBuilder.Entity<Lening>(entity =>
+            {
+                entity.Property(e => e.Looptijd)
+                    .IsRequired();
+
+                entity.Property(e => e.Begindatum)
+                    .IsRequired();
+
+                entity.Property(e => e.Bedrag)
+                    .IsRequired();
+
+                entity.Property(e => e.Rente)
+                    .IsRequired();
+
+                entity.Property(e => e.Type)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<InkomstLabel>()
                 .HasKey(il => new { il.InkomstId, il.LabelId });
 
@@ -135,13 +155,13 @@ namespace MoneyGrip.Models
                 .HasOne(il => il.Inkomst)
                 .WithMany(i => i.InkomstLabels)
                 .HasForeignKey(il => il.InkomstId)
-                .HasConstraintName("FK_Koppeling_Inkomst");
+                .HasConstraintName("FK_InkomstLabel_Koppeling_Inkomst");
 
             modelBuilder.Entity<InkomstLabel>()
                 .HasOne(il => il.Label)
                 .WithMany(i => i.InkomstLabels)
                 .HasForeignKey(il => il.LabelId)
-                .HasConstraintName("FK_Koppeling_Label");
+                .HasConstraintName("FK_InkomstLabel_Koppeling_Label");
 
             modelBuilder.Entity<BudgetLabel>()
                 .HasKey(bl => new { bl.BudgetId, bl.LabelId });
@@ -217,6 +237,12 @@ namespace MoneyGrip.Models
                 .WithMany(c => c.SpaardoelLabels)
                 .HasForeignKey(cl => cl.LabelId)
                 .HasConstraintName("FK_SpaardoelLabel_Koppeling_Label");
+
+            modelBuilder.Entity<LeningLabel>()
+                .HasOne(ll => ll.Label)
+                .WithMany(l => l.LeningLabels)
+                .HasForeignKey(ll => ll.LabelId)
+                .HasConstraintName("FK_LeningLabel_Koppeling_Label");
         }
     }
 }

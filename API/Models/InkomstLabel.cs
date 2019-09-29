@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MoneyGrip.Models
+﻿namespace MoneyGrip.Models
 {
     public class InkomstLabel : BasisLabel
     {
