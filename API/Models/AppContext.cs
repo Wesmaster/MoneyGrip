@@ -239,6 +239,15 @@ namespace MoneyGrip.Models
                 .HasConstraintName("FK_SpaardoelLabel_Koppeling_Label");
 
             modelBuilder.Entity<LeningLabel>()
+                .HasKey(ll => new { ll.LeningId, ll.LabelId });
+
+            modelBuilder.Entity<LeningLabel>()
+                .HasOne(ll => ll.Lening)
+                .WithMany(l => l.LeningLabels)
+                .HasForeignKey(ll => ll.LeningId)
+                .HasConstraintName("FK_LeningLabel_Koppeling_Lening");
+
+            modelBuilder.Entity<LeningLabel>()
                 .HasOne(ll => ll.Label)
                 .WithMany(l => l.LeningLabels)
                 .HasForeignKey(ll => ll.LabelId)

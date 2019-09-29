@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace MoneyGrip.Models
 {
@@ -15,5 +16,7 @@ namespace MoneyGrip.Models
         public byte Type { get; set; }
         public byte[] Document { get; set; }
         public string DocumentNaam { get; set; }
+
+        public virtual ICollection<LeningLabel> LeningLabels { get; set; }
     }
 }
