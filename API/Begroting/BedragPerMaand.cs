@@ -21,33 +21,33 @@ namespace MoneyGrip.Begroting
         public int November { get; set; }
         public int December { get; set; }
 
-        public int getBedragInMaand(Maanden maand)
+        public int getBedragInMaand(Maand maand)
         {
             switch (maand)
             {
-                case Maanden.Januari:
+                case Maand.Januari:
                     return Januari;
-                case Maanden.Februari:
+                case Maand.Februari:
                     return Februari;
-                case Maanden.Maart:
+                case Maand.Maart:
                     return Maart;
-                case Maanden.April:
+                case Maand.April:
                     return April;
-                case Maanden.Mei:
+                case Maand.Mei:
                     return Mei;
-                case Maanden.Juni:
+                case Maand.Juni:
                     return Juni;
-                case Maanden.Juli:
+                case Maand.Juli:
                     return Juli;
-                case Maanden.Augustus:
+                case Maand.Augustus:
                     return Augustus;
-                case Maanden.September:
+                case Maand.September:
                     return September;
-                case Maanden.Oktober:
+                case Maand.Oktober:
                     return Oktober;
-                case Maanden.November:
+                case Maand.November:
                     return November;
-                case Maanden.December:
+                case Maand.December:
                     return December;
                 default:
                     return 0;
@@ -105,58 +105,58 @@ namespace MoneyGrip.Begroting
 
         public void voegBedragToeAanAlleMaanden(int bedrag)
         {
-            for (Maanden i = Maanden.Januari; i <= Maanden.December; i++)
+            for (Maand i = Maand.Januari; i <= Maand.December; i++)
             {
                 voegBedragToeInMaand(bedrag, i);
             }
         }
 
-        public void voegBedragToeInMaanden(int bedrag, Maanden startMaand, Maanden eindMaand)
+        public void voegBedragToeInMaanden(int bedrag, Maand startMaand, Maand eindMaand)
         {
-            for (Maanden i = startMaand; i <= eindMaand; i++)
+            for (Maand i = startMaand; i <= eindMaand; i++)
             {
                 voegBedragToeInMaand(bedrag, i);
             }
         }
 
-        public void voegBedragToeInMaand(int bedrag, Maanden maand)
+        public void voegBedragToeInMaand(int bedrag, Maand maand)
         {
             switch (maand)
             {
-                case Maanden.Januari:
+                case Maand.Januari:
                     Januari += bedrag;
                     break;
-                case Maanden.Februari:
+                case Maand.Februari:
                     Februari += bedrag;
                     break;
-                case Maanden.Maart:
+                case Maand.Maart:
                     Maart += bedrag;
                     break;
-                case Maanden.April:
+                case Maand.April:
                     April += bedrag;
                     break;
-                case Maanden.Mei:
+                case Maand.Mei:
                     Mei += bedrag;
                     break;
-                case Maanden.Juni:
+                case Maand.Juni:
                     Juni += bedrag;
                     break;
-                case Maanden.Juli:
+                case Maand.Juli:
                     Juli += bedrag;
                     break;
-                case Maanden.Augustus:
+                case Maand.Augustus:
                     Augustus += bedrag;
                     break;
-                case Maanden.September:
+                case Maand.September:
                     September += bedrag;
                     break;
-                case Maanden.Oktober:
+                case Maand.Oktober:
                     Oktober += bedrag;
                     break;
-                case Maanden.November:
+                case Maand.November:
                     November += bedrag;
                     break;
-                case Maanden.December:
+                case Maand.December:
                     December += bedrag;
                     break;
                 default:

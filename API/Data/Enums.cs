@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MoneyGrip.Data
+﻿namespace MoneyGrip.Data
 {
     public class Enums
     {
@@ -14,7 +9,7 @@ namespace MoneyGrip.Data
             Jaar
         }
 
-        public enum Maanden : byte
+        public enum Maand : byte
         {
             Alle = 0,
             Januari,
@@ -29,6 +24,12 @@ namespace MoneyGrip.Data
             Oktober,
             November,
             December
+        }
+
+        public enum LeningType : byte
+        {
+            Annuitair = 0,
+            Lineair
         }
     }
 }
