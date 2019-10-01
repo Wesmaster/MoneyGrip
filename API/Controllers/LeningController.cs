@@ -38,8 +38,8 @@ namespace MoneyGrip.Controllers
                 Type = i.Type,
                 Document = i.Document,
                 DocumentNaam = i.DocumentNaam,
-                Label = toLabelViewModelList(i.LeningLabels),
-                BedragPerMaand = 
+                Label = toLabelViewModelList(i.LeningLabels)
+                //BedragPerMaand = 
             });
         }
 
