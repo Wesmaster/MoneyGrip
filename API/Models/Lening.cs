@@ -20,22 +20,32 @@ namespace MoneyGrip.Models
 
         public virtual ICollection<LeningLabel> LeningLabels { get; set; }
 
-        public int berekenMaandelijkseRente(int resterendBedrag)
+        public double berekenMaandelijkseRente(int resterendBedrag)
         {
-            return (int)(resterendBedrag * (Rente / 12) * 100);
+            return (double)(resterendBedrag * (Rente / 12));
         }
 
-        public int berekenAflossingAnnuitair(int resterendBedrag, short resterendeLooptijd)
+        public double berekenAflossingAnnuitair(int resterendBedrag, short resterendeLooptijd)
         {
             double rentePercentagePerMaand = (double)Rente / 12;
             double annuiteit = Math.Pow(1 + rentePercentagePerMaand, resterendeLooptijd);
 
-            return (int)(resterendBedrag * (rentePercentagePerMaand * annuiteit) / (annuiteit - 1)) - berekenMaandelijkseRente(resterendBedrag);
+            return (resterendBedrag * (rentePercentagePerMaand * annuiteit) / (annuiteit - 1)) - berekenMaandelijkseRente(resterendBedrag);
         }
 
-        public int berekenAflossingLineair()
+        public double berekenAflossingLineair(int resterendBedrag, short resterendeLooptijd)
         {
-            return Bedrag / Looptijd * 100;
+            return (double)resterendBedrag / resterendeLooptijd;
+        }
+
+        public int berekenAnnuitairBedragPerMaand(int resterendBedrag, short resterendeLooptijd)
+        {
+            return (int)berekenAflossingAnnuitair(resterendBedrag, resterendeLooptijd) + (int)berekenMaandelijkseRente(resterendBedrag);
+        }
+
+        public int berekenLineairBedragPerMaand(int resterendBedrag, short resterendeLooptijd)
+        {
+            return (int)berekenAflossingLineair(resterendBedrag, resterendeLooptijd) + (int)berekenMaandelijkseRente(resterendBedrag);
         }
     }
 }

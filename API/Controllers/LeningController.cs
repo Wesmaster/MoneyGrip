@@ -38,8 +38,8 @@ namespace MoneyGrip.Controllers
                 Type = i.Type,
                 Document = i.Document,
                 DocumentNaam = i.DocumentNaam,
-                Label = toLabelViewModelList(i.LeningLabels)
-                //BedragPerMaand = 
+                Label = toLabelViewModelList(i.LeningLabels),
+                BedragPerMaand = i.Type == Data.Enums.LeningType.Annuitair ? (int)(i.berekenAflossingAnnuitair(i.Bedrag, i.Looptijd) + i.berekenMaandelijkseRente(i.Bedrag)) : (int)(i.berekenAflossingLineair(i.Bedrag, i.Looptijd) + i.berekenMaandelijkseRente(i.Bedrag))
             });
         }
 

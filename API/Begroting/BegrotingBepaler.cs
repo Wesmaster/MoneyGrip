@@ -14,6 +14,7 @@ namespace MoneyGrip.Begroting
         public IEnumerable<Reservering> reserveringen { get; set; }
         public IEnumerable<Afschrijving> afschrijvingen { get; set; }
         public IEnumerable<Spaardoel> spaardoelen { get; set; }
+        public IEnumerable<Lening> leningen { get; set; }
 
         public int jaar { get; set; }
 
@@ -26,6 +27,7 @@ namespace MoneyGrip.Begroting
             BedragPerMaand budgettenPerMaand;
             BedragPerMaand reserveringenPerMaand;
             BedragPerMaand afschrijvingenPerMaand;
+            BedragPerMaand leningenPerMaand;
             BedragPerMaand uitgavenPerMaand = new BedragPerMaand();
             BedragPerMaand resultaatPerMaand = new BedragPerMaand();
             Dictionary<string, BedragPerMaand> spaardoelenPerMaand;
@@ -59,6 +61,12 @@ namespace MoneyGrip.Begroting
                 afschrijvingenPerMaand = bepaalAfschrijvingBedragPerMaand(afschrijvingen);
                 uitgavenPerMaand.voegBedragenPerMaandToe(afschrijvingenPerMaand);
                 begroting.Afschrijving = afschrijvingenPerMaand;
+            }
+            if (leningen != null)
+            {
+                leningenPerMaand = bepaalLeningBedragPerMaand(leningen);
+                uitgavenPerMaand.voegBedragenPerMaandToe(leningenPerMaand);
+                begroting.Lening = leningenPerMaand;
             }
             begroting.Uitgaven = uitgavenPerMaand;
 
@@ -188,6 +196,32 @@ namespace MoneyGrip.Begroting
                 bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Oktober, jaar), Maand.Oktober);
                 bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.November, jaar), Maand.November);
                 bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.December, jaar), Maand.December);
+            }
+
+            return bedragPerMaand;
+        }
+
+        private BedragPerMaand bepaalLeningBedragPerMaand(IEnumerable<Lening> leningen)
+        {
+            BedragPerMaand bedragPerMaand = new BedragPerMaand();
+
+            foreach (Lening lening in leningen)
+            {
+                Maand beginMaand = (Maand)lening.Begindatum.Month;
+                int jaar = lening.Begindatum.Year;
+
+                int bedrag = lening.berekenAnnuitairBedragPerMaand(lening.Bedrag, lening.Looptijd);
+                if (jaar < this.jaar)
+                {
+                    bedragPerMaand.voegBedragToeAanAlleMaanden(bedrag);
+                }
+                else
+                {
+                    for(Maand i = beginMaand; i < Maand.December; i++)
+                    {
+                        bedragPerMaand.voegBedragToeInMaand(bedrag, i);
+                    }
+                }
             }
 
             return bedragPerMaand;

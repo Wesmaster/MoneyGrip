@@ -45,7 +45,8 @@ export class LeningenComponent extends BasisOverzichtComponent implements OnInit
       {kolomnaam: "Begindatum", kolombreedte: 1, align: "center", mobiel: false},
       {kolomnaam: "Looptijd", kolombreedte: 1, align: "center", mobiel: false},
       {kolomnaam: "Rente", kolombreedte: 1, align: "left", mobiel: true},
-      {kolomnaam: "DocumentNaam", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}, align: "left", mobiel: false}
+      {kolomnaam: "DocumentNaam", kolombreedte: 0, icoon: {class: "fas fa-file-invoice"}, align: "left", mobiel: false},
+      {kolomnaam: "Per maand", mobiel: true}
     ];
   }
 

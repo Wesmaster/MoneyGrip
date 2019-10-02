@@ -9,6 +9,7 @@ namespace MoneyGrip.Begroting
         public BedragPerMaand Contract { get; set; }
         public BedragPerMaand Afschrijving { get; set; }
         public BedragPerMaand Reservering { get; set; }
+        public BedragPerMaand Lening { get; set; }
         public BedragPerMaand Uitgaven { get; set; }
         public BedragPerMaand Resultaat { get; set; }
         public Dictionary<string, BedragPerMaand> Spaardoel { get; set; }

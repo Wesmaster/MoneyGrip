@@ -57,6 +57,8 @@ namespace MoneyGrip.Controllers
             begroting.reserveringen = await _context.Reservering.ToArrayAsync();
             begroting.afschrijvingen = await _context.Afschrijving
                 .Where(a => a.Aankoopdatum.Year <= begroting.jaar && a.Aankoopdatum.AddMonths(a.VerwachteLevensduur).Year >= begroting.jaar).ToArrayAsync();
+            begroting.leningen = await _context.Lening
+                .Where(a => a.Begindatum.Year <= begroting.jaar && a.Begindatum.AddMonths(a.Looptijd).Year >= begroting.jaar).ToArrayAsync();
 
             IQueryable<Spaardoel> doelEindBedrag = _context.Spaardoel
                 .Include(s => s.SpaardoelLabels)

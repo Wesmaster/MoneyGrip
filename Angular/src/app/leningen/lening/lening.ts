@@ -8,6 +8,7 @@ export class Lening
     id: number;
     label: Label[];
     bedrag: number;
+    bedragPerMaand: number;
     begindatum: Date;
     looptijd: number;
     rente: number;
@@ -28,6 +29,7 @@ export class Lening
             });
             return returnList.join(", ");
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
+        case "Per maand": return "€ " + this.customCurrency.transform(this.bedragPerMaand);
         case "Begindatum": return formatDate(this.begindatum, 'dd-MM-yyyy', "nl");
         case "Looptijd": return this.looptijd + " maanden";
         case "Rente": return this.rente + "%";
