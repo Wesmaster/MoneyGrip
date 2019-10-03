@@ -51,7 +51,7 @@ export class LeningComponent extends BaseEditComponent implements OnInit
         }
         else
         {
-            this.get(this.id);
+            this.get();
         }
     }
 

@@ -52,7 +52,7 @@ export class SpaardoelComponent extends BaseEditComponent implements OnInit {
     }
     else
     {
-      this.get(this.id);
+      this.get();
     }
 
     this.allLabels = this.labelService.getData();

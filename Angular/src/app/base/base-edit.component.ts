@@ -24,9 +24,9 @@ export class BaseEditComponent
       this.dialogRef.updatePosition({top: '5%'});
     }
 
-    protected get(id: number): void
+    protected get(): void
     {
-      this.service.get(id).subscribe(item => {
+      this.service.get(this.id).subscribe(item => {
         this.form.patchValue(item)
   
         this.gekozenLabels.splice(0,this.gekozenLabels.length);

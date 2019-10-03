@@ -51,7 +51,7 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
     }
     else
     {
-      this.get(this.id);
+      this.get();
     }
 
     this.allLabels = this.labelService.getData();
@@ -108,7 +108,7 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
 
   verwijderDocument()
   {
-    this.resetFormControl("document");
-    this.resetFormControl("documentNaam");
+    this.resetFormControl("factuur");
+    this.resetFormControl("factuurNaam");
   }
 }
