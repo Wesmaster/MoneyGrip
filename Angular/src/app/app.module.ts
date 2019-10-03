@@ -8,22 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DateFormat } from './date-format';
 import { AutofocusDirective } from './autofocus.directive';
 
-import { PersonenComponent } from './personen/personen.component';
-import { PersoonComponent } from './personen/persoon/persoon.component';
 import { ButtonVerwijderenComponent } from './button-verwijderen/button-verwijderen.component';
 import { ButtonAnnulerenComponent } from './button-annuleren/button-annuleren.component';
 import { ButtonActieComponent } from './button-actie/button-actie.component';
 import { ButtonToevoegenComponent } from './button-toevoegen/button-toevoegen.component';
 import { TableFilterPipe } from './table-filter.pipe';
 import { DialogBevestigenComponent } from './dialog-bevestigen/dialog-bevestigen.component';
-import { CategorieenComponent } from './categorieen/categorieen.component';
-import { CategorieComponent } from './categorieen/categorie/categorie.component';
 import { LabelsComponent } from './labels/labels.component';
 import { LabelComponent } from './labels/label/label.component';
 import { InkomstenComponent } from './inkomsten/inkomsten.component';
@@ -62,10 +57,7 @@ registerLocaleData(localeNL);
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
-    PersonenComponent,
-    PersoonComponent,
     ButtonVerwijderenComponent,
     ButtonAnnulerenComponent,
     ButtonActieComponent,
@@ -73,8 +65,6 @@ registerLocaleData(localeNL);
     TableFilterPipe,
     AutofocusDirective,
     DialogBevestigenComponent,
-    CategorieenComponent,
-    CategorieComponent,
     LabelsComponent,
     LabelComponent,
     InkomstenComponent,
@@ -123,6 +113,6 @@ registerLocaleData(localeNL);
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}, Globals],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent]
+  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent]
 })
 export class AppModule { }

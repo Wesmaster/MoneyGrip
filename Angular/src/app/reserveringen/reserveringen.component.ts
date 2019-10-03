@@ -32,7 +32,7 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
 
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('reservering');
     this.setPagina(this.titel.toLowerCase());
 

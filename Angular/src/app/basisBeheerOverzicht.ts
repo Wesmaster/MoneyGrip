@@ -1,4 +1,8 @@
+import { Label } from './labels/label/label';
+
 export default abstract class BasisBeheerOverzicht
 {   
-    abstract getValue(value: string) : any;
+    label: Label[];
+    abstract getValue(value: string): any;
+    //abstract getLabels(): Label[];
 }

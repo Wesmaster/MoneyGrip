@@ -33,7 +33,7 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
 
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('spaardoel');
 
     this.tabel = [

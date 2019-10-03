@@ -1,5 +1,4 @@
 import { Label } from "../../labels/label/label";
-import { Persoon } from "../../personen/persoon/persoon";
 import { Interval } from "../../interval.enum";
 import { formatDate } from '@angular/common';
 import { CurrencyPipe } from '../../currency.pipe';
@@ -11,7 +10,6 @@ export class Inkomst {
     begindatum: Date;
     einddatum: Date;
     interval: Interval;
-    persoon: Persoon;
 
     constructor(private customCurrency: CurrencyPipe) {}
 
@@ -25,9 +23,6 @@ export class Inkomst {
                 returnList.push(element.naam);
             });
             return returnList.join(", ");
-          break;
-        case "Persoon": return this.persoon ? this.persoon.voornaam + " " + this.persoon.achternaam : "";
-          break;
         case "Bedrag": return "€ " + this.customCurrency.transform(this.bedrag);
           break;
         case "Begindatum": return formatDate(this.begindatum, 'dd-MM-yyyy', "nl");

@@ -9,6 +9,7 @@ import { CurrencyPipe } from '../../currency.pipe';
 import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import {Observable} from 'rxjs';
+import { BasisService } from '../../base/basis.service';
 
 @Component({
   selector: 'app-afschrijving',
@@ -30,10 +31,10 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
   gefilterdeLabels: Observable<Label[]>;
   gekozenLabels: Label[] = [];
 
-  constructor(private service: AfschrijvingService, private labelService: LabelService, public dialogRef: MatDialogRef<AfschrijvingComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe)
+  constructor(public service: BasisService, private labelService: LabelService, public dialogRef: MatDialogRef<AfschrijvingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: number, public customCurrency: CurrencyPipe)
   {
-    super(dialogRef);
+    super(service, dialogRef, customCurrency);
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -50,21 +51,14 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
     }
     else
     {
-      this.get();
+      this.get(this.id);
     }
 
     this.allLabels = this.labelService.getData();
   }
 
-  keys(any): Array<string>
-  {
-      var keys = Object.keys(any);
-      return keys.slice(keys.length / 2);
-  }
-
   ngOnInit()
   {
-    this.setDialogSize();
     this.changeDialogPosition();
   }
 
@@ -77,20 +71,6 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
     this.form.addControl("garantie", new FormControl('', [Validators.pattern('[0-9]*')]));
     this.form.addControl("factuur", new FormControl(''));
     this.form.addControl("factuurNaam", new FormControl(''));
-  }
-
-  get(): void
-  {
-    this.service.get(this.id).subscribe(item => {
-      this.form.patchValue(item)
-      
-      this.gekozenLabels.splice(0,this.gekozenLabels.length);
-      item.label.forEach(labelObject => {
-          this.gekozenLabels.push(labelObject);
-      })
-      this.updateFormControlLabel(this.gekozenLabels);
-      this.labelsLoaded = Promise.resolve(true);
-    });
   }
 
   onFileChange(event) {
@@ -128,8 +108,7 @@ export class AfschrijvingComponent extends BaseEditComponent implements OnInit {
 
   verwijderDocument()
   {
-    this.form.get('factuur').reset();
-    this.form.get('factuurNaam').reset();
-    this.form.markAsDirty();
+    this.resetFormControl("document");
+    this.resetFormControl("documentNaam");
   }
 }

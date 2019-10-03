@@ -35,7 +35,7 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
 
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('contract');
     this.setPagina(this.titel.toLowerCase());
 

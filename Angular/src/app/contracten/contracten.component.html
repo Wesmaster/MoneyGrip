@@ -11,7 +11,7 @@
                 <fa-icon (click)="openDocumentAvailable && onOpenDocument()" [icon]="faFileAlt" class="iconDocument actieIcoon"></fa-icon>
             </div>
         </div> 
-        <algemeen class="col" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
+        <algemeen class="col algemeen" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
     </div>
   <div class="data-section">
     <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (geselecteerd)="updateSelected($event)"></mg-table>

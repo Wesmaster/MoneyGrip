@@ -7,12 +7,12 @@
             <div class="buttongroup-top row">
                 <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
                 <zoekbalk class="col" (zoekTekst)="zoek($event)"></zoekbalk>
-                <fa-icon (click)="actionsAvailable && onDelete()" [icon]="faTrash" class="iconDelete actieIcoon"></fa-icon>
+                <fa-icon *ngIf="actionsAvailable" (click)="actionsAvailable && onDelete()" [icon]="faTrash" class="iconDelete actieIcoon"></fa-icon>
             </div>
         </div> 
-        <algemeen class="col" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
+        <algemeen class="col algemeen" [text1]="totaalPerMaand" [text2]="gewensteStand"></algemeen>
     </div>
   <div class="data-section">
-    <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (verwijder)="openDeleteDialog($event)" (geselecteerd)="updateSelected($event)"></mg-table>
+    <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (geselecteerd)="updateSelected($event)"></mg-table>
   </div>
 </div>

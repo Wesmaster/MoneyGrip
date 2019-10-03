@@ -8,6 +8,7 @@ import { BasisService } from '../base/basis.service';
 import { Globals } from '../globals';
 import BasisBeheerOverzicht from '../basisBeheerOverzicht';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { LabelService } from './label.service';
 
 @Component({
   selector: 'app-labels',
@@ -29,9 +30,9 @@ export class LabelsComponent extends BasisOverzichtComponent implements OnInit
   faTrash = faTrash;
   deleteAvailable: boolean = false;
 
-  constructor(public service: BasisService, public dialog: MatDialog, public globals: Globals)
+  constructor(public service: BasisService, private labelService: LabelService, public dialog: MatDialog, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('label');
     this.setPagina(this.titel.toLowerCase());
 
@@ -75,6 +76,7 @@ export class LabelsComponent extends BasisOverzichtComponent implements OnInit
 
         this.geselecteerd = [];
         this.ngOnInit();
+        this.labelService.loadAll();
       }
     });
   }
@@ -101,7 +103,14 @@ export class LabelsComponent extends BasisOverzichtComponent implements OnInit
 
   zoek(zoekTekst: string) : void
   {
-    this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam) || new RegExp(zoekTekst, 'gi'));
+    if(zoekTekst == "")
+    {
+        this.zoekResultaat = this.items;
+    }
+    else
+    {
+        this.zoekResultaat = this.items.filter(item => new RegExp(zoekTekst, 'gi').test(item.naam));
+    }
   }
 
   updateSelected(geselecteerd: BasisBeheerOverzicht[]): void
