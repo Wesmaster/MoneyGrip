@@ -22,7 +22,7 @@ export class LabelService
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  public async add(item)
+  public async add(item: Label)
   {
     return await this.http.post(this.accessPointUrl, item, {headers: this.headers}).toPromise();
   }
@@ -32,17 +32,17 @@ export class LabelService
     return this.http.get<Label[]>(this.accessPointUrl, {headers: this.headers});
   }
 
-  public get(id): Observable<Label>
+  public get(id: number): Observable<Label>
   {
     return this.http.get<Label>(this.accessPointUrl + "/" + id, {headers: this.headers});
   }
 
-  public async update(item)
+  public async update(item: Label)
   {
     return await this.http.put<Label>(this.accessPointUrl + "/" + item.id, item, {headers: this.headers}).toPromise();
   }
 
-  public delete(id)
+  public delete(id: number)
   {
     return this.http.delete(this.accessPointUrl + "/" + id, {headers: this.headers});
   }

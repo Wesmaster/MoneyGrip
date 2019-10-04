@@ -33,7 +33,7 @@ export class BudgettenComponent extends BasisOverzichtComponent implements OnIni
 
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('budget');
     this.setPagina(this.titel.toLowerCase());
 

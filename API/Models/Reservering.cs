@@ -9,7 +9,7 @@ namespace MoneyGrip.Models
         public int Id { get; set; }
         public DateTime LaatstGewijzigd { get; set; }
         public int Bedrag { get; set; }
-        public Maanden Maand { get; set; }
+        public Maand Maand { get; set; }
         public string Omschrijving { get; set; }
 
         public virtual ICollection<ReserveringLabel> ReserveringLabels { get; set; }

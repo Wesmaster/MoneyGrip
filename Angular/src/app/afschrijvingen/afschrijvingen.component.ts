@@ -36,7 +36,7 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
   
   constructor(public service: BasisService, public algemeenService: AfschrijvingenService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('afschrijving');
     this.setPagina(this.titel.toLowerCase());
 

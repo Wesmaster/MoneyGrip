@@ -11,6 +11,7 @@ import { CustomValidator } from '../../custom.validators';
 import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import {Observable} from 'rxjs';
+import { BasisService } from '../../base/basis.service';
 
 @Component({
   selector: 'app-contract',
@@ -35,10 +36,10 @@ export class ContractComponent extends BaseEditComponent implements OnInit
   gefilterdeLabels: Observable<Label[]>;
   gekozenLabels: Label[] = [];
 
-  constructor(private service: ContractService, private labelService: LabelService, public dialogRef: MatDialogRef<ContractComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
+  constructor(public service: BasisService, private labelService: LabelService, public dialogRef: MatDialogRef<ContractComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: number, public customCurrency: CurrencyPipe, private customValidator: CustomValidator)
   {
-      super(dialogRef);
+      super(service, dialogRef, customCurrency);
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -61,15 +62,8 @@ export class ContractComponent extends BaseEditComponent implements OnInit
     this.allLabels = this.labelService.getData();
   }
 
-  keys(any): Array<string>
-  {
-      var keys = Object.keys(any);
-      return keys.slice(keys.length / 2);
-  }
-
   ngOnInit()
   {
-    this.setDialogSize();
     this.changeDialogPosition();
   }
 
@@ -86,59 +80,9 @@ export class ContractComponent extends BaseEditComponent implements OnInit
     this.form.setValidators(this.customValidator.dateLessThanValidator());
   }
 
-  get(): void
-  {
-    this.service.get(this.id).subscribe(item => {
-      this.form.patchValue(item)
-
-      this.gekozenLabels.splice(0,this.gekozenLabels.length);
-      item.label.forEach(labelObject => {
-          this.gekozenLabels.push(labelObject);
-      })
-      this.updateFormControlLabel(this.gekozenLabels);
-      this.labelsLoaded = Promise.resolve(true);
-    });
-  }
-
-  onFileChange(event) 
-  {
-    let reader = new FileReader();
-    if(event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.form.get('document').setValue(reader.result.toString().split(",")[1]);
-        this.form.get('documentNaam').setValue(file.name);
-        this.form.markAsDirty();
-      };
-    }
-  }
-
-  async onSubmit()
-  {
-    this.form.patchValue({bedrag: this.customCurrency.transformToNumber(this.form.get("bedrag").value)});
-
-    if(this.id == 0)
-    {
-      await this.service.add(this.form.value).then(item => {
-
-      });
-    }
-    else
-    {
-      await this.service.update(this.form.value).then(item => {
-
-      });
-    }
-
-    this.id = null;
-    this.dialogRef.close(true);
-  }
-
   verwijderDocument()
   {
-    this.form.get('document').reset();
-    this.form.get('documentNaam').reset();
-    this.form.markAsDirty();
+    this.resetFormControl("document");
+    this.resetFormControl("documentNaam");
   }
 }

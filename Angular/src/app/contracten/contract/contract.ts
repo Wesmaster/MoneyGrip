@@ -6,7 +6,6 @@ import { CurrencyPipe } from '../../currency.pipe';
 export class Contract
 {
     id: number;
-    laatstGewijzidgd: Date;
     label: Label[];
     bedrag: number;
     begindatum: Date;

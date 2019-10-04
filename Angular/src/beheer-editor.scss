@@ -85,7 +85,6 @@ p
 .form-control
 {
     padding-right: 0px;
-    /*height: calc(2.50rem + 2px);*/
     color: $text-dark;
     background-color: $input-light;
     background-clip: padding-box;
@@ -111,14 +110,14 @@ p
     border: none;
 }
 
-.own-custom-file-label
+.own-custom-file-label 
 {
     cursor: pointer;
-}
 
-.own-custom-file-label fa-icon
-{
-    color: $primary;
+    .iconUpload
+    {
+        color: $primary;
+    }
 }
 
 .own-custom-file-input {

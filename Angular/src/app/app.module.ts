@@ -3,27 +3,22 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDatepickerModule, MatChipsModule, DateAdapter, MatDialogModule, MatInputModule, MatIconModule, MatAutocompleteModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule } from '@angular/material';
+import { MatChipsModule, DateAdapter, MatDialogModule, MatInputModule, MatIconModule, MatAutocompleteModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatListModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DateFormat } from './date-format';
 import { AutofocusDirective } from './autofocus.directive';
 
-import { PersonenComponent } from './personen/personen.component';
-import { PersoonComponent } from './personen/persoon/persoon.component';
 import { ButtonVerwijderenComponent } from './button-verwijderen/button-verwijderen.component';
 import { ButtonAnnulerenComponent } from './button-annuleren/button-annuleren.component';
 import { ButtonActieComponent } from './button-actie/button-actie.component';
 import { ButtonToevoegenComponent } from './button-toevoegen/button-toevoegen.component';
 import { TableFilterPipe } from './table-filter.pipe';
 import { DialogBevestigenComponent } from './dialog-bevestigen/dialog-bevestigen.component';
-import { CategorieenComponent } from './categorieen/categorieen.component';
-import { CategorieComponent } from './categorieen/categorie/categorie.component';
 import { LabelsComponent } from './labels/labels.component';
 import { LabelComponent } from './labels/label/label.component';
 import { InkomstenComponent } from './inkomsten/inkomsten.component';
@@ -54,16 +49,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { Globals } from './globals';
+import { LeningenComponent } from './leningen/leningen.component';
+import { LeningComponent } from './leningen/lening/lening.component';
 
 registerLocaleData(localeNL);
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
     HomeComponent,
-    PersonenComponent,
-    PersoonComponent,
     ButtonVerwijderenComponent,
     ButtonAnnulerenComponent,
     ButtonActieComponent,
@@ -71,8 +65,6 @@ registerLocaleData(localeNL);
     TableFilterPipe,
     AutofocusDirective,
     DialogBevestigenComponent,
-    CategorieenComponent,
-    CategorieComponent,
     LabelsComponent,
     LabelComponent,
     InkomstenComponent,
@@ -94,7 +86,9 @@ registerLocaleData(localeNL);
     InfoComponent,
     BackupComponent,
     DialogLadenComponent,
-    NavBarComponent
+    NavBarComponent,
+    LeningenComponent,
+    LeningComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -119,6 +113,6 @@ registerLocaleData(localeNL);
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}, Globals],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, PersoonComponent, CategorieComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent]
+  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent]
 })
 export class AppModule { }

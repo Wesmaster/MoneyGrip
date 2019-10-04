@@ -33,13 +33,12 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
 
   constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
-    super(service, globals);
+    super(service, dialog, globals);
     service.setAccessPointUrl('inkomst');
     this.setPagina(this.titel.toLowerCase());
 
     this.tabel = [
       {kolomnaam: "Label", kolombreedte: 3, align: "left", mobiel: true},
-      {kolomnaam: "Persoon", kolombreedte: 2, align: "left", mobiel: false},
       {kolomnaam: "Bedrag", kolombreedte: 1, align: "right", mobiel: true},
       {kolomnaam: "Begindatum", kolombreedte: 1, align: "center", mobiel: false},
       {kolomnaam: "Einddatum", kolombreedte: 1, align: "center", mobiel: false},
@@ -124,8 +123,6 @@ export class InkomstenComponent extends BasisOverzichtComponent implements OnIni
       {
         this.zoekResultaat = this.items.filter(
             item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
-            || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.voornaam))
-            || (item.persoon !== null && new RegExp(zoekTekst, 'gi').test(item.persoon.achternaam))
             || (new Date(item.begindatum).setHours(0) <= this.parseDatum(zoekTekst).setHours(0) && ((item.einddatum == null && this.parseDatum(zoekTekst).setHours(0) < new Date(3000,12,31).setHours(0)) || new Date(item.einddatum).setHours(0) >= this.parseDatum(zoekTekst).setHours(0)))
         );
       }

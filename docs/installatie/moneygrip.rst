@@ -1,7 +1,7 @@
 MoneyGrip
 ==================
 
-* Download `MoneyGrip <https://raw.github.com/WesMaster/MoneyGrip/master/MoneyGrip.exe>`_
+* Download `MoneyGrip <https://github.com/WesMaster/MoneyGrip/releases/download/v0.14.0/MoneyGrip.exe>`_
 * Dubbelklik op het bestand om de installatie te starten
 * Volg de stappen in het scherm
 

@@ -1,0 +1,19 @@
+<div class="pagina">
+    <div class="pagina-wrapper row">
+        <div>
+            <div class="pagina-header">
+                <titel [naam]="titel"></titel>
+            </div>
+            <div class="buttongroup-top row">
+                <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
+                <zoekbalk class="col" (zoekTekst)="zoek($event)"></zoekbalk>
+                <fa-icon (click)="deleteAvailable && onDelete()" [icon]="faTrash" class="iconDelete actieIcoon"></fa-icon>
+                <fa-icon (click)="openDocumentAvailable && onOpenDocument()" [icon]="faFileAlt" class="iconDocument actieIcoon"></fa-icon>
+            </div>
+        </div> 
+        <algemeen class="col algemeen" [text1]="totaalPerMaand" [text2]=""></algemeen>
+    </div>
+  <div class="data-section">
+    <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (geselecteerd)="updateSelected($event)"></mg-table>
+  </div>
+</div>

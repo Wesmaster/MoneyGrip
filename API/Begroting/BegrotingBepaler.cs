@@ -14,6 +14,7 @@ namespace MoneyGrip.Begroting
         public IEnumerable<Reservering> reserveringen { get; set; }
         public IEnumerable<Afschrijving> afschrijvingen { get; set; }
         public IEnumerable<Spaardoel> spaardoelen { get; set; }
+        public IEnumerable<Lening> leningen { get; set; }
 
         public int jaar { get; set; }
 
@@ -26,6 +27,7 @@ namespace MoneyGrip.Begroting
             BedragPerMaand budgettenPerMaand;
             BedragPerMaand reserveringenPerMaand;
             BedragPerMaand afschrijvingenPerMaand;
+            BedragPerMaand leningenPerMaand;
             BedragPerMaand uitgavenPerMaand = new BedragPerMaand();
             BedragPerMaand resultaatPerMaand = new BedragPerMaand();
             Dictionary<string, BedragPerMaand> spaardoelenPerMaand;
@@ -60,6 +62,12 @@ namespace MoneyGrip.Begroting
                 uitgavenPerMaand.voegBedragenPerMaandToe(afschrijvingenPerMaand);
                 begroting.Afschrijving = afschrijvingenPerMaand;
             }
+            if (leningen != null)
+            {
+                leningenPerMaand = bepaalLeningBedragPerMaand(leningen);
+                uitgavenPerMaand.voegBedragenPerMaandToe(leningenPerMaand);
+                begroting.Lening = leningenPerMaand;
+            }
             begroting.Uitgaven = uitgavenPerMaand;
 
             resultaatPerMaand.verminderBedragenPerMaandMet(uitgavenPerMaand);
@@ -81,87 +89,69 @@ namespace MoneyGrip.Begroting
             IEnumerable<BedragPerPeriode> bedragenPerMaand = bedragenPerPeriode.Where(b => b.Interval == Interval.Maand);
             foreach(BedragPerPeriode bedrag in bedragenPerMaand)
             {
-                Maanden eindMaand = bedrag.Einddatum.HasValue && bedrag.Einddatum.Value.Year == jaar ? (Maanden)bedrag.Einddatum.Value.Month : Maanden.December;
-                bedragPerMaand.voegBedragToeInMaanden(bedrag.Bedrag, (Maanden)bedrag.Begindatum.Month, eindMaand);
+                Maand beginMaand = bedrag.Begindatum.Year == jaar ? (Maand)bedrag.Begindatum.Month : Maand.Januari;
+                Maand eindMaand = bedrag.Einddatum.HasValue && bedrag.Einddatum.Value.Year == jaar ? (Maand)bedrag.Einddatum.Value.Month : Maand.December;
+                bedragPerMaand.voegBedragToeInMaanden(bedrag.Bedrag, beginMaand, eindMaand);
             }
 
             IEnumerable<BedragPerPeriode> bedragenPerJaar = bedragenPerPeriode.Where(b => b.Interval == Interval.Jaar);
             foreach(BedragPerPeriode bedragPerJaar in bedragenPerJaar)
             {
-                bedragPerMaand.voegBedragToeInMaand(bedragPerJaar.Bedrag, (Maanden)bedragPerJaar.Begindatum.Month);
+                bedragPerMaand.voegBedragToeInMaand(bedragPerJaar.Bedrag, (Maand)bedragPerJaar.Begindatum.Month);
             }
 
             IEnumerable<BedragPerPeriode> bedragenPerKwartaal = bedragenPerPeriode.Where(b => b.Interval == Interval.Kwartaal);
             foreach (BedragPerPeriode bedragPerKwartaal in bedragenPerKwartaal)
             {
-                Maanden beginMaand = (Maanden)bedragPerKwartaal.Begindatum.Month;
-                Maanden eindMaand = bedragPerKwartaal.Einddatum.HasValue ? (Maanden)bedragPerKwartaal.Einddatum.Value.Month : Maanden.December;
+                Maand beginMaand = (Maand)bedragPerKwartaal.Begindatum.Month;
+                Maand eindMaand = bedragPerKwartaal.Einddatum.HasValue ? (Maand)bedragPerKwartaal.Einddatum.Value.Month : Maand.December;
                 int bedrag = bedragPerKwartaal.Bedrag;
 
-                switch (beginMaand)
-                {
-                    case Maanden.Januari:
-                        {
-                            bedragPerMaand.voegBedragToeInMaand(bedrag, Maanden.Januari);
-                            if(eindMaand > Maanden.April)
-                            {
-                                goto case Maanden.April;
-                            }
-                            break;
-                        }
-                    case Maanden.April:
-                        {
-                            bedragPerMaand.voegBedragToeInMaand(bedrag, Maanden.April);
-                            if (eindMaand > Maanden.Juli)
-                            {
-                                goto case Maanden.Juli;
-                            }
-                            break;
-                        }
-                    case Maanden.Juli:
-                        {
-                            bedragPerMaand.voegBedragToeInMaand(bedrag, Maanden.Juli);
-                            if (eindMaand > Maanden.Oktober)
-                            {
-                                goto case Maanden.Oktober;
-                            }
-                            break;
-                        }
-                    case Maanden.Oktober:
-                        bedragPerMaand.voegBedragToeInMaand(bedrag, Maanden.Oktober);
-                        break;
-                    case Maanden.Februari:
-                    case Maanden.Mei:
-                    case Maanden.Augustus:
-                    case Maanden.November:
+                switch(beginMaand)
+                { 
+                    case Maand.Februari:
+                    case Maand.Mei:
+                    case Maand.Augustus:
+                    case Maand.November:
                         {
                             bedragPerMaand.voegBedragToeInMaand(bedrag / 3 * Math.Max(1, Math.Min((int)(eindMaand - beginMaand), 2)), beginMaand);
-                            goto default;
+                            break;
                         }
-                    case Maanden.Maart:
-                    case Maanden.Juni:
-                    case Maanden.September:
-                    case Maanden.December:
+                    case Maand.Maart:
+                    case Maand.Juni:
+                    case Maand.September:
+                    case Maand.December:
                         {
                             bedragPerMaand.voegBedragToeInMaand(bedrag / 3, beginMaand);
-                            goto default;
+                            break;
                         }
-                    default:
-                        {
-                            if (beginMaand < Maanden.April && eindMaand > Maanden.April)
+                    default: break;
+                }
+
+                while (beginMaand <= Maand.Oktober && beginMaand < eindMaand)
+                {
+                    switch (beginMaand)
+                    {
+                        case Maand.Januari:
+                        case Maand.April:
+                        case Maand.Juli:
+                        case Maand.Oktober:
                             {
-                                goto case Maanden.April;
+                                int bedragDezeMaand = bedrag;
+                                if(eindMaand - beginMaand == 1)
+                                {
+                                    bedragDezeMaand = bedragDezeMaand / 3;
+                                }
+                                else if(eindMaand - beginMaand == 2)
+                                {
+                                    bedragDezeMaand = bedrag / 3 * Math.Max(1, Math.Min((int)(eindMaand - beginMaand), 2));
+                                }
+                                bedragPerMaand.voegBedragToeInMaand(bedragDezeMaand, beginMaand);
+                                break;
                             }
-                            else if (beginMaand < Maanden.Juli && eindMaand > Maanden.Juli)
-                            {
-                                goto case Maanden.Juli;
-                            }
-                            else if (beginMaand < Maanden.Oktober && eindMaand > Maanden.Oktober)
-                            {
-                                goto case Maanden.Oktober;
-                            }
-                        }
-                        break;
+                        default: break;
+                    }
+                    beginMaand++;
                 }
             }
             return bedragPerMaand;
@@ -171,19 +161,19 @@ namespace MoneyGrip.Begroting
         {
             BedragPerMaand reserveringenPerMaand = new BedragPerMaand();
 
-            reserveringenPerMaand.voegBedragToeAanAlleMaanden(reserveringen.Where(r => r.Maand == Maanden.Alle).Sum(r => r.Bedrag));
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Januari).Sum(r => r.Bedrag), Maanden.Januari);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Februari).Sum(r => r.Bedrag), Maanden.Februari);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Maart).Sum(r => r.Bedrag), Maanden.Maart);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.April).Sum(r => r.Bedrag), Maanden.April);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Mei).Sum(r => r.Bedrag), Maanden.Mei);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Juni).Sum(r => r.Bedrag), Maanden.Juni);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Juli).Sum(r => r.Bedrag), Maanden.Juli);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Augustus).Sum(r => r.Bedrag), Maanden.Augustus);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.September).Sum(r => r.Bedrag), Maanden.September);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.Oktober).Sum(r => r.Bedrag), Maanden.Oktober);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.November).Sum(r => r.Bedrag), Maanden.November);
-            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maanden.December).Sum(r => r.Bedrag), Maanden.December);
+            reserveringenPerMaand.voegBedragToeAanAlleMaanden(reserveringen.Where(r => r.Maand == Maand.Alle).Sum(r => r.Bedrag));
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Januari).Sum(r => r.Bedrag), Maand.Januari);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Februari).Sum(r => r.Bedrag), Maand.Februari);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Maart).Sum(r => r.Bedrag), Maand.Maart);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.April).Sum(r => r.Bedrag), Maand.April);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Mei).Sum(r => r.Bedrag), Maand.Mei);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Juni).Sum(r => r.Bedrag), Maand.Juni);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Juli).Sum(r => r.Bedrag), Maand.Juli);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Augustus).Sum(r => r.Bedrag), Maand.Augustus);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.September).Sum(r => r.Bedrag), Maand.September);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.Oktober).Sum(r => r.Bedrag), Maand.Oktober);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.November).Sum(r => r.Bedrag), Maand.November);
+            reserveringenPerMaand.voegBedragToeInMaand(reserveringen.Where(r => r.Maand == Maand.December).Sum(r => r.Bedrag), Maand.December);
 
             return reserveringenPerMaand;
         }
@@ -194,18 +184,44 @@ namespace MoneyGrip.Begroting
 
             foreach (Afschrijving afschrijving in afschrijvingen)
             {
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Januari, jaar), Maanden.Januari);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Februari, jaar), Maanden.Februari);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Maart, jaar), Maanden.Maart);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.April, jaar), Maanden.April);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Mei, jaar), Maanden.Mei);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Juni, jaar), Maanden.Juni);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Juli, jaar), Maanden.Juli);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Augustus, jaar), Maanden.Augustus);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.September, jaar), Maanden.September);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.Oktober, jaar), Maanden.Oktober);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.November, jaar), Maanden.November);
-                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maanden.December, jaar), Maanden.December);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Januari, jaar), Maand.Januari);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Februari, jaar), Maand.Februari);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Maart, jaar), Maand.Maart);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.April, jaar), Maand.April);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Mei, jaar), Maand.Mei);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Juni, jaar), Maand.Juni);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Juli, jaar), Maand.Juli);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Augustus, jaar), Maand.Augustus);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.September, jaar), Maand.September);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.Oktober, jaar), Maand.Oktober);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.November, jaar), Maand.November);
+                bedragPerMaand.voegBedragToeInMaand(afschrijving.bepaalAfschrijfBedrag(Maand.December, jaar), Maand.December);
+            }
+
+            return bedragPerMaand;
+        }
+
+        private BedragPerMaand bepaalLeningBedragPerMaand(IEnumerable<Lening> leningen)
+        {
+            BedragPerMaand bedragPerMaand = new BedragPerMaand();
+
+            foreach (Lening lening in leningen)
+            {
+                Maand beginMaand = (Maand)lening.Begindatum.Month;
+                int jaar = lening.Begindatum.Year;
+
+                int bedrag = lening.berekenAnnuitairBedragPerMaand(lening.Bedrag, lening.Looptijd);
+                if (jaar < this.jaar)
+                {
+                    bedragPerMaand.voegBedragToeAanAlleMaanden(bedrag);
+                }
+                else
+                {
+                    for(Maand i = beginMaand; i < Maand.December; i++)
+                    {
+                        bedragPerMaand.voegBedragToeInMaand(bedrag, i);
+                    }
+                }
             }
 
             return bedragPerMaand;
@@ -224,7 +240,7 @@ namespace MoneyGrip.Begroting
 
                 if (spaardoel.Percentage == null)
                 {
-                    for (Maanden i = spaardoel.LaatsteMaand; i >= spaardoel.EersteMaand; i--)
+                    for (Maand i = spaardoel.LaatsteMaand; i >= spaardoel.EersteMaand; i--)
                     {
                         int resterendDoelBedrag = doelBedrag - spaardoelBedragPerMaand.getTotaalBedrag();
                         if (resterendDoelBedrag == 0)
@@ -237,7 +253,7 @@ namespace MoneyGrip.Begroting
                 }
                 else
                 {
-                    for (Maanden i = spaardoel.EersteMaand; i <= spaardoel.LaatsteMaand; i++)
+                    for (Maand i = spaardoel.EersteMaand; i <= spaardoel.LaatsteMaand; i++)
                     {
                         int resterendDoelBedrag = doelBedrag - spaardoelBedragPerMaand.getTotaalBedrag();
                         if (resterendDoelBedrag == 0)

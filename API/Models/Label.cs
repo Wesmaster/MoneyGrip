@@ -15,5 +15,6 @@ namespace MoneyGrip.Models
         public virtual ICollection<ContractLabel> ContractLabels { get; set; }
         public virtual ICollection<ReserveringLabel> ReserveringLabels { get; set; }
         public virtual ICollection<SpaardoelLabel> SpaardoelLabels { get; set; }
+        public virtual ICollection<LeningLabel> LeningLabels { get; set; }
     }
 }

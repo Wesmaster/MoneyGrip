@@ -13,14 +13,13 @@ Documentatie MoneyGrip
    :maxdepth: 1
    :caption: MoneyGrip
    
-   ./moneygrip/personen.rst
-   ./moneygrip/categorieen.rst
    ./moneygrip/labels.rst
-   ./moneygrip/inkomsten.rst
-   ./moneygrip/contracten.rst
-   ./moneygrip/reserveringen.rst
-   ./moneygrip/budgetten.rst
    ./moneygrip/afschrijvingen.rst
+   ./moneygrip/budgetten.rst
+   ./moneygrip/contracten.rst
+   ./moneygrip/leningen.rst
+   ./moneygrip/inkomsten.rst
+   ./moneygrip/reserveringen.rst
    ./moneygrip/spaardoelen.rst
    ./moneygrip/begroting.rst
    

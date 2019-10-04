@@ -18,6 +18,7 @@ export class BegrotingComponent implements OnInit
   reserveringen: BedragPerMaand;
   inkomsten: BedragPerMaand;
   afschrijvingen: BedragPerMaand;
+  leningen: BedragPerMaand;
   spaardoelen: BedragPerMaand[] = [];
   resultaat: BedragPerMaand;
   uitgaven: BedragPerMaand;
@@ -75,6 +76,7 @@ export class BegrotingComponent implements OnInit
         this.budgetten = Object.assign(new BedragPerMaand(this.customCurrency, "Budgetten"), item.budget);
         this.contracten = Object.assign(new BedragPerMaand(this.customCurrency, "Contracten"), item.contract);
         this.reserveringen = Object.assign(new BedragPerMaand(this.customCurrency, "Reserveringen"), item.reservering);
+        this.leningen = Object.assign(new BedragPerMaand(this.customCurrency, "Leningen"), item.lening);
         this.resultaat = Object.assign(new BedragPerMaand(this.customCurrency, "Resultaat"), item.resultaat);
         this.uitgaven = Object.assign(new BedragPerMaand(this.customCurrency, "Uitgaven"), item.uitgaven);
 
@@ -85,7 +87,7 @@ export class BegrotingComponent implements OnInit
 
         }
         this.spaardoelen = tempArray;
-        this.data = [this.resultaat, this.inkomsten, this.contracten, this.reserveringen, this.budgetten, this.afschrijvingen];
+        this.data = [this.resultaat, this.inkomsten, this.leningen, this.contracten, this.reserveringen, this.budgetten, this.afschrijvingen];
     });
   }
 }

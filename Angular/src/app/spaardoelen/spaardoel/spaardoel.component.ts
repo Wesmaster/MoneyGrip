@@ -11,6 +11,7 @@ import { Maanden } from '../../maanden.enum';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import {Observable} from 'rxjs';
+import { BasisService } from '../../base/basis.service';
 
 @Component({
   selector: 'app-spaardoel',
@@ -31,10 +32,10 @@ export class SpaardoelComponent extends BaseEditComponent implements OnInit {
   gefilterdeLabels: Observable<Label[]>;
   gekozenLabels: Label[] = [];
 
-  constructor(private service: SpaardoelService, private labelService: LabelService, public dialogRef: MatDialogRef<SpaardoelComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: number, private customCurrency: CurrencyPipe, private customValidator: CustomValidator)
+  constructor(public service: BasisService, private labelService: LabelService, public dialogRef: MatDialogRef<SpaardoelComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: number, public customCurrency: CurrencyPipe, private customValidator: CustomValidator)
   {
-      super(dialogRef);
+      super(service, dialogRef, customCurrency);
     this.id = data;
 
     if(typeof(this.id) == null)
@@ -57,15 +58,8 @@ export class SpaardoelComponent extends BaseEditComponent implements OnInit {
     this.allLabels = this.labelService.getData();
   }
 
-  keys(any): Array<string>
-  {
-      var keys = Object.keys(any);
-      return keys.slice(keys.length / 2).slice(1, keys.length);
-  }
-
   ngOnInit()
   {
-    this.setDialogSize();
     this.changeDialogPosition();
   }
 
@@ -77,20 +71,6 @@ export class SpaardoelComponent extends BaseEditComponent implements OnInit {
     this.form.addControl("eersteMaand", new FormControl('', [Validators.required]));
     this.form.addControl("laatsteMaand", new FormControl('', [Validators.required]));
     this.form.addControl("omschrijving", new FormControl('', [Validators.maxLength(200)]));
-  }
-
-  get(): void
-  {
-    this.service.get(this.id).subscribe(item => {
-      this.form.patchValue(item)
-      
-      this.gekozenLabels.splice(0,this.gekozenLabels.length);
-      item.label.forEach(labelObject => {
-          this.gekozenLabels.push(labelObject);
-      })
-      this.updateFormControlLabel(this.gekozenLabels);
-      this.labelsLoaded = Promise.resolve(true);
-    });
   }
 
   async onSubmit()

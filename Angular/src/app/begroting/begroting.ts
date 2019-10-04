@@ -54,6 +54,7 @@ export class Begroting
     budget: BedragPerMaand;
     contract: BedragPerMaand;
     reservering: BedragPerMaand;
+    lening: BedragPerMaand;
     resultaat: BedragPerMaand;
     spaardoel: {[key: string]: BedragPerMaand};
     uitgaven: BedragPerMaand;

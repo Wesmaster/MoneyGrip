@@ -19,7 +19,7 @@ namespace MoneyGrip.Models
 
         public virtual ICollection<AfschrijvingLabel> AfschrijvingLabels { get; set; }
 
-        public int bepaalAfschrijfBedrag(Maanden maand, int jaar)
+        public int bepaalAfschrijfBedrag(Maand maand, int jaar)
         {
             int afschrijfBedrag = 0;
             DateTime gesteldeEinddatum = Aankoopdatum.AddMonths(VerwachteLevensduur - 1);
@@ -27,7 +27,7 @@ namespace MoneyGrip.Models
             {
                 afschrijfBedrag = Aankoopbedrag / VerwachteLevensduur;
                 // Laatste maand, aanvullen tot aankoopbedrag
-                if (jaar == gesteldeEinddatum.Year && maand == (Maanden)gesteldeEinddatum.Month)
+                if (jaar == gesteldeEinddatum.Year && maand == (Maand)gesteldeEinddatum.Month)
                 {
                     afschrijfBedrag += Aankoopbedrag - (Aankoopbedrag / VerwachteLevensduur * VerwachteLevensduur);
                 }
@@ -36,13 +36,13 @@ namespace MoneyGrip.Models
             return afschrijfBedrag;
         }
 
-        private bool moetAfgeschrevenWorden(DateTime aankoopDatum, DateTime gesteldeEinddatum, Maanden maand, int jaar)
+        private bool moetAfgeschrevenWorden(DateTime aankoopDatum, DateTime gesteldeEinddatum, Maand maand, int jaar)
         {
             int jaarVanAankoop = aankoopDatum.Year;
-            Maanden maandVanAankoop = (Maanden)aankoopDatum.Month;
+            Maand maandVanAankoop = (Maand)aankoopDatum.Month;
 
             int jaarVanVoltooien = gesteldeEinddatum.Year;
-            Maanden maandVanVoltooien = (Maanden)gesteldeEinddatum.Month;
+            Maand maandVanVoltooien = (Maand)gesteldeEinddatum.Month;
 
             if (jaarVanAankoop < jaar || (jaarVanAankoop == jaar && maandVanAankoop <= maand))
             {

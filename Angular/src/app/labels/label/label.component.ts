@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LabelService } from '../label.service';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { BasisService } from '../../base/basis.service';
 
 @Component({
   selector: 'app-label',
@@ -20,10 +21,10 @@ export class LabelComponent extends BaseEditComponent implements OnInit
   titelText: string = "Label";
   faDownload = faDownload;
 
-  constructor(private service: LabelService, public dialogRef: MatDialogRef<LabelComponent>,
+  constructor(public service: BasisService, private labelService: LabelService, public dialogRef: MatDialogRef<LabelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number)
   {
-    super(dialogRef);
+    super(service, dialogRef, null);
 
     this.id = data;
 
@@ -47,7 +48,6 @@ export class LabelComponent extends BaseEditComponent implements OnInit
 
   ngOnInit()
   {
-    this.setDialogSize();
     this.changeDialogPosition();
   }
 
@@ -85,5 +85,6 @@ export class LabelComponent extends BaseEditComponent implements OnInit
 
     this.id = null;
     this.dialogRef.close(true);
+    this.labelService.loadAll();
   }
 }
