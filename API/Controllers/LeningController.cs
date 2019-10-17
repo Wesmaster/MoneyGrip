@@ -39,7 +39,7 @@ namespace MoneyGrip.Controllers
                 Document = i.Document,
                 DocumentNaam = i.DocumentNaam,
                 Label = toLabelViewModelList(i.LeningLabels),
-                BedragPerMaand = i.Type == Data.Enums.LeningType.Annuitair ? (int)(i.berekenAflossingAnnuitair(i.Bedrag, i.Looptijd) + i.berekenMaandelijkseRente(i.Bedrag)) : (int)(i.berekenAflossingLineair(i.Bedrag, i.Looptijd) + i.berekenMaandelijkseRente(i.Bedrag))
+                BedragPerMaand = i.Type == Data.Enums.LeningType.Annuitair ? (int)(i.berekenAflossingAnnuitair(i.Bedrag, i.Looptijd) + i.berekenMaandelijkseRente()) : (int)(i.berekenAflossingLineair((short)(((i.Begindatum.AddMonths(i.Looptijd).Year - DateTime.Now.Year) * 12) + i.Begindatum.Month - DateTime.Now.Month)) + i.berekenMaandelijkseRente())
             });
         }
 
@@ -82,7 +82,7 @@ namespace MoneyGrip.Controllers
 
         // PUT: api/Lening/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAfschrijving([FromRoute] int id, [FromBody] LeningPostModel leningPM)
+        public async Task<IActionResult> PutLening([FromRoute] int id, [FromBody] LeningPostModel leningPM)
         {
             if (!ModelState.IsValid)
             {

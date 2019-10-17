@@ -30,6 +30,8 @@ namespace MoneyGrip.Models
         public virtual DbSet<SpaardoelLabel> SpaardoelLabel { get; set; }
         public virtual DbSet<Lening> Lening { get; set; }
         public virtual DbSet<LeningLabel> LeningLabel { get; set; }
+        public virtual DbSet<Rekening> Rekening { get; set; }
+        public virtual DbSet<Transactie> Transactie { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -148,6 +150,43 @@ namespace MoneyGrip.Models
                     .IsRequired();
             });
 
+            modelBuilder.Entity<Rekening>(entity =>
+            {
+                entity.Property(e => e.Naam)
+                    .IsRequired()
+                    .HasMaxLength(25);
+
+                entity.Property(e => e.Iban)
+                    .HasMaxLength(18);
+
+                entity.Property(e => e.Startbedrag)
+                    .IsRequired();
+
+                entity.Property(e => e.Startdatum)
+                    .IsRequired();
+            });
+
+            modelBuilder.Entity<Transactie>(entity =>
+            {
+                entity.Property(e => e.Datum)
+                    .IsRequired();
+
+                entity.Property(e => e.Type)
+                    .IsRequired();
+
+                entity.Property(e => e.Bedrag)
+                    .IsRequired();
+
+                entity.Property(e => e.Omschrijving)
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.DocumentNaam)
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.VanRekening)
+                    .IsRequired();
+            });
+
             modelBuilder.Entity<InkomstLabel>()
                 .HasKey(il => new { il.InkomstId, il.LabelId });
 
@@ -252,6 +291,21 @@ namespace MoneyGrip.Models
                 .WithMany(l => l.LeningLabels)
                 .HasForeignKey(ll => ll.LabelId)
                 .HasConstraintName("FK_LeningLabel_Koppeling_Label");
+
+            modelBuilder.Entity<TransactieLabel>()
+                .HasKey(tl => new { tl.TransactieId, tl.LabelId });
+
+            modelBuilder.Entity<TransactieLabel>()
+                .HasOne(tl => tl.Transactie)
+                .WithMany(l => l.TransactieLabels)
+                .HasForeignKey(tl => tl.TransactieId)
+                .HasConstraintName("FK_TransactieLabel_Koppeling_Transactie");
+
+            modelBuilder.Entity<TransactieLabel>()
+                .HasOne(tl => tl.Label)
+                .WithMany(l => l.TransactieLabels)
+                .HasForeignKey(tl => tl.LabelId)
+                .HasConstraintName("FK_TransactieLabel_Koppeling_Label");
         }
     }
 }

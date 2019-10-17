@@ -51,6 +51,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { Globals } from './globals';
 import { LeningenComponent } from './leningen/leningen.component';
 import { LeningComponent } from './leningen/lening/lening.component';
+import { RekeningenComponent } from './rekeningen/rekeningen.component';
+import { RekeningComponent } from './rekeningen/rekening/rekening.component';
+import { TransactiesComponent } from './transacties/transacties.component';
+import { TransactieComponent } from './transacties/transactie/transactie.component';
 
 registerLocaleData(localeNL);
 
@@ -88,7 +92,11 @@ registerLocaleData(localeNL);
     DialogLadenComponent,
     NavBarComponent,
     LeningenComponent,
-    LeningComponent
+    LeningComponent,
+    RekeningenComponent,
+    RekeningComponent,
+    TransactiesComponent,
+    TransactieComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -113,6 +121,6 @@ registerLocaleData(localeNL);
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}, Globals],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent]
+  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent, RekeningComponent]
 })
 export class AppModule { }

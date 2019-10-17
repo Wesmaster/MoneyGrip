@@ -52,47 +52,15 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
   }
 
   onDelete(): void
-  {
-      var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];
-    this.geselecteerd.forEach(item => {
-        var vraagVariabele = "";
-        if(item.label != null)
-        {
-            var labelList: string[] = [];
-            item.label.forEach(element => {
-                labelList.push(element.naam);
-            });
-        vraagVariabele = labelList.join(", ");
-        }
-
-        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.eindbedrag);
-        vraagArray.push(vraagVariabele);
-    });
-    var vraag = vraagArray.join("\n");
-    this.openDeleteDialog(vraag);
-  }
-
-
-  openDeleteDialog(vraag: string): void
-  {
-    const dialogRef = this.dialog.open(DialogBevestigenComponent, {
-      data: {vraag: vraag, titel: "Spaardoel verwijderen?"},
-      panelClass: 'dialog-delete',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      {
+    {
+        var vraagArray = ["Weet je zeker dat je de volgende spaardoel(en) wilt verwijderen?"];
         this.geselecteerd.forEach(item => {
-            this.verwijderen(item.id);
+            var vraagVariabele = item.getValue("Label") + " met bedrag " + item.getValue("Eindbedrag");
+            vraagArray.push(vraagVariabele);
         });
-
-        this.geselecteerd = [];
-        this.ngOnInit();
-      }
-    });
-  }
+        var vraag = vraagArray.join("\n");
+        this.openDeleteDialog("Spaardoel verwijderen?", vraag);
+    }
 
   openAddDialog(id: number): void
   {

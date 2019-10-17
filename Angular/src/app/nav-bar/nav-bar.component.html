@@ -5,6 +5,10 @@
       [opened]="!(isHandset$ | async)">
 
     <mat-nav-list>
+        <a mat-list-item [routerLink]='["/transacties"]'>
+            <fa-icon class="iconLogo" [icon]="faExchangeAlt"></fa-icon>
+            <span class="lead col">TRANSACTIES</span>
+        </a>
         <a mat-list-item class="rapportages" (click)="toonRapportages=!toonRapportages">
             <fa-icon class="iconLogo" [icon]="faChartLine"></fa-icon>
             <span class="lead col">RAPPORTAGES</span>
@@ -51,6 +55,10 @@
                 <span class="lead col">SPAARDOELEN</span>
             </a>
         </div>
+        <a mat-list-item [routerLink]='["/rekeningen"]'>
+            <fa-icon class="iconLogo" [icon]="faMoneyCheck"></fa-icon>
+            <span class="lead col">REKENINGEN</span>
+        </a>
         <a mat-list-item (click)="toonInstellingen=!toonInstellingen">
             <fa-icon class="iconLogo" [icon]="faEdit"></fa-icon>
             <span class="lead col">INSTELLINGEN</span>

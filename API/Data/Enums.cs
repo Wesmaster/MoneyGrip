@@ -31,5 +31,12 @@
             Annuitair = 0,
             Lineair
         }
+
+        public enum TransactieType : byte
+        {
+            Inkomst = 0,
+            Uitgave,
+            Boeking
+        }
     }
 }

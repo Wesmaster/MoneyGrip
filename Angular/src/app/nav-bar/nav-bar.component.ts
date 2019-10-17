@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { faPercentage, faCaretUp, faCaretDown, faChartLine, faBars, faSignInAlt, faSignOutAlt, faFileInvoice, faAlignLeft, faFileContract, faCalendarAlt, faPiggyBank, faEdit, faBookmark, faTag, faUsers, faCogs, faDatabase, faQuestionCircle, faBook, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPercentage, faExchangeAlt, faCaretUp, faCaretDown, faChartLine, faBars, faSignInAlt, faSignOutAlt, faFileInvoice, faAlignLeft, faFileContract, faCalendarAlt, faPiggyBank, faEdit, faBookmark, faTag, faUsers, faCogs, faDatabase, faQuestionCircle, faBook, faInfoCircle, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 import { environment } from '../../environments/environment';
 import { InfoComponent } from '../info/info.component';
 import { MatDialog} from '@angular/material';
@@ -39,6 +39,8 @@ export class NavBarComponent
     faBook = faBook;
     faInfoCircle = faInfoCircle;
     faPercentage = faPercentage;
+    faMoneyCheck = faMoneyCheck;
+    faExchangeAlt = faExchangeAlt;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(

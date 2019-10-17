@@ -21,6 +21,8 @@ Documentatie MoneyGrip
    ./moneygrip/inkomsten.rst
    ./moneygrip/reserveringen.rst
    ./moneygrip/spaardoelen.rst
+   ./moneygrip/rekeningen.rst
+   ./moneygrip/transacties.rst
    ./moneygrip/begroting.rst
    
 .. toctree::
