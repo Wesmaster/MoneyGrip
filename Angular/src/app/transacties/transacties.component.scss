@@ -1,0 +1,30 @@
+@import '../../beheer-overzicht.scss';
+
+.form-control:focus:not([readonly])
+{
+    color: $primary;
+    background-color: $input-light;
+    outline: 0;
+    box-shadow: none;
+}
+
+.buttongroup-topright
+{
+    text-align: right;
+}
+
+.col
+{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.disabled
+{
+    color: $bg-dark;
+}
+
+.padding-left
+{
+    padding-left: 10px;
+}

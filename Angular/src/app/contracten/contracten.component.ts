@@ -69,47 +69,16 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
     downloadLink.click()
   }
 
-  onDelete(): void
-  {
-      var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];
-    this.geselecteerd.forEach(item => {
-        var vraagVariabele = "";
-        if(item.label != null)
-        {
-            var labelList: string[] = [];
-            item.label.forEach(element => {
-                labelList.push(element.naam);
-            });
-        vraagVariabele = labelList.join(", ");
-        }
-
-        vraagVariabele += " met bedrag € " + this.customCurrency.transform(item.bedrag);
-        vraagArray.push(vraagVariabele);
-    });
-    var vraag = vraagArray.join("\n");
-    this.openDeleteDialog(vraag);
-  }
-
-  openDeleteDialog(vraag: string): void
-  {
-    const dialogRef = this.dialog.open(DialogBevestigenComponent, {
-      data: {vraag: vraag, titel: "Contract verwijderen?"},
-      panelClass: 'dialog-delete',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      {
+    onDelete(): void
+    {
+        var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];
         this.geselecteerd.forEach(item => {
-            this.verwijderen(item.id);
+            var vraagVariabele = item.getValue("Label") + " met bedrag " + item.getValue("Bedrag");
+            vraagArray.push(vraagVariabele);
         });
-
-        this.geselecteerd = [];
-        this.ngOnInit();
-      }
-    });
-  }
+        var vraag = vraagArray.join("\n");
+        this.openDeleteDialog("Contract verwijderen?", vraag);
+    }
 
   openAddDialog(id: number): void
   {

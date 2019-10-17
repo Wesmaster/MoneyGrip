@@ -106,7 +106,7 @@ export default abstract class BasisOverzichtComponent
             if(result)
             {
                 this.geselecteerd.forEach(item => {
-                    this.verwijderen(item.getValue("id"));
+                    this.verwijderen(item.getValue("Id"));
                 });
   
                 this.geselecteerd = [];

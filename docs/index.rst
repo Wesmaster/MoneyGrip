@@ -10,11 +10,11 @@ Documentatie MoneyGrip
    ./installatie/moneygrip.rst
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: MoneyGrip
    
    ./moneygrip/labels.rst
-   ./moneygrip/afschrijvingen.rst
+   .moneygrip/uitgaven/afschrijvingen.rst
    ./moneygrip/budgetten.rst
    ./moneygrip/contracten.rst
    ./moneygrip/leningen.rst

@@ -11,6 +11,8 @@ import { SpaardoelenComponent } from './spaardoelen/spaardoelen.component';
 import { BegrotingComponent } from './begroting/begroting.component';
 import { BackupComponent } from './backup/backup.component';
 import { LeningenComponent } from './leningen/leningen.component';
+import { RekeningenComponent } from './rekeningen/rekeningen.component';
+import { TransactiesComponent } from './transacties/transacties.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -23,7 +25,9 @@ const routes: Routes = [
   { path: 'spaardoelen', component: SpaardoelenComponent },
   { path: 'begroting', component: BegrotingComponent },
   { path: 'backup', component: BackupComponent },
-  { path: 'leningen', component: LeningenComponent }
+  { path: 'leningen', component: LeningenComponent },
+  { path: 'rekeningen', component: RekeningenComponent },
+  { path: 'transacties', component: TransactiesComponent }
 ];
 
 @NgModule({
