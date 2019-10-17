@@ -10,17 +10,19 @@ Documentatie MoneyGrip
    ./installatie/moneygrip.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: MoneyGrip
    
    ./moneygrip/labels.rst
-   ./moneygrip/uitgaven/index
+   ./moneygrip/afschrijvingen.rst
    ./moneygrip/budgetten.rst
    ./moneygrip/contracten.rst
    ./moneygrip/leningen.rst
    ./moneygrip/inkomsten.rst
    ./moneygrip/reserveringen.rst
    ./moneygrip/spaardoelen.rst
+   ./moneygrip/rekeningen.rst
+   ./moneygrip/transacties.rst
    ./moneygrip/begroting.rst
    
 .. toctree::
