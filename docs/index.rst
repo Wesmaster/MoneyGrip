@@ -14,7 +14,7 @@ Documentatie MoneyGrip
    :caption: MoneyGrip
    
    ./moneygrip/labels.rst
-   .moneygrip/uitgaven/afschrijvingen.rst
+   ./moneygrip/uitgaven/afschrijvingen.rst
    ./moneygrip/budgetten.rst
    ./moneygrip/contracten.rst
    ./moneygrip/leningen.rst
