@@ -16,26 +16,21 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- #43 Begroting meer inzichtelijk maken
-- #50 Leningen pagina toevoegen
-- #135 Lening aanmaken/bewerken/verwijderen
-- #136 Lening model opzetten
-- #137 Begroting uitbreiden met leningen
-- #176 Label bijwerken ververst de labellijst niet
-- #178 Documentatie link naar download MoneyGrip aanpassen
-- #179 Duplicate lines verminderen in front-end
-
-# Roadmap
-
-Hoogtepunten volgende versie:
 - #48 Rekeningen pagina toevoegen
 - #54 Transacties pagina toevoegen
 - #138 Rekening model opzetten
 - #139 Rekening aanmaken/bewerken/verwijderen
 - #145 Transactie model opzetten
 
+# Roadmap
+
+Hoogtepunten volgende versie:
+- #56 Zoeken naar transactie
+- #58 Document aan transactie kunnen toevoegen
+- #110 Transactie aanmaken/wijzigen/verwijderen
+- #182 Spaardoel automatisch een rekening laten worden
+
 # MoneyGrip
-![Home](https://raw.github.com/wesmaster/moneygrip/develop/Screenshots/Home.png)
 ![Inkomsten](https://raw.github.com/wesmaster/moneygrip/develop/Screenshots/Inkomsten.png)
 ![Backup](https://raw.github.com/wesmaster/moneygrip/develop/Screenshots/Backup.png)
 ## Wat is het?
