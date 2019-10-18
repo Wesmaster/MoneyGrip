@@ -84,6 +84,9 @@ export default abstract class BasisOverzichtComponent
         this.service.delete(id).subscribe(item => 
         {
             this.afterEdit(id);
+        },
+        error => {
+           // alert(error);
         });
     }
 

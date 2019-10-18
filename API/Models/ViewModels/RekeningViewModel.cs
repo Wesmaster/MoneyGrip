@@ -11,10 +11,7 @@ namespace MoneyGrip.ViewModels
         public string Iban { get; set; }
         public int Startbedrag { get; set; }
 
-        [JsonConverter(typeof(OnlyDateConverter))]
-        public DateTime Startdatum { get; set; }
-
         public bool? Hoofdrekening { get; set; }
-        public int? Spaardoel { get; set; }
+        public bool? Spaardoel { get; set; }
     }
 }

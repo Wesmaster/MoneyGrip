@@ -161,9 +161,6 @@ namespace MoneyGrip.Models
 
                 entity.Property(e => e.Startbedrag)
                     .IsRequired();
-
-                entity.Property(e => e.Startdatum)
-                    .IsRequired();
             });
 
             modelBuilder.Entity<Transactie>(entity =>

@@ -65,8 +65,9 @@ export class RekeningComponent extends BaseEditComponent implements OnInit
     {
         this.form.addControl("naam", new FormControl('', [Validators.required]));
         this.form.addControl("startbedrag", new FormControl('', [Validators.required, Validators.pattern('[0-9,\.]*')]));
-        this.form.addControl("iban", new FormControl('', [Validators.required, Validators.maxLength(18)]));
+        this.form.addControl("iban", new FormControl('', [Validators.maxLength(18)]));
         this.form.addControl("hoofdrekening", new FormControl('', []));
+        this.form.addControl("spaardoel", new FormControl('', []));
     }
 
     async onSubmit()

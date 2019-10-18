@@ -11,8 +11,11 @@ namespace MoneyGrip.Models
         public string Iban { get; set; }
         public bool? Hoofdrekening { get; set; }
         public int Startbedrag { get; set; }
-        [JsonConverter(typeof(OnlyDateConverter))]
-        public DateTime Startdatum { get; set; }
         public int? Spaardoel { get; set; }
+
+        public int getSaldo()
+        {
+            return Startbedrag;
+        }
     }
 }

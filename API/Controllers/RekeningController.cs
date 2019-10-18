@@ -61,9 +61,8 @@ namespace MoneyGrip.Controllers
                 Naam = rekening.Naam,
                 Iban = rekening.Iban,
                 Startbedrag = rekening.Startbedrag,
-                Startdatum = rekening.Startdatum,
                 Hoofdrekening = rekening.Hoofdrekening,
-                Spaardoel = rekening.Spaardoel
+                Spaardoel = rekening.Spaardoel != null
             };
 
             return Ok(rekeningVM);
@@ -89,8 +88,6 @@ namespace MoneyGrip.Controllers
             rekening.Iban = rekeningPM.Iban;
             rekening.Hoofdrekening = rekeningPM.Hoofdrekening;
             rekening.Startbedrag = rekeningPM.Startbedrag;
-            rekening.Startdatum = rekeningPM.Startdatum;
-            rekening.Spaardoel = rekeningPM.Spaardoel;
 
             _context.Entry(rekening).State = EntityState.Modified;
 
@@ -129,8 +126,7 @@ namespace MoneyGrip.Controllers
                 Iban = rekeningPM.Iban,
                 Hoofdrekening = rekeningPM.Hoofdrekening,
                 Startbedrag = rekeningPM.Startbedrag,
-                Startdatum = rekeningPM.Startdatum,
-                Spaardoel = rekeningPM.Spaardoel
+                Spaardoel = null
             };
 
             _context.Rekening.Add(rekening);
