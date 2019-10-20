@@ -14,10 +14,12 @@ namespace MoneyGrip.Controllers
     public class TransactieController : BasisController
     {
         private readonly Models.AppContext _context;
+        private readonly IEnumerable<Rekening> rekeningen;
 
         public TransactieController(Models.AppContext context)
         {
             _context = context;
+            rekeningen = _context.Rekening;
         }
 
         // GET: api/Transactie
@@ -33,8 +35,6 @@ namespace MoneyGrip.Controllers
         [HttpGet("{jaar}/{maand}")]
         public IEnumerable<TransactiesViewModel> GetTransactie([FromRoute] int jaar, int maand)
         {
-            IEnumerable<Rekening> rekeningen = _context.Rekening;
-
             IEnumerable<Transactie> transacties = _context.Transactie
                 .Where(t => t.Datum.Year == jaar && (maand >= 1 ? t.Datum.Month == maand : true))
                 .Include(transactie => transactie.TransactieLabels)
@@ -47,9 +47,10 @@ namespace MoneyGrip.Controllers
                 Dag = i.Datum.Day,
                 Omschrijving = i.Omschrijving,
                 Type = i.Type,
+                Document = i.Document,
                 DocumentNaam = i.DocumentNaam,
-                VanRekening = rekeningen.FirstOrDefault(r => r.Id == i.VanRekening).Naam,
-                NaarRekening = rekeningen.FirstOrDefault(r => r.Id == i.NaarRekening) != null ? rekeningen.FirstOrDefault(r => r.Id == i.NaarRekening).Naam : null,
+                VanRekening = rekeningen.FirstOrDefault(r => r.Id == i.VanRekening)?.Naam,
+                NaarRekening = rekeningen.FirstOrDefault(r => r.Id == i.NaarRekening)?.Naam,
                 Label = toLabelViewModelList(i.TransactieLabels),
             });
         }

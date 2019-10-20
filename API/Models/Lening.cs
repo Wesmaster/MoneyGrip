@@ -28,6 +28,11 @@ namespace MoneyGrip.Models
 
         public double berekenAflossingAnnuitair(int resterendBedrag, short resterendeLooptijd)
         {
+            if (Rente == 0)
+            {
+                return berekenAflossingLineair(resterendeLooptijd);
+            }
+
             double rentePercentagePerMaand = (double)Rente / 12;
             double annuiteit = Math.Pow(1 + rentePercentagePerMaand, resterendeLooptijd);
 
@@ -45,7 +50,7 @@ namespace MoneyGrip.Models
             return (int)berekenAflossingAnnuitair(resterendBedrag, resterendeLooptijd) + (int)berekenMaandelijkseRente();
         }
 
-        public int berekenLineairBedragPerMaand(int resterendBedrag, short resterendeLooptijd)
+        public int berekenLineairBedragPerMaand(short resterendeLooptijd)
         {
             return (int)berekenAflossingLineair(resterendeLooptijd) + (int)berekenMaandelijkseRente();
         }

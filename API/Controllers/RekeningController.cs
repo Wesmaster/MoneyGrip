@@ -25,6 +25,7 @@ namespace MoneyGrip.Controllers
         public IEnumerable<RekeningenViewModel> GetRekening()
         {
             IEnumerable<Rekening> rekeningen = _context.Rekening;
+            IEnumerable<Transactie> transacties = _context.Transactie;
 
             return rekeningen.Select(i => new RekeningenViewModel
             {
@@ -32,7 +33,7 @@ namespace MoneyGrip.Controllers
                 Naam = i.Naam,
                 Iban = i.Iban,
                 Hoofdrekening = i.Hoofdrekening,
-                Saldo = i.Startbedrag
+                Saldo = i.Startbedrag - transacties.Where(t => t.VanRekening == i.Id).Sum(t => t.Bedrag) + transacties.Where(t => t.NaarRekening == i.Id).Sum(t => t.Bedrag)
             });
         }
 

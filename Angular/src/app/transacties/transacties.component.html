@@ -6,10 +6,10 @@
             </div>
             <div class="buttongroup-top row">
                 <div class = "col row">
-                    <!--button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen-->
+                    <button-toevoegen [buttonText]="buttonText" (toevoegChange)="add()"></button-toevoegen>
                     <zoekbalk class="padding-left" (zoekTekst)="zoek($event)"></zoekbalk>
-                    <!--fa-icon [ngClass]="deleteAvailable ? enabled : disabled" (click)="deleteAvailable && onDelete()" [icon]="faTrash" class="padding-left iconDelete actieIcoon"></fa-icon-->
-                    <!--fa-icon [ngClass]="openDocumentAvailable ? enabled : disabled" (click)="openDocumentAvailable && onOpenDocument()" [icon]="faFileAlt" class="iconDocument actieIcoon"></fa-icon-->
+                    <fa-icon [ngClass]="deleteAvailable ? enabled : disabled" (click)="deleteAvailable && onDelete()" [icon]="faTrash" class="padding-left iconDelete actieIcoon"></fa-icon>
+                    <fa-icon [ngClass]="openDocumentAvailable ? enabled : disabled" (click)="openDocumentAvailable && onOpenDocument()" [icon]="faFileAlt" class="iconDocument actieIcoon"></fa-icon>
                 </div>
                 <div class="col-2 row buttongroup-topright">
                     <select class="form-control col" id="maandFilter" [(ngModel)]="maand" (ngModelChange)="get()">

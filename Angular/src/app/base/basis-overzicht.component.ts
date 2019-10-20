@@ -54,13 +54,13 @@ export default abstract class BasisOverzichtComponent
         this.openAddDialog(this.selectedId);
     }
 
-    openDocument(item: any): void
+    openDocument(item: BasisBeheerOverzicht): void
     {
-        const linkSource = 'data:application/pdf;base64,' + item.document;
+        const linkSource = 'data:application/pdf;base64,' + item.getValue("Document");
         const downloadLink = document.createElement("a");
     
         downloadLink.href = linkSource;
-        downloadLink.download = item.documentNaam;
+        downloadLink.download = item.getValue("Documentnaam");
         downloadLink.click()
     }
 

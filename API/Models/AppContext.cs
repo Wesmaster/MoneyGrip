@@ -179,9 +179,6 @@ namespace MoneyGrip.Models
 
                 entity.Property(e => e.DocumentNaam)
                     .HasMaxLength(255);
-
-                entity.Property(e => e.VanRekening)
-                    .IsRequired();
             });
 
             modelBuilder.Entity<InkomstLabel>()

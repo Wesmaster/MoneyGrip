@@ -138,11 +138,11 @@ namespace MoneyGrip.Begroting
                         case Maand.Oktober:
                             {
                                 int bedragDezeMaand = bedrag;
-                                if(eindMaand - beginMaand == 1)
+                                if(eindMaand - beginMaand == 0)
                                 {
                                     bedragDezeMaand = bedragDezeMaand / 3;
                                 }
-                                else if(eindMaand - beginMaand == 2)
+                                else if(eindMaand - beginMaand == 1)
                                 {
                                     bedragDezeMaand = bedrag / 3 * Math.Max(1, Math.Min((int)(eindMaand - beginMaand), 2));
                                 }
@@ -209,15 +209,24 @@ namespace MoneyGrip.Begroting
             {
                 Maand beginMaand = (Maand)lening.Begindatum.Month;
                 int jaar = lening.Begindatum.Year;
+                int bedrag = 0;
 
-                int bedrag = lening.berekenAnnuitairBedragPerMaand(lening.Bedrag, lening.Looptijd);
+                if (lening.Type == LeningType.Annuitair)
+                {
+                   bedrag = lening.berekenAnnuitairBedragPerMaand(lening.Bedrag, lening.Looptijd);
+                }
+                else if(lening.Type == LeningType.Lineair)
+                {
+                    bedrag = lening.berekenLineairBedragPerMaand(lening.Looptijd);
+                }
+
                 if (jaar < this.jaar)
                 {
                     bedragPerMaand.voegBedragToeAanAlleMaanden(bedrag);
                 }
                 else
                 {
-                    for(Maand i = beginMaand; i < Maand.December; i++)
+                    for(Maand i = beginMaand; i <= Maand.December; i++)
                     {
                         bedragPerMaand.voegBedragToeInMaand(bedrag, i);
                     }
@@ -247,6 +256,9 @@ namespace MoneyGrip.Begroting
                             break;
 
                         int beschikbaarBedragInMaand = resultatenPerMaand.getBedragInMaand(i) - spaardoelenTotaalBedragPerMaand.getBedragInMaand(i);
+                        if (beschikbaarBedragInMaand <= 0)
+                            continue;
+
                         spaardoelBedragPerMaand.voegBedragToeInMaand(Math.Min(beschikbaarBedragInMaand, resterendDoelBedrag), i);
                         spaardoelenTotaalBedragPerMaand.voegBedragToeInMaand(spaardoelBedragPerMaand.getBedragInMaand(i), i);
                     }
@@ -260,6 +272,9 @@ namespace MoneyGrip.Begroting
                             break;
 
                         int beschikbaarBedragInMaand = resultatenPerMaand.getBedragInMaand(i) - spaardoelenTotaalBedragPerMaand.getBedragInMaand(i);
+                        if (beschikbaarBedragInMaand <= 0)
+                            continue;
+
                         int bedrag = (int)(beschikbaarBedragInMaand * ((decimal)spaardoel.Percentage / 100));
                         spaardoelBedragPerMaand.voegBedragToeInMaand(Math.Min(bedrag, resterendDoelBedrag), i);
                     }

@@ -1,6 +1,5 @@
 import { Label } from "../../labels/label/label";
 import { TransactieType } from "../../transactieType.enum";
-import { formatDate } from '@angular/common';
 import { CurrencyPipe } from '../../currency.pipe';
 
 export class Transactie

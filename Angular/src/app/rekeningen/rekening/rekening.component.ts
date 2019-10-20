@@ -7,6 +7,7 @@ import { faFileUpload, faTimesCircle, faDownload } from '@fortawesome/free-solid
 import { BaseEditComponent } from '../../base/base-edit.component';
 import { BasisService } from '../../base/basis.service';
 import { Spaardoel } from '../../spaardoelen/spaardoel/spaardoel';
+import { RekeningService } from '../rekening.service';
 
 @Component({
   selector: 'app-rekening',
@@ -26,7 +27,7 @@ export class RekeningComponent extends BaseEditComponent implements OnInit
     faDownload = faDownload;
     spaardoelen: Spaardoel[];
 
-    constructor(public service: BasisService, public dialogRef: MatDialogRef<RekeningComponent>,
+    constructor(public service: BasisService, private rekeningService: RekeningService, public dialogRef: MatDialogRef<RekeningComponent>,
         @Inject(MAT_DIALOG_DATA) public data: number, public customCurrency: CurrencyPipe)
     {
         super(service, dialogRef, customCurrency);
@@ -89,5 +90,6 @@ export class RekeningComponent extends BaseEditComponent implements OnInit
     
         this.id = null;
         this.dialogRef.close(true);
+        this.rekeningService.loadAll();
     }
 }

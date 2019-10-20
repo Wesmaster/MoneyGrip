@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog} from '@angular/material';
-import { DialogBevestigenComponent } from '../dialog-bevestigen/dialog-bevestigen.component';
 import { Transactie } from './transactie/transactie';
 import { TransactieService } from './transactie.service';
 import { TransactieComponent } from './transactie/transactie.component';
@@ -13,6 +12,7 @@ import BasisBeheerOverzicht from '../basisBeheerOverzicht';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { Maanden } from '../maanden.enum';
+import { TransactieType } from '../transactieType.enum';
 
 @Component({
   selector: 'app-transacties',
@@ -124,7 +124,9 @@ export class TransactiesComponent extends BasisOverzichtComponent implements OnI
     {
         this.zoekResultaat = this.items.filter(
             item => item.label.some(rx => new RegExp(zoekTekst, 'gi').test(rx.naam)) 
-        || (new Date(item.dag).setHours(0) === this.parseDatum(zoekTekst).setHours(0))
+        || new RegExp(zoekTekst, 'gi').test(item.omschrijving)
+        || zoekTekst == item.dag.toString()
+        || zoekTekst == TransactieType[item.type]
         );
     }
   }

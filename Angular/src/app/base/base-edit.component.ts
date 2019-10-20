@@ -27,7 +27,7 @@ export class BaseEditComponent
     protected get(): void
     {
       this.service.get(this.id).subscribe(item => {
-        this.form.patchValue(item)
+        this.form.patchValue(item);
   
         this.gekozenLabels.splice(0,this.gekozenLabels.length);
         item.label.forEach(labelObject => {

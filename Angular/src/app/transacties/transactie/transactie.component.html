@@ -1,3 +1,71 @@
-<p>
-  transactie works!
-</p>
+<div class="buttongroup-top">
+  <span class="display-5">{{ titelText }}</span>
+  <app-button-annuleren class="button-annuleren"></app-button-annuleren>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+        <label for="type" class="col-sm-5 col-form-label">Type</label>
+        <div class="col-sm-7">
+            <select class="form-control" id="type" formControlName="type" (change)="onTypeChanged($event)" required>
+                <option *ngFor="let item of keys(transactieTypeEnum)" value={{transactieTypeEnum[item]}}>
+                    {{ item }}
+                </option>
+            </select>
+        </div>  
+    </div>
+  <labels [aanwezigeLabels]="gekozenLabels" (updateForm)="updateFormControlLabelAndMarkDirty($event)" *ngIf="labelsLoaded | async"></labels>
+    <div class="form-group row">
+        <label for="datum" class="col-sm-5 col-form-label">Datum</label>
+        <div class="col-sm-7">
+            <input type="date" class="form-control" id="datum" [value]="form.get('datum').value" formControlName="datum" required>
+        </div>  
+    </div>
+  <div class="form-group row">
+    <label for="bedrag" class="col-sm-5 col-form-label">Bedrag</label>
+    <div class="input-group col-sm-7">
+      <div class="input-group-prepend" [ngClass]="form.get('bedrag').valid ? 'valid' : 'invalid'">
+        <span class="input-group-text">€</span>
+      </div>
+      <input type="text" class="form-control" id="bedrag" formControlName="bedrag" [value]="form.get('bedrag').value | customCurrency" required>
+    </div>  
+  </div>
+  <div class="form-group row">
+    <label for="omschrijving" class="col-sm-5 col-form-label">Omschrijving</label>
+    <div class="col-sm-7">
+      <textarea rows="3" class="form-control" id="omschrijving" [value]="form.get('omschrijving').value" formControlName="omschrijving"></textarea>
+    </div>  
+  </div>
+    <div class="form-group row" *ngIf="form.get('type').value != transactieTypeEnum.Inkomst">
+        <label for="vanRekening" class="col-sm-5 col-form-label">Van</label>
+        <div class="col-sm-7">
+            <select class="form-control" id="vanRekening" formControlName="vanRekening" [required]="form.get('type').value !== transactieTypeEnum.Inkomst">
+                <option *ngFor="let item of rekeningen" value={{item.id}}>
+                    {{ item.naam }}
+                </option>
+            </select>
+        </div>  
+    </div>
+    <div class="form-group row" *ngIf="form.get('type').value != transactieTypeEnum.Uitgave">
+        <label for="naarRekening" class="col-sm-5 col-form-label">Naar</label>
+        <div class="col-sm-7">
+            <select class="form-control" id="naarRekening" formControlName="naarRekening" [required]="form.get('type').value !== transactieTypeEnum.Uitgave">
+                <option *ngFor="let item of rekeningen" value={{item.id}}>
+                    {{ item.naam }}
+                </option>
+            </select>
+        </div>  
+    </div>
+    <div class="form-group row">
+        <label for="document" class="col-sm-5 col-form-label">Document</label>
+        <div class="input-group col-sm-7">
+          <input type="file" id="document" class="own-custom-file-input" (change)="onFileChange($event)">
+          <label class="own-custom-file-label form-control ellipsis" for="document"><fa-icon [icon]="faFileUpload" class="fas-margin iconUpload"></fa-icon>{{ form.get('documentNaam').value }}</label>
+          <div class="input-group-append" [ngClass]="form.get('documentNaam').valid ? 'optional' : 'invalid'">
+            <button class="btn delete" type="button"><fa-icon [icon]="faTimesCircle" class="iconDelete" (click)="verwijderDocument()"></fa-icon></button>
+          </div>
+        </div>
+      </div>
+  <div class="buttongroup-bottom">
+    <button class="btn" type="submit" [disabled]="!form.valid || form.pristine"><fa-icon [icon]="faDownload" class="fas-margin"></fa-icon>Opslaan</button>
+  </div>
+</form>

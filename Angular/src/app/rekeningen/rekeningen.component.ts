@@ -5,11 +5,11 @@ import { Rekening } from './rekening/rekening';
 import { RekeningComponent } from './rekening/rekening.component';
 import { Interval } from '../interval.enum';
 import { CurrencyPipe } from '../currency.pipe';
-import BasisOverzichtComponent  from '../base/basis-overzicht.component';
 import { BasisService } from '../base/basis.service';
 import { Globals } from '../globals';
 import BasisBeheerOverzicht from '../basisBeheerOverzicht';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { RekeningService } from './rekening.service';
 
 @Component({
   selector: 'rekeningen',
@@ -30,7 +30,7 @@ export class RekeningenComponent implements OnInit {
     faTrash = faTrash;
     actionsAvailable: boolean = false;
   
-    constructor(public service: BasisService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
+    constructor(public service: BasisService, private rekeningService: RekeningService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
     {
     service.setAccessPointUrl('rekening');
     this.setPagina(this.titel.toLowerCase());
@@ -122,6 +122,7 @@ export class RekeningenComponent implements OnInit {
 
         this.geselecteerd = [];
         this.ngOnInit();
+        this.rekeningService.loadAll();
       }
     });
   }
