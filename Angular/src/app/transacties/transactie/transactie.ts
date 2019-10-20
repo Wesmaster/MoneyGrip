@@ -1,8 +1,9 @@
 import { Label } from "../../labels/label/label";
 import { TransactieType } from "../../transactieType.enum";
 import { CurrencyPipe } from '../../currency.pipe';
+import BasisBeheerOverzicht from "../../basisBeheerOverzicht";
 
-export class Transactie
+export class Transactie extends BasisBeheerOverzicht
 {
     id: number;
     label: Label[];
@@ -15,7 +16,10 @@ export class Transactie
     vanRekening: number;
     naarRekening: number;
 
-    constructor(private customCurrency: CurrencyPipe) {}
+    constructor(private customCurrency: CurrencyPipe)
+    {
+        super();
+    }
 
     getValue(value: string) : any
     {

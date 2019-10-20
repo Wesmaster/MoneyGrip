@@ -44,9 +44,9 @@ export class BasisService
     return await this.http.put<BasisBeheerOverzicht>(this.accessPointUrl + '/' + item.id, item, {headers: this.headers}).toPromise();
   }
 
-  public delete(id: number)
+  public delete(id: number): Observable<BasisBeheerOverzicht>
   {
-    return this.http.delete(this.accessPointUrl + '/' + id, {headers: this.headers});
+    return this.http.delete<BasisBeheerOverzicht>(this.accessPointUrl + '/' + id, {headers: this.headers});
   }
 
    handleError(error)

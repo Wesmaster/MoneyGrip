@@ -150,6 +150,50 @@ namespace MoneyGrip.Controllers
         }
 
         // POST: api/Transactie
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DupliceerTransactie([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Transactie bronTransactie = _context.Transactie
+                .Include(a => a.TransactieLabels)
+                .ThenInclude(transactieLabel => transactieLabel.Label)
+                .FirstOrDefault(t => t.Id == id);
+
+            Transactie transactie = new Transactie()
+            {
+                LaatstGewijzigd = DateTime.Now,
+                Bedrag = bronTransactie.Bedrag,
+                Datum = bronTransactie.Datum,
+                Omschrijving = bronTransactie.Omschrijving,
+                Type = bronTransactie.Type,
+                Document = bronTransactie.Document,
+                DocumentNaam = bronTransactie.DocumentNaam,
+                VanRekening = bronTransactie.VanRekening,
+                NaarRekening = bronTransactie.NaarRekening,
+                TransactieLabels = new List<TransactieLabel>()
+            };
+
+            foreach (var transactieLabel in bronTransactie.TransactieLabels)
+            {
+                Label label = _context.Label.Where(l => l.Id == transactieLabel.LabelId).First();
+                transactie.TransactieLabels.Add
+                (
+                    nieuwTransactieLabel(transactie, label)
+                );
+            }
+            //    TransactieLabels = bronTransactie.TransactieLabels
+
+            _context.Transactie.Add(transactie);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTransactie", new { id = transactie.Id }, transactie);
+        }
+
+        // POST: api/Transactie
         [HttpPost]
         public async Task<IActionResult> PostTransactie([FromBody] TransactiePostModel transactiePM)
         {

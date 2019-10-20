@@ -6,15 +6,14 @@ import BasisBeheerOverzicht from '../basisBeheerOverzicht';
 
 export default abstract class BasisOverzichtComponent
 {
-    protected selectedId: number;
-    protected rowSelected: boolean;
     protected pagina: string;
     protected geselecteerd: BasisBeheerOverzicht[] = [];
     protected deleteAvailable: boolean = false;
     protected openDocumentAvailable: boolean = false;
+    protected duplicerenMogelijk: boolean = false;
 
     abstract get() : void;
-    abstract openAddDialog(id: number) : void;
+    abstract openAddDialog(id: number, refresh: boolean) : void;
 
     constructor(protected service: BasisService, protected dialog: MatDialog, protected globals: Globals)
     {
@@ -24,16 +23,11 @@ export default abstract class BasisOverzichtComponent
     ngOnInit()
     {
         this.get();
-        this.selectedId = null;
-        this.rowSelected = false;
     }
 
     add(): void
     {
-        this.selectedId = 0;
-        this.rowSelected = true;
-    
-        this.openAddDialog(this.selectedId);
+        this.openAddDialog(0, false);
     }
 
     afterEdit(id: number): void
@@ -42,16 +36,6 @@ export default abstract class BasisOverzichtComponent
         {
             this.get();
         }
-        this.selectedId = null;
-        this.rowSelected = false;
-    }
-
-    onSelect(id: number): void
-    {
-        this.selectedId = id;
-        this.rowSelected = true;
-    
-        this.openAddDialog(this.selectedId);
     }
 
     openDocument(item: BasisBeheerOverzicht): void
@@ -83,10 +67,7 @@ export default abstract class BasisOverzichtComponent
     {
         this.service.delete(id).subscribe(item => 
         {
-            this.afterEdit(id);
-        },
-        error => {
-           // alert(error);
+            this.get();
         });
     }
 
@@ -112,8 +93,7 @@ export default abstract class BasisOverzichtComponent
                     this.verwijderen(item.getValue("Id"));
                 });
   
-                this.geselecteerd = [];
-                this.ngOnInit();
+                this.updateSelected([]);
             }
         });
     }
@@ -123,19 +103,20 @@ export default abstract class BasisOverzichtComponent
         this.geselecteerd = [];
         this.deleteAvailable = false;
         this.openDocumentAvailable = false;
+        this.duplicerenMogelijk = false;
         geselecteerd.forEach(item => {
             this.geselecteerd.push(item);
         });
-  
-        if(this.geselecteerd.length > 0)
+
+        if(this.geselecteerd.length == 1)
         {
             this.deleteAvailable = true;
             this.openDocumentAvailable = true;
+            this.duplicerenMogelijk = true;
         }
-
-        if(this.geselecteerd.length > 1)
+        /*else if(this.geselecteerd.length > 1)
         {
-            this.openDocumentAvailable = false;
-        }
+            this.deleteAvailable = true;
+        }*/
     }
 }

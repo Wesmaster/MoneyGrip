@@ -64,6 +64,18 @@
     }
 }
 
+.iconClone
+{
+    color: $secondary;
+    cursor: pointer;
+    margin: 0px 0px 0px 10px;
+
+    &:hover
+    {
+        color: $green;
+    } 
+}
+
 .pagina
 {
     height: 100%;

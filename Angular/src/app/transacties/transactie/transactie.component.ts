@@ -71,7 +71,7 @@ export class TransactieComponent extends BaseEditComponent implements OnInit
         if(event.target.value == TransactieType.Inkomst)
         {
             this.form.patchValue({naarRekening: this.rekeningService.getHoofdrekening().id});
-            this.form.controls['varRekening'].clearValidators();
+            this.form.controls['vanRekening'].clearValidators();
         }
         else if(event.target.value == TransactieType.Uitgave)
         {
