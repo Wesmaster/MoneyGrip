@@ -138,13 +138,9 @@ namespace MoneyGrip.Begroting
                         case Maand.Oktober:
                             {
                                 int bedragDezeMaand = bedrag;
-                                if(eindMaand - beginMaand == 0)
+                                if(eindMaand - beginMaand < 2)
                                 {
-                                    bedragDezeMaand = bedragDezeMaand / 3;
-                                }
-                                else if(eindMaand - beginMaand == 1)
-                                {
-                                    bedragDezeMaand = bedrag / 3 * Math.Max(1, Math.Min((int)(eindMaand - beginMaand), 2));
+                                    bedragDezeMaand = bedrag / 3 * (eindMaand - beginMaand + 1);
                                 }
                                 bedragPerMaand.voegBedragToeInMaand(bedragDezeMaand, beginMaand);
                                 break;

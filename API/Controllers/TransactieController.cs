@@ -185,7 +185,6 @@ namespace MoneyGrip.Controllers
                     nieuwTransactieLabel(transactie, label)
                 );
             }
-            //    TransactieLabels = bronTransactie.TransactieLabels
 
             _context.Transactie.Add(transactie);
             await _context.SaveChangesAsync();

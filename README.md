@@ -16,19 +16,19 @@
 
 # Release notes
 ![version](https://img.shields.io/github/tag/wesmaster/moneygrip.svg?colorB=607D8B&label=version&style=flat)
-- #48 Rekeningen pagina toevoegen
-- #54 Transacties pagina toevoegen
-- #138 Rekening model opzetten
-- #139 Rekening aanmaken/bewerken/verwijderen
-- #145 Transactie model opzetten
+- #56 Zoeken naar transactie
+- #58 Document aan transactie kunnen toevoegen
+- #60 Transactie dupliceren
+- #110 Transactie aanmaken/wijzigen/verwijderen
+- #182 Spaardoel automatisch een rekening laten worden
+- #193 Rekening juist saldo laten tonen
 
 # Roadmap
 
 Hoogtepunten volgende versie:
-- #56 Zoeken naar transactie
-- #58 Document aan transactie kunnen toevoegen
-- #110 Transactie aanmaken/wijzigen/verwijderen
-- #182 Spaardoel automatisch een rekening laten worden
+- #55 Teruggave koppelen aan uitgavetransactie
+- #126 Afschrijving koppelen aan transactie
+- #128 Afschrijving termijnbedrag rekening houden met transacties
 
 # MoneyGrip
 ![Inkomsten](https://raw.github.com/wesmaster/moneygrip/develop/Screenshots/Inkomsten.png)
