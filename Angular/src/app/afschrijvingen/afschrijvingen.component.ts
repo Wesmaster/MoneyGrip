@@ -98,6 +98,14 @@ export class AfschrijvingenComponent extends BasisOverzichtComponent implements 
         this.openDeleteDialog("Afschrijving(en) verwijderen?", vraag);
     }
 
+      onSelect(id: number): void
+  {
+      this.selectedId = id;
+      this.rowSelected = true;
+  
+      this.openAddDialog(this.selectedId);
+  }
+
   openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(AfschrijvingComponent, {

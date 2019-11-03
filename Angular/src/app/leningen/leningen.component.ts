@@ -23,6 +23,8 @@ export class LeningenComponent extends BasisOverzichtComponent implements OnInit
     zoekResultaat: Lening[];
     titel = "Leningen";
     tabel: any[];
+      selectedId: number;
+  rowSelected: boolean;
 
     faTrash = faTrash;
     faFileAlt = faFileAlt;
@@ -57,6 +59,14 @@ export class LeningenComponent extends BasisOverzichtComponent implements OnInit
     {
         this.openDocument(this.geselecteerd[0]);
     }
+
+      onSelect(id: number): void
+  {
+      this.selectedId = id;
+      this.rowSelected = true;
+  
+      this.openAddDialog(this.selectedId);
+  }
 
     onDelete(): void
     {

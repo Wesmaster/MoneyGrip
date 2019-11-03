@@ -62,6 +62,15 @@ export class SpaardoelenComponent extends BasisOverzichtComponent implements OnI
         this.openDeleteDialog("Spaardoel verwijderen?", vraag);
     }
 
+          onSelect(id: number): void
+  {
+      this.selectedId = id;
+      this.rowSelected = true;
+  
+      this.openAddDialog(this.selectedId);
+  }
+
+
   openAddDialog(id: number): void
   {
     const dialogRef = this.dialog.open(SpaardoelComponent, {

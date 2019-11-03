@@ -49,6 +49,15 @@ export class ReserveringenComponent extends BasisOverzichtComponent implements O
     this.service.getAll().subscribe(items => {this.zoekResultaat = items.map(x => Object.assign(new Reservering(this.customCurrency), x)); this.items = items.map(x => Object.assign(new Reservering(this.customCurrency), x))});
   }
 
+        onSelect(id: number): void
+  {
+      this.selectedId = id;
+      this.rowSelected = true;
+  
+      this.openAddDialog(this.selectedId);
+  }
+
+
   onDelete(): void
   {
       var vraagArray = ["Weet je zeker dat je de volgende reservering(en) wilt verwijderen?"];

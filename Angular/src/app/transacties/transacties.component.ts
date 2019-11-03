@@ -30,6 +30,7 @@ export class TransactiesComponent extends BasisOverzichtComponent implements OnI
   jaarFilter: number[] = [];
   maand: Maanden = new Date().getMonth() + 1; // Januari is 0!
   jaar: number = new Date().getFullYear();
+  selectedId: number;
 
   constructor(public service: BasisService, public transactieService: TransactieService, public dialog: MatDialog, private customCurrency: CurrencyPipe, public globals: Globals)
   {
@@ -83,6 +84,14 @@ export class TransactiesComponent extends BasisOverzichtComponent implements OnI
   {
     this.openDocument(this.geselecteerd[0]);
   }
+
+        onSelect(id: number): void
+  {
+      this.selectedId = id;
+  
+      this.openAddDialog(this.selectedId, false);
+  }
+
 
   onDelete(): void
     {

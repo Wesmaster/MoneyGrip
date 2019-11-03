@@ -41,3 +41,4 @@ Unittests/
 Sonarqube analyze project extern.bat
 .gitattributes
 MoneyGrip.exe
+API/appsettings.json

@@ -69,6 +69,14 @@ export class ContractenComponent extends BasisOverzichtComponent implements OnIn
     downloadLink.click()
   }
 
+    onSelect(id: number): void
+  {
+      this.selectedId = id;
+      this.rowSelected = true;
+  
+      this.openAddDialog(this.selectedId);
+  }
+
     onDelete(): void
     {
         var vraagArray = ["Weet je zeker dat je de volgende contract(en) wilt verwijderen?"];

@@ -29,6 +29,6 @@
         </div> 
     </div>
     <div class="data-section">
-    <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (geselecteerd)="updateSelected($event)"></mg-table>
+    <mg-table [setupValues]="tabel" [data]="zoekResultaat" [selecteerbaar]=true (selected)="onSelect($event)" (geselecteerd)="updateSelected($event)"></mg-table>
     </div>
 </div>
