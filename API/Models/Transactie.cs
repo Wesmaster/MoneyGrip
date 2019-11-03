@@ -16,7 +16,7 @@ namespace MoneyGrip.Models
         public string Omschrijving { get; set; }
         public byte[] Document { get; set; }
         public string DocumentNaam { get; set; }
-        public int VanRekening { get; set; }
+        public int? VanRekening { get; set; }
         public int? NaarRekening { get; set; }
 
         public virtual ICollection<TransactieLabel> TransactieLabels { get; set; }

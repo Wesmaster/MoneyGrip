@@ -17,9 +17,14 @@ export class TransactieService
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  public async add(item)
+  public async add(item: Transactie)
   {
     return await this.http.post(this.accessPointUrl, item, {headers: this.headers}).toPromise();
+  }
+
+  public async dupliceer(id: number)
+  {
+    return await this.http.post(this.accessPointUrl + "/" + id, null, {headers: this.headers}).toPromise();
   }
 
   public getAll(jaar: number, maand: number): Observable<Transactie[]>
@@ -27,19 +32,19 @@ export class TransactieService
     return this.http.get<Transactie[]>(this.accessPointUrl + "/" + jaar + "/" + maand, {headers: this.headers});
   }
 
-  public get(id): Observable<Transactie>
+  public get(id: number): Observable<Transactie>
   {
     return this.http.get<Transactie>(this.accessPointUrl + "/" + id, {headers: this.headers});
   }
 
-  public async update(item)
+  public async update(item: Transactie)
   {
     return await this.http.put<Transactie>(this.accessPointUrl + "/" + item.id, item, {headers: this.headers}).toPromise();
   }
 
-  public delete(id)
+  public async delete(id: number)
   {
-    return this.http.delete(this.accessPointUrl + "/" + id, {headers: this.headers});
+    return await this.http.delete(this.accessPointUrl + "/" + id, {headers: this.headers});
   }
 
   public getJaarFilter(): Observable<number[]>

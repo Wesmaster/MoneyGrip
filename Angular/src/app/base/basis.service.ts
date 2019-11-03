@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import BasisBeheerOverzicht from '../basisBeheerOverzicht';
+import { retry, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +44,22 @@ export class BasisService
     return await this.http.put<BasisBeheerOverzicht>(this.accessPointUrl + '/' + item.id, item, {headers: this.headers}).toPromise();
   }
 
-  public delete(id: number)
+  public delete(id: number): Observable<BasisBeheerOverzicht>
   {
-    return this.http.delete(this.accessPointUrl + '/' + id, {headers: this.headers});
+    return this.http.delete<BasisBeheerOverzicht>(this.accessPointUrl + '/' + id, {headers: this.headers});
   }
+
+   handleError(error)
+   {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+            // client-side error
+            errorMessage = `Error: ${error.error.message}`;
+        } else {
+            // server-side error
+            errorMessage = `Message: ${error.message}`;
+        }
+        window.alert(errorMessage);
+        return throwError(errorMessage);
+    }
 }

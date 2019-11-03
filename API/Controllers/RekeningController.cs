@@ -25,6 +25,7 @@ namespace MoneyGrip.Controllers
         public IEnumerable<RekeningenViewModel> GetRekening()
         {
             IEnumerable<Rekening> rekeningen = _context.Rekening;
+            IEnumerable<Transactie> transacties = _context.Transactie;
 
             return rekeningen.Select(i => new RekeningenViewModel
             {
@@ -32,7 +33,7 @@ namespace MoneyGrip.Controllers
                 Naam = i.Naam,
                 Iban = i.Iban,
                 Hoofdrekening = i.Hoofdrekening,
-                Saldo = i.Startbedrag
+                Saldo = i.Startbedrag - transacties.Where(t => t.VanRekening == i.Id).Sum(t => t.Bedrag) + transacties.Where(t => t.NaarRekening == i.Id).Sum(t => t.Bedrag)
             });
         }
 
@@ -61,9 +62,8 @@ namespace MoneyGrip.Controllers
                 Naam = rekening.Naam,
                 Iban = rekening.Iban,
                 Startbedrag = rekening.Startbedrag,
-                Startdatum = rekening.Startdatum,
                 Hoofdrekening = rekening.Hoofdrekening,
-                Spaardoel = rekening.Spaardoel
+                Spaardoel = rekening.Spaardoel != null
             };
 
             return Ok(rekeningVM);
@@ -89,8 +89,6 @@ namespace MoneyGrip.Controllers
             rekening.Iban = rekeningPM.Iban;
             rekening.Hoofdrekening = rekeningPM.Hoofdrekening;
             rekening.Startbedrag = rekeningPM.Startbedrag;
-            rekening.Startdatum = rekeningPM.Startdatum;
-            rekening.Spaardoel = rekeningPM.Spaardoel;
 
             _context.Entry(rekening).State = EntityState.Modified;
 
@@ -129,8 +127,7 @@ namespace MoneyGrip.Controllers
                 Iban = rekeningPM.Iban,
                 Hoofdrekening = rekeningPM.Hoofdrekening,
                 Startbedrag = rekeningPM.Startbedrag,
-                Startdatum = rekeningPM.Startdatum,
-                Spaardoel = rekeningPM.Spaardoel
+                Spaardoel = null
             };
 
             _context.Rekening.Add(rekening);

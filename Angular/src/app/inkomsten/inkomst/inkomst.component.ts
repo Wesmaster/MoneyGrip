@@ -1,17 +1,11 @@
 import { Component, OnInit, Input, Output, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatChipList } from '@angular/material';
-import { InkomstService } from '../inkomst.service';
-import { LabelService } from '../../labels/label.service';
-import { Label } from '../../labels/label/label';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Interval } from '../../interval.enum';
 import { CurrencyPipe } from '../../currency.pipe';
 import { CustomValidator } from '../../custom.validators';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
-import {ElementRef, ViewChild} from '@angular/core';
-import {MatAutocomplete} from '@angular/material/autocomplete';
-import {Observable} from 'rxjs';
 import { BaseEditComponent } from '../../base/base-edit.component';
 import { BasisService } from '../../base/basis.service';
 
@@ -30,16 +24,8 @@ export class InkomstComponent extends BaseEditComponent implements OnInit
   faDownload = faDownload;
 
   labelsLoaded: Promise<boolean>;
-  allLabels: Label[] = [];
-  labelInputCtrl = new FormControl();
-  gefilterdeLabels: Observable<Label[]>;
-  gekozenLabels: Label[] = [];
 
-  @ViewChild('labelInput') labelInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
-  @ViewChild('chipList') chipList: MatChipList;
-
-  constructor(public service: BasisService, private labelService: LabelService, public dialogRef: MatDialogRef<InkomstComponent>,
+  constructor(public service: BasisService, public dialogRef: MatDialogRef<InkomstComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number, public customCurrency: CurrencyPipe, private customValidator: CustomValidator)
   {
     super(service, dialogRef, customCurrency);
@@ -62,8 +48,6 @@ export class InkomstComponent extends BaseEditComponent implements OnInit
     {
       this.get();
     }
-
-    this.allLabels = this.labelService.getData();
   }
 
   ngOnInit()

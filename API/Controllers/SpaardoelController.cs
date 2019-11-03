@@ -165,6 +165,19 @@ namespace MoneyGrip.Controllers
             _context.Spaardoel.Add(spaardoel);
             await _context.SaveChangesAsync();
 
+            Rekening rekening = new Rekening
+            {
+                Id = 0,
+                LaatstGewijzigd = DateTime.Now,
+                Naam = spaardoelPM.Omschrijving,
+                Hoofdrekening = false,
+                Startbedrag = 0,
+                Spaardoel = spaardoel.Id
+            };
+
+            _context.Rekening.Add(rekening);
+            await _context.SaveChangesAsync();
+
             return CreatedAtAction("GetSpaardoel", new { id = spaardoel.Id }, spaardoel);
         }
 
@@ -181,6 +194,12 @@ namespace MoneyGrip.Controllers
             if (spaardoel == null)
             {
                 return NotFound();
+            }
+
+            Rekening rekening = _context.Rekening.Where(r => r.Spaardoel == id).First();
+            if(rekening.getSaldo() > 0)
+            {
+                return Conflict();
             }
 
             _context.Spaardoel.Remove(spaardoel);

@@ -161,9 +161,6 @@ namespace MoneyGrip.Models
 
                 entity.Property(e => e.Startbedrag)
                     .IsRequired();
-
-                entity.Property(e => e.Startdatum)
-                    .IsRequired();
             });
 
             modelBuilder.Entity<Transactie>(entity =>
@@ -182,9 +179,6 @@ namespace MoneyGrip.Models
 
                 entity.Property(e => e.DocumentNaam)
                     .HasMaxLength(255);
-
-                entity.Property(e => e.VanRekening)
-                    .IsRequired();
             });
 
             modelBuilder.Entity<InkomstLabel>()

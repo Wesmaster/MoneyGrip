@@ -121,6 +121,6 @@ registerLocaleData(localeNL);
   ],
   providers: [{ provide: DateAdapter, useClass: DateFormat }, CurrencyPipe, CustomValidator, {provide: LOCALE_ID, useValue: 'nl'}, Globals],
   bootstrap: [AppComponent],
-  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent, RekeningComponent]
+  entryComponents: [DialogBevestigenComponent, LabelComponent, InkomstComponent, ContractComponent, BudgetComponent, DialogMeldingComponent, ReserveringComponent, AfschrijvingComponent, SpaardoelComponent, InfoComponent, DialogLadenComponent, LeningComponent, RekeningComponent, TransactieComponent]
 })
 export class AppModule { }
